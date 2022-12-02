@@ -1,12 +1,9 @@
 import './App.css';
+import { MegaMenu } from './components/MegaMenu';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        
-      </header>
-    </div>
+      <MegaMenu />
   );
 }
 
