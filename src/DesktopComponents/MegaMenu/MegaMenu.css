@@ -1,0 +1,19 @@
+
+#MegaMenu{
+  border: 1px solid #B2BEB5;
+  display: block;
+  overflow: auto;
+}
+
+#TopBar{
+  display: block;
+  overflow: auto;
+}
+
+.right-border{
+  border-right: 1px solid #B2BEB5;
+}
+
+.bottom-border{
+  border-bottom : 1px solid #B2BEB5;
+}
