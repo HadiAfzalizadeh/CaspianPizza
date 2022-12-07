@@ -1,0 +1,20 @@
+.item{
+    text-decoration: none;
+    color: black;
+    position: relative;
+    display: block;
+}
+
+
+.itemText {
+    margin: 0;
+    padding: 0;
+}
+
+.itemText::after{
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    content: "\f105";
+    right: 0;
+    position: absolute;
+}

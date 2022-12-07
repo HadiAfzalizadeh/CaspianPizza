@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
+<link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet" />
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

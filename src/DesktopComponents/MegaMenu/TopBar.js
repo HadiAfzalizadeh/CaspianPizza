@@ -1,12 +1,13 @@
 import { Component } from "react"
+import './TopBar.css'
 
 export class TopBar extends Component {
     render(){
         return(
             <nav>
-                <a href="/html/">kjds</a>
-                <a href="/html/">jkdfjdh</a>
-                <a href="/html/">kjdf</a>
+                <a className="margin-right topBarItem" href="/html/">kjds</a>
+                <a className="margin-right topBarItem" href="/html/">jkdfjdh</a>
+                <a className="topBarItem" href="/html/">kjdf</a>
             </nav>
         )
     }
