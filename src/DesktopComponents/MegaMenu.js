@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import './MegaMenu.css';
-import { TopBar } from './TopBar';
+import { MegaMenuTopBar } from './MegaMenuTopBar';
 import axios from 'axios';
-import { MenuColumn } from './MenuColumn';
+import { MegaMenuColumn } from './MegaMenuColumn';
 
 export class MegaMenu extends Component {
 
@@ -30,20 +29,20 @@ export class MegaMenu extends Component {
         return(
             <div className="container" id = "MegaMenu">
                 <div className = "row bottom-border" id = "TopBar">
-                    <TopBar />
+                    <MegaMenuTopBar />
                 </div>
                 <div className = "row">
                     <div className = "col right-border">
-                      <MenuColumn items={this.state.items}/>
+                      <MegaMenuColumn items={this.state.items}/>
                     </div>
                     <div className = "col right-border">
-                      <MenuColumn/>
+                      <MegaMenuColumn/>
                     </div>
                     <div className = "col right-border">
-                      <MenuColumn />
+                      <MegaMenuColumn />
                     </div>
                     <div className = "col">
-                      <MenuColumn />
+                      <MegaMenuColumn />
                     </div>
                 </div>
             </div>

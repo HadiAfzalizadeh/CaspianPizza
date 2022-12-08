@@ -1,0 +1,27 @@
+
+.bottom-nav{
+    z-index: 200 !important;
+}
+
+.right-border{
+    border-right: 1px solid #B2BEB5;
+  }
+  
+  .bottom-border{
+    border-bottom : 1px solid #B2BEB5;
+  }
+  
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .inlineNav{
+     display: inline;
+     overflow-x: scroll;
+  }
+
+  .overXscroll{
+    position: relative;
+    overflow-x: scroll;
+  }

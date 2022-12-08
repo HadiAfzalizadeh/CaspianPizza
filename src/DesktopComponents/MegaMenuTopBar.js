@@ -1,7 +1,6 @@
 import { Component } from "react"
-import './TopBar.css'
 
-export class TopBar extends Component {
+export class MegaMenuTopBar extends Component {
     render(){
         return(
             <nav>
