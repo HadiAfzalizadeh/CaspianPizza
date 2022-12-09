@@ -33,3 +33,12 @@
     text-align: left;
     width: 100%;
 }
+
+div.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+}
+  
+div.scrollmenu p {
+    display: inline;
+}

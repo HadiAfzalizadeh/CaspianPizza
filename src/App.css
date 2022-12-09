@@ -15,13 +15,3 @@
     margin: 0;
     padding: 0;
   }
-  
-  .inlineNav{
-     display: inline;
-     overflow-x: scroll;
-  }
-
-  .overXscroll{
-    position: relative;
-    overflow-x: scroll;
-  }

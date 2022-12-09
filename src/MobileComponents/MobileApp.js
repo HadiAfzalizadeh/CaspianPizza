@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { NavigationBar } from './NavigationBar'
-import { DrawerLayout } from './DrawerLayout'
+import { CategoryMenu } from './CategoryMenu'
 import 'reactjs-bottom-navigation/dist/index.css'
 import axios from 'axios'
 
@@ -31,7 +31,7 @@ export class MobileApp extends Component {
         return(
             <>
                 <NavigationBar />
-                <DrawerLayout items={this.state.items}/>
+                <CategoryMenu items={this.state.items}/>
             </>
         )
     }
