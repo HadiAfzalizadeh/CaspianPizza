@@ -43,6 +43,7 @@ export class MegaMenu extends Component {
       selectedItemsTemp.splice(selectedItemsTemp
         .indexOf(this.state.items.filter(item => item.id === id)[0].parentProductCategoryId)+1);
     }
+    selectedItemsTemp.push(id);
     this.setState({
       selectedItems: selectedItemsTemp.concat(this.setSelectedItems(id,this.state.items))
     });
