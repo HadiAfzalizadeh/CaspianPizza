@@ -1,14 +1,35 @@
 import React, { Component } from 'react'
+import { HomePage } from '../SharedComponents/HomePage'
 import { MegaMenu } from './MegaMenu'
-import { CategoryPagination } from '../SharedComponents/CategoryPagination'
-import { Slider } from '../SharedComponents/Slider'
+import { CategoryPage } from './CategoryPage'
 
 export class DesktopApp extends Component {
+
+    state = {
+        CurrentPage : ''
+    };
+
+    selectComponent(){
+        switch (this.state.CurrentPage) {
+            case 'h':
+                return <HomePage />
+            case 'b':
+                return <CategoryPage />
+            default:
+                return <HomePage />
+        }
+    }
+
+
     render(){
         return(
-            // <Slider />
-             <CategoryPagination />
-            // <MegaMenu />
+            <>
+                <div className='container'>
+                    <div className='row'>
+                        {this.selectComponent()}
+                    </div>
+                </div>
+            </>
         )
     }
 }
