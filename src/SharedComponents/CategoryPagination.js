@@ -8,11 +8,12 @@ export class CategoryPagination extends Component {
 
     state = {
         items: [],
-        Page: 1
+        Page: 1,
+        countItem: 0
     };
 
     componentDidMount(){
-        axios.get("https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=1&PageSize=1&ProductCategoryId=9")
+        axios.get("https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=1&PageSize=9&ProductCategoryId=9")
         .then(response => {
             this.setState({
                 items: response.data.data
@@ -27,7 +28,7 @@ export class CategoryPagination extends Component {
         });
         axios.get("https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page="
         +this.state.Page+
-        "&PageSize=1&ProductCategoryId=9")
+        "&PageSize=6&ProductCategoryId=9")
         .then(response => {
             console.log(response.data.data);
             this.setState({
@@ -47,21 +48,18 @@ export class CategoryPagination extends Component {
             loader={<h4>Loading...</h4>}
             >
                 <div className='container-fluid'>
-                    <div className='row'>
+                <div className='row'>
+                    {this.state.items.map(item => 
                         <div className='col-3'>
-                            <PaginationItem  />
+                            <PaginationItem  item={item}/>
                         </div>
-                        <div className='col-3'>
-                            <PaginationItem  />
-                        </div>
-                        <div className='col-3'>
-                            <PaginationItem  />
-                        </div>
-                        <div className='col-3'>
-                            <PaginationItem  />
-                        </div>
+                    )}
                     </div>
                 </div>
+                
+
+                    
+               
             </InfiniteScroll>
             </div>
         )

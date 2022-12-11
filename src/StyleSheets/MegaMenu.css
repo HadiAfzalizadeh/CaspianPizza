@@ -3,9 +3,16 @@
   border: 1px solid #B2BEB5;
   display: block;
   overflow: auto;
+  position: absolute;
+  z-index: 10;
+  background-color: white;
 }
 
 #TopBar{
   display: block;
   overflow: auto;
+}
+
+#MegaMenuParent{
+  position: relative;
 }

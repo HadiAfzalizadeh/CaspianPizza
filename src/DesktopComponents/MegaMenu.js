@@ -55,11 +55,13 @@ export class MegaMenu extends Component {
       }
         return(
             <div className="container" id = "MegaMenu">
-                <div className = "row bottom-border" id = "TopBar">
+                <div className = "row bottom-border">
                   <nav>
-                    <a className="margin-right topBarItem" href="/html/">kjds</a>
-                    <a className="margin-right topBarItem" href="/html/">jkdfjdh</a>
-                    <a className="topBarItem" href="/html/">kjdf</a>
+                    <a className="margin-right topBarItem" href="/html/">ENFIELD BRANCH</a>
+                    <a className="margin-right topBarItem" href="/html/">OFFERS</a>
+                    <a className="margin-right topBarItem" href="/html/">NEW PRODUCTS</a>
+                    <a className="margin-right topBarItem" href="/html/">HALAL RANGE</a>
+                    <a className="topBarItem" href="/html/">OWN BRANDS</a>
                   </nav>
                 </div>
                 <div className = "row">

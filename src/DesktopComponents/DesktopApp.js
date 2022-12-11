@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { HomePage } from '../SharedComponents/HomePage'
 import { MegaMenu } from './MegaMenu'
 import { CategoryPage } from './CategoryPage'
+import { Header } from './Header'
 
 export class DesktopApp extends Component {
 
@@ -24,6 +25,7 @@ export class DesktopApp extends Component {
     render(){
         return(
             <>
+                <Header />
                 <div className='container'>
                     <div className='row'>
                         {this.selectComponent()}

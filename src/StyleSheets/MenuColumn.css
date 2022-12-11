@@ -6,6 +6,7 @@
 }
 
 
+
 .parentItemText {
     margin: 0;
     padding: 0;
@@ -13,7 +14,7 @@
 }
 
 .parentItemText::after {
-    content: url('../Images/Icnos/ctrl.svg');
+    content: url('/public/assets/icons/ctrl.svg');
     transform: rotate(90deg);
     right: 0;
     color: #7c7c7c;
@@ -32,6 +33,7 @@
     padding: 0!important;
     text-align: left;
     width: 100%;
+    cursor: pointer;
 }
 
 div.scrollmenu {
@@ -41,4 +43,12 @@ div.scrollmenu {
   
 div.scrollmenu p {
     display: inline;
+}
+
+#basketbtn{
+    margin-right: 5px;
+}
+
+#basketIcon{
+    margin-right: 5px;
 }
