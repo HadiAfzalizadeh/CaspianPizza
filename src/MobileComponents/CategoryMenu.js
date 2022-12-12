@@ -1,5 +1,4 @@
 import { Component } from "react"
-import 'react-modern-drawer/dist/index.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
 

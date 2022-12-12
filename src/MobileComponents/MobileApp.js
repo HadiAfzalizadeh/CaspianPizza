@@ -1,15 +1,17 @@
 import { Component } from 'react'
 import { NavigationBar } from './NavigationBar'
 import { CategoryMenu } from './CategoryMenu'
-import 'reactjs-bottom-navigation/dist/index.css'
 import axios from 'axios'
 import { HomePage } from '../SharedComponents/HomePage'
+import { DrawerLayout } from './DrawerLayout'
+
 
 export class MobileApp extends Component {
 
     state = {
         CategoryItems: [],
-        CurrentPage : ''
+        CurrentPage : '',
+        isDrawerOpen: false
     };
 
     componentDidMount(){
@@ -42,11 +44,18 @@ export class MobileApp extends Component {
         }
     }
 
+    toggleDrawer = () => {
+        this.setState({
+            isDrawerOpen: !this.state.isDrawerOpen
+        });
+    }
+
     render(){
         return(
             <>
+                <DrawerLayout isOpen = {this.state.isDrawerOpen} toggleDrawer = {this.toggleDrawer}/>
                 {this.selectComponent()}
-                <NavigationBar />
+                <NavigationBar toggleDrawer = {this.toggleDrawer}/>
             </>
         );
     }

@@ -1,6 +1,5 @@
 import { Component } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import axios from "axios";
 import { PaginationItem } from "./PaginationItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
