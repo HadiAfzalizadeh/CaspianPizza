@@ -1,4 +1,24 @@
+.linkButton{
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
 
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+
+/*---------------------------------------------------------------------------*/
 .bottom-nav{
     z-index: 200 !important;
 }
@@ -37,3 +57,128 @@
 
    /* Mega Mrnu Show By Click */
 
+
+
+#menuParent div{
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+}
+
+.spinner {
+  animation: spin infinite 1s linear;
+
+  /*You can increase or decrease the timer (5s) to 
+   increase or decrease the speed of the spinner*/
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loaderIconSize{
+  width: 30px;
+  height: 30px;
+}
+
+.parentLoader{
+  margin-top: 20px;
+  height: 50px;
+}
+
+#TopBar{
+  display: block;
+  overflow: auto;
+}
+
+
+.item{
+  text-decoration: none;
+  color: black;
+  position: relative;
+  display: block;
+}
+
+
+
+.parentItemText {
+  margin: 0;
+  padding: 0;
+  color: #7c7c7c;
+}
+
+.parentItemText::after {
+  content: url('/public/assets/icons/ctrl.svg');
+  transform: rotate(90deg);
+  right: 0;
+  color: #7c7c7c;
+  position: absolute;
+}
+
+.lastChilItemText {
+  margin: 0;
+  padding: 0;
+  color: #7c7c7c;
+}
+
+
+
+div.scrollmenu {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu p {
+  display: inline;
+}
+
+#basketbtn{
+  margin-right: 5px;
+}
+
+#basketIcon{
+  margin-right: 5px;
+}
+
+
+.card-text{
+  font-size: 1.1rem;
+}
+
+.cnterTextAlign{
+  text-align: center !important;
+}
+
+
+.each-slide {
+  display: flex;
+  width: 100%;
+  height: 400px;
+}
+
+.margin-right {
+  margin-right: 20px;
+}
+
+.topBarItem {
+  text-decoration: none;
+  color: black;
+  font-size: 50 px;
+}
+
+.marginright7{
+  margin-right: 7px;
+}
+
+.centerTextalign{
+  text-align: center;
+}
