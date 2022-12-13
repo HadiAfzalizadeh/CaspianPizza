@@ -68,6 +68,7 @@ export class MegaMenu extends Component {
       this.state.items.filter((item) => item.parentProductCategoryId === id)
         .length === 0
     ) {
+      this.props.toggleMegaMenu();
       this.props.selectCategoryId(id);
     }
   };

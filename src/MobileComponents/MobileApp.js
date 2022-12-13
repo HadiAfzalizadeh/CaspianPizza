@@ -4,13 +4,14 @@ import { CategoryMenu } from './CategoryMenu'
 import axios from 'axios'
 import { HomePage } from '../SharedComponents/HomePage'
 import { DrawerLayout } from './DrawerLayout'
+import { Header } from './Header'
 
 
 export class MobileApp extends Component {
 
     state = {
         CategoryItems: [],
-        CurrentPage : '',
+        CurrentPage : 'h',
         isDrawerOpen: false
     };
 
@@ -33,12 +34,6 @@ export class MobileApp extends Component {
                     break;
                 }
                 return <CategoryMenu items={this.state.CategoryItems}/>;
-            case 'o':
-                return <h1>THis is Offers Page</h1>;
-            case 'f':
-                return <h1>THis is Favourites Page</h1>;
-            case 'r':
-                return <h1>THis is Recents Page</h1>;
             default:
                 return <HomePage />
         }
@@ -50,12 +45,19 @@ export class MobileApp extends Component {
         });
     }
 
+    setCurrentComponent = (component) => {
+        this.setState({
+            CurrentPage: component
+        });
+    }
+
     render(){
         return(
             <>
+                <Header />                
                 <DrawerLayout isOpen = {this.state.isDrawerOpen} toggleDrawer = {this.toggleDrawer}/>
                 {this.selectComponent()}
-                <NavigationBar toggleDrawer = {this.toggleDrawer}/>
+                <NavigationBar toggleDrawer = {this.toggleDrawer} setCurrentComponent = {this.setCurrentComponent}/>
             </>
         );
     }

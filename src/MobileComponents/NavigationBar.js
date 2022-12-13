@@ -22,6 +22,17 @@ export class NavigationBar extends Component {
     }
 
     setSelectedNavItem = (item) => {
+        switch (item) {
+            case 2:
+                this.props.setCurrentComponent('b');
+                break;
+            case 3:
+                this.props.setCurrentComponent('h');
+                break;
+            default:
+                this.props.setCurrentComponent('h');
+                break;
+        }; 
         this.setState({
             SelectedItem: item
         });

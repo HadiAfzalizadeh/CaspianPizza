@@ -1,6 +1,12 @@
 import { Component } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
+import { faChevronRight  } from "@fortawesome/free-solid-svg-icons"
+import { MenuList , MenuItem , Badge , ListItemText , ListItemIcon , Paper } from "@mui/material";
+
+const displayNone = {
+    display: 'none'
+}
+
 
 export class CategoryMenu extends Component {
 
@@ -14,9 +20,8 @@ export class CategoryMenu extends Component {
         this.setState({currentitems: this.state.totalItems.filter(propItem => propItem.parentProductCategoryId === id) })
     };
 
-    menuTitle = () => {
-        if(this.state.selectedItems.length !== 1){
-            return(<h1>All {this.state.selectedItems[this.state.selectedItems.length-1].name} Goods</h1>)}
+    showMenuTitle = () => {
+        return this.state.selectedItems.length !== 1 ? { borderBottom: '1px solid black' } : displayNone;
     };
 
     showArrow = (id) => {
@@ -31,12 +36,7 @@ export class CategoryMenu extends Component {
     }
 
     showMenuArrow = (parId) => {
-        if(this.state.totalItems.find(item => item.parentProductCategoryId === parId) !== undefined ){
-            return("parentItemText")
-        }
-        else{
-            return("lastChilItemText")
-        }
+         return this.state.totalItems.find(item => item.parentProductCategoryId === parId) !== undefined ? null : displayNone;
     }
 
     countSubCategories(id){
@@ -57,20 +57,27 @@ export class CategoryMenu extends Component {
     render(){
         return(
             <>
+                <Paper className="scrollmenu" style={{ padding: '.25rem' }}>
                 <button onClick={this.previousClicked}>Previous</button>
-                <div className="scrollmenu">
                     {this.state.selectedItems.map(item => <p key={item.id} className="linkButton">
-                        {item.name} {this.showArrow(item.id)}</p>)}
-                </div>
-                {this.menuTitle()}
-                <nav>
-                    {this.state.currentitems.map(item => (
-                        <button onClick={() => this.itemClicked(item.id,item.name)} 
-                                className="linkButton item" key={item.id}>
-                            <p className={this.showMenuArrow(item.id)}>{item.name}  {this.countSubCategories(item.id)}</p>
-                        </button> 
+                        {item.name + " > "} </p>)}
+                </Paper> 
+                <MenuList>
+                <MenuItem style={this.showMenuTitle()}>
+                    <ListItemText>All {this.state.selectedItems[this.state.selectedItems.length-1].name} Goods</ListItemText>
+                </MenuItem>
+                {this.state.currentitems.map(item => (
+                    <MenuItem key = {item.id} onClick={() => this.itemClicked(item.id,item.name)}>
+                        <ListItemText>{item.name}</ListItemText>
+                        <ListItemIcon style={this.showMenuArrow(item.id)}>
+                        <Badge badgeContent={this.countSubCategories(item.id)} color="secondary"></Badge>
+                        </ListItemIcon>
+                        <ListItemIcon style={this.showMenuArrow(item.id)}>
+                            <FontAwesomeIcon icon={faChevronRight} />
+                        </ListItemIcon>
+                    </MenuItem>
                     ))}
-                </nav>
+                </MenuList>
             </>
         )
     }

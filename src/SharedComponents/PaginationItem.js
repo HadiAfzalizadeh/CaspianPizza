@@ -17,7 +17,7 @@ export class PaginationItem extends Component {
           <div className="card-body">
             <img
               className="card-img-top"
-              src="/assets/images/catPicTemp.jpeg"
+              src="/assets/images/catPicTemp.jpg"
               alt={this.state.item.name}
             ></img>
             <h4 className="cnterTextAlign">{this.state.item.name}</h4>

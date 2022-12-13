@@ -26,6 +26,7 @@ export class Header extends Component {
       <MegaMenu
         selectCategoryId={this.props.selectCategoryId}
         items={this.props.megaMenuItems}
+        toggleMegaMenu = {this.toggleMegaMenu}
       />
     ) : null;
   }
@@ -41,7 +42,7 @@ export class Header extends Component {
                   <img
                     style={{ width: "8rem", height: "auto" }}
                     src="/logo.png"
-                    alt="dsd"
+                    alt="logo"
                   ></img>
                 </a>
               </div>
