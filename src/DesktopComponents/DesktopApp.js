@@ -3,6 +3,7 @@ import { HomePage } from "../SharedComponents/HomePage";
 import { CategoryPage } from "./CategoryPage";
 import { Header } from "./Header";
 import axios from "axios";
+import { ProductDetail } from "./ProductDetail";
 
 export class DesktopApp extends Component {
 
@@ -91,6 +92,7 @@ export class DesktopApp extends Component {
     }
     return (
       <>
+        {/* <ProductDetail /> */}
         <Header selectCategoryId={this.selectCategoryId} megaMenuItems = { this.state.megaMenuItems }/>
         <div className="container">
           <div className="row">{this.selectComponent()}</div>
