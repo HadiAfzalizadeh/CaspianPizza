@@ -12,7 +12,7 @@ export class DrawerLayout extends Component {
                     open={this.props.isOpen}
                     onClose={this.props.toggleDrawer}
                 >
-                    <div style={{ minWidth: '100%' }}>SwipeableDrawer</div>
+                    <div style={{ minWidth: '100%' }}>Acoount Management</div>
                 </SwipeableDrawer>
             </React.Fragment>
         )

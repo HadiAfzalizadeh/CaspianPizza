@@ -10,14 +10,14 @@ export class Header extends Component {
   render() {
     return (
         <>
-        <div style={{ width: '100%' , textAlign: 'center' , backgroundColor: "#FFC107"}}>
+        <div style={{ width: '100%' , backgroundColor: "#FFC107"}}>
               <img
-                style={{ width: "5.5rem", height: "auto" }}
+                style={{ width: "3.3rem", height: "auto" }}
                 src="/logo.png"
                 alt="logo"
               ></img>
             </div>
-            <div style={{ width: '100%' , backgroundColor: '#D32F2F' , padding: '0.25rem' , textAlign: 'center'}}>
+            {/* <div style={{ width: '100%' , backgroundColor: '#D32F2F' , padding: '0.25rem' , textAlign: 'center'}}> */}
                 {/* <Paper style={{ height: '2rem' , borderRadius: '10rem' , backgroundColor: '#FFF9C4' }}>
                 <InputBase
                           sx={{ ml: 1, flex: 1 }}
@@ -32,7 +32,7 @@ export class Header extends Component {
                           <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </IconButton>
                 </Paper> */}
-                <Paper
+                {/* <Paper
                         component="form"
                         sx={{
                           p: "2px 4px",
@@ -52,8 +52,8 @@ export class Header extends Component {
                         >
                           <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </IconButton>
-                      </Paper>
-            </div>
+                      </Paper> */}
+            {/* </div> */}
         </> 
     );
   }

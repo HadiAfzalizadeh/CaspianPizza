@@ -30,7 +30,6 @@ export class NavigationBar extends Component {
                 this.props.setCurrentComponent('h');
                 break;
             default:
-                this.props.setCurrentComponent('h');
                 break;
         }; 
         this.setState({
@@ -43,11 +42,16 @@ export class NavigationBar extends Component {
             <Paper style={{ height: '3.3rem' , width: '100%' ,position: 'absolute' , bottom: 0 , backgroundColor: "#FFC107"}}>
                     <div className='container' style={{ height: '100%' }}>
                         <div className='row align-items-center' style={{ height: '100%' }}>
-                            <div className='col text-center'><FontAwesomeIcon icon={faBars} size="xl" style={this.isSelectedNavItem(1)} onClick = {this.props.toggleDrawer}/></div>
-                            <div className='col text-center'><FontAwesomeIcon icon={faMagnifyingGlass} size="xl" style={this.isSelectedNavItem(2)} onClick = {() => this.setSelectedNavItem(2)}/></div>
-                            <div className='col text-center'><FontAwesomeIcon icon={faHome} size="xl" style={this.isSelectedNavItem(3)} onClick = {() => this.setSelectedNavItem(3)}/></div>
-                            <div className='col text-center'><FontAwesomeIcon icon={faCartShopping} size="xl" style={this.isSelectedNavItem(4)} onClick = {() => this.setSelectedNavItem(4)}/></div>
-                            <div className='col text-center'><FontAwesomeIcon icon={faUser} size="xl" style={this.isSelectedNavItem(5)} onClick = {() => this.setSelectedNavItem(5)}/></div>
+
+                            <div className='col text-center' style={{ color: 'white' }} onClick = {this.props.toggleDrawer}><FontAwesomeIcon icon={faBars} size="xl" /><p className="f_OpenSans_Bold" style={{ fontSize: '0.6rem' , margin: 0}}>Menu</p></div>
+
+                            <div className='col text-center' style={this.isSelectedNavItem(2)} onClick = {() => this.setSelectedNavItem(2)}><FontAwesomeIcon icon={faMagnifyingGlass} size="xl"/><p className="f_OpenSans_Bold" style={{ fontSize: '0.6rem' , margin: 0}}>Browse</p></div>
+
+                            <div className='col text-center' style={this.isSelectedNavItem(3)} onClick = {() => this.setSelectedNavItem(3)}><FontAwesomeIcon icon={faHome} size="xl"/><p className="f_OpenSans_Bold" style={{ fontSize: '0.6rem' , margin: 0}}>Home</p></div>
+
+                            <div className='col text-center' style={this.isSelectedNavItem(4)} onClick = {() => this.setSelectedNavItem(4)}><FontAwesomeIcon icon={faCartShopping} size="xl" /><p className="f_OpenSans_Bold" style={{ fontSize: '0.6rem' , margin: 0}}>Basket</p></div>
+
+                            <div style={this.isSelectedNavItem(5)} onClick = {() => this.setSelectedNavItem(5)} className='col text-center'><FontAwesomeIcon icon={faUser} size="xl" /><p className="f_OpenSans_Bold" style={{ fontSize: '0.6rem' , margin: 0}}>Profile</p></div>
                         </div>
                     </div>
                 </Paper>

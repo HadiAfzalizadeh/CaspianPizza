@@ -17,6 +17,20 @@
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
+.f_OpenSans_Bold {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+}
+
+.f_OpenSans_Regular{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+
+.f_OpenSans_Medium{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 500;
+}
 
 /*---------------------------------------------------------------------------*/
 .bottom-nav{
@@ -29,11 +43,6 @@
   
   .bottom-border{
     border-bottom : 1px solid #B2BEB5;
-  }
-  
-  p {
-    margin: 0;
-    padding: 0;
   }
 
   #logo{
