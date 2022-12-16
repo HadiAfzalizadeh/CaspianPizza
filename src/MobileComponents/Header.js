@@ -10,7 +10,7 @@ export class Header extends Component {
   render() {
     return (
         <>
-        <div style={{ width: '100%' , backgroundColor: "#FFC107"}}>
+        <div style={{ width: '100%' , backgroundColor: "#FFC107" , textAlign: 'center', position:'fixed' , top:0 , zIndex: 100}}>
               <img
                 style={{ width: "3.3rem", height: "auto" }}
                 src="/logo.png"

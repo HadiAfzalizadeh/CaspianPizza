@@ -2,6 +2,7 @@ import { Component } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight , faChevronLeft , faCaretRight } from "@fortawesome/free-solid-svg-icons"
 import { style } from "@mui/system"
+import { calculateNewValue } from "@testing-library/user-event/dist/utils"
 
 const displayNone = {
     display: 'none'
@@ -30,11 +31,14 @@ export class CategoryMenu extends Component {
     itemClicked = (id,name) => {
         this.state.selectedItems.push({id: id, name: name});
         this.setState({currentitems: this.state.totalItems.filter(propItem => propItem.parentProductCategoryId === id) })
-    };
+        if(this.state.totalItems.filter(propItem => propItem.parentProductCategoryId === id).length === 0){
+            this.props.setCurrentCategoryId(id);
+        }
+    }
 
     showMenuTitle = () => {
         return this.state.selectedItems.length !== 1 ? { borderBottom: '1px solid black' } : displayNone;
-    };
+    }
 
     showArrow = (id) => {
         return this.state.selectedItems[this.state.selectedItems.length-1].id === id ? displayNone : '';  
@@ -83,16 +87,10 @@ export class CategoryMenu extends Component {
     render(){
         return(
             <>
-                {/* <Paper className="scrollmenu" style={{ padding: '.25rem' }}>
-                <button onClick={this.previousClicked}>Previous</button>
-                    {this.state.selectedItems.map(item => <p key={item.id} onClick={() => this.swiperClicked(item)} className="linkButton">
-                        {item.name + " > "} </p>)}
-                </Paper> */}
-                    {/* {this.isBoldSwiper} */}
                         <div style={{ backgroundColor: '#FFEB3B' , width: '100%' , textAlign: 'center'}}>
-                            {this.state.selectedItems.map(item => <p key={item.id} className={this.isBoldSwiper(item.id)} style={{ ...swiperStyles.base , ...this.isBlueSwiper(item.id) }} >{ item.name }<p style={{ ...arrowStyles.base , ...this.showArrow(item.id)}}> <FontAwesomeIcon style={{ display: 'inline' }} icon={faCaretRight} size="sm"/> </p></p>)}
+                            {this.state.selectedItems.map(item => <p key={item.id} className={this.isBoldSwiper(item.id)} style={{ ...swiperStyles.base , ...this.isBlueSwiper(item.id) }} >{ item.name }<span style={{ ...arrowStyles.base , ...this.showArrow(item.id)}}> <FontAwesomeIcon style={{ display: 'inline' }} icon={faCaretRight} size="sm"/> </span></p>)}
                         </div>    
-                    <div className="container" style={{ width: '100%' , backgroundColor: '#00BCD4' , padding: '0.7rem' , textAlign: 'center' , color: 'white'}}>
+                    <div className="container" style={{ width: '100%' , backgroundColor: '#00BCD4' , paddingTop: '0.35rem', paddingBottom: '0.35rem' ,textAlign: 'center' , color: 'white'}}>
                         <div className="row">
                             <div className="col-auto" onClick={this.previousClicked} style={this.showBackbtn()}>
                                 <p id="mobileMenuTitle" className="f_OpenSans_Regular" style={{ margin: 0 }}><FontAwesomeIcon style={{ display: 'inline' }} icon={faChevronLeft} size="sm"/>Back</p>
@@ -105,7 +103,7 @@ export class CategoryMenu extends Component {
                             </div>
                         </div>
                     </div>
-                <div style={{ padding: '0.3rem' , backgroundColor: '#F5F5F5' , height: '100%'}}>
+                <div style={{ padding: '0.3rem' , backgroundColor: '#F5F5F5' , height: '31.3rem' }}>
                     <nav style={{ backgroundColor: 'white' }}>
                         {this.state.currentitems.map(item => (
                             <div style={{ padding: '0.4rem' , borderBottom : '1px solid #BDBDBD'}} onClick={() => this.itemClicked(item.id,item.name)} key={item.id}>
@@ -128,24 +126,6 @@ export class CategoryMenu extends Component {
                         ))}
                     </nav>
                 </div>
-
-
-                {/* <MenuList>
-                <MenuItem style={this.showMenuTitle()}>
-                    <ListItemText>All {this.state.selectedItems[this.state.selectedItems.length-1].name} Goods</ListItemText>
-                </MenuItem>
-                {this.state.currentitems.map(item => (
-                    <MenuItem key = {item.id} onClick={() => this.itemClicked(item.id,item.name)}>
-                        <ListItemText>{item.name}</ListItemText>
-                        <ListItemIcon style={this.showMenuArrow(item.id)}>
-                        <Badge badgeContent={this.countSubCategories(item.id)} color="secondary"></Badge>
-                        </ListItemIcon>
-                        <ListItemIcon style={this.showMenuArrow(item.id)}>
-                            <FontAwesomeIcon icon={faChevronRight} />
-                        </ListItemIcon>
-                    </MenuItem>
-                    ))}
-                </MenuList> */}
             </>
         )
     }

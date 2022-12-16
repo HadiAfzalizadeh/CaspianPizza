@@ -39,7 +39,7 @@ export class NavigationBar extends Component {
 
     render(){
         return(
-            <Paper style={{ height: '3.3rem' , width: '100%' ,position: 'absolute' , bottom: 0 , backgroundColor: "#FFC107"}}>
+            <Paper style={{ height: '3.3rem' , width: '100%' ,position: 'fixed' , bottom: 0 , backgroundColor: "#FFC107"}}>
                     <div className='container' style={{ height: '100%' }}>
                         <div className='row align-items-center' style={{ height: '100%' }}>
 

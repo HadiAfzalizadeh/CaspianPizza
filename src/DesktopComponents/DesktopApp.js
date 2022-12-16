@@ -92,11 +92,11 @@ export class DesktopApp extends Component {
     }
     return (
       <>
-        <ProductDetail />
-        {/* <Header selectCategoryId={this.selectCategoryId} megaMenuItems = { this.state.megaMenuItems }/>
+        {/* <ProductDetail /> */}
+        <Header selectCategoryId={this.selectCategoryId} megaMenuItems = { this.state.megaMenuItems }/>
         <div className="container">
           <div className="row">{this.selectComponent()}</div>
-        </div> */}
+        </div>
       </>
     );
   }
