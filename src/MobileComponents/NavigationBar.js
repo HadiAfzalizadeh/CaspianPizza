@@ -2,13 +2,16 @@ import { Component } from "react"
 import { Paper } from '@mui/material'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCartShopping , faHome , faMagnifyingGlass , faBars , faUser } from "@fortawesome/free-solid-svg-icons"
+import { Link } from 'react-router-dom'
 
 const UnSelectedNavItem ={  
-    color: 'white'
+    color: 'white',
+    textDecoration: 'none'
 }  
 
 const selectedNavItem ={  
-    color: '#E64A19'
+    color: '#E64A19',
+    textDecoration: 'none'
 }  
 
 export class NavigationBar extends Component {
@@ -22,16 +25,6 @@ export class NavigationBar extends Component {
     }
 
     setSelectedNavItem = (item) => {
-        switch (item) {
-            case 2:
-                this.props.setCurrentComponent('b');
-                break;
-            case 3:
-                this.props.setCurrentComponent('h');
-                break;
-            default:
-                break;
-        }; 
         this.setState({
             SelectedItem: item
         });
@@ -45,13 +38,13 @@ export class NavigationBar extends Component {
 
                             <div className='col text-center' style={{ color: 'white' }} onClick = {this.props.toggleDrawer}><FontAwesomeIcon icon={faBars} size="xl" /><p className="f_OpenSans_Bold" style={{ fontSize: '0.6rem' , margin: 0}}>Menu</p></div>
 
-                            <div className='col text-center' style={this.isSelectedNavItem(2)} onClick = {() => this.setSelectedNavItem(2)}><FontAwesomeIcon icon={faMagnifyingGlass} size="xl"/><p className="f_OpenSans_Bold" style={{ fontSize: '0.6rem' , margin: 0}}>Browse</p></div>
+                            <Link to="/CategoryMenu" className='col text-center' style={this.isSelectedNavItem(2)} onClick = {() => this.setSelectedNavItem(2)}><FontAwesomeIcon icon={faMagnifyingGlass} size="xl"/><p className="f_OpenSans_Bold" style={{ fontSize: '0.6rem' , margin: 0}}>Browse</p></Link>
 
-                            <div className='col text-center' style={this.isSelectedNavItem(3)} onClick = {() => this.setSelectedNavItem(3)}><FontAwesomeIcon icon={faHome} size="xl"/><p className="f_OpenSans_Bold" style={{ fontSize: '0.6rem' , margin: 0}}>Home</p></div>
+                            <Link to="/" className='col text-center' style={this.isSelectedNavItem(3)} onClick = {() => this.setSelectedNavItem(3)}><FontAwesomeIcon icon={faHome} size="xl"/><p className="f_OpenSans_Bold" style={{ fontSize: '0.6rem' , margin: 0}}>Home</p></Link>
 
-                            <div className='col text-center' style={this.isSelectedNavItem(4)} onClick = {() => this.setSelectedNavItem(4)}><FontAwesomeIcon icon={faCartShopping} size="xl" /><p className="f_OpenSans_Bold" style={{ fontSize: '0.6rem' , margin: 0}}>Basket</p></div>
+                            <Link className='col text-center' style={this.isSelectedNavItem(4)} onClick = {() => this.setSelectedNavItem(4)}><FontAwesomeIcon icon={faCartShopping} size="xl" /><p className="f_OpenSans_Bold" style={{ fontSize: '0.6rem' , margin: 0}}>Basket</p></Link>
 
-                            <div style={this.isSelectedNavItem(5)} onClick = {() => this.setSelectedNavItem(5)} className='col text-center'><FontAwesomeIcon icon={faUser} size="xl" /><p className="f_OpenSans_Bold" style={{ fontSize: '0.6rem' , margin: 0}}>Profile</p></div>
+                            <Link style={this.isSelectedNavItem(5)} className='col text-center' onClick = {() => this.setSelectedNavItem(5)}><FontAwesomeIcon icon={faUser} size="xl" /><p className="f_OpenSans_Bold" style={{ fontSize: '0.6rem' , margin: 0}}>Profile</p></Link>
                         </div>
                     </div>
                 </Paper>

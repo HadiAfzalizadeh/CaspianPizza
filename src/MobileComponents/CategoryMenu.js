@@ -1,8 +1,10 @@
 import { Component } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight , faChevronLeft , faCaretRight } from "@fortawesome/free-solid-svg-icons"
-import { style } from "@mui/system"
-import { calculateNewValue } from "@testing-library/user-event/dist/utils"
+import {useNavigate} from 'react-router-dom';
+import React, {useCallback} from 'react';
+import { Link } from "react-router-dom";
+
 
 const displayNone = {
     display: 'none'
@@ -24,6 +26,7 @@ const swiperStyles = {
 
 export class CategoryMenu extends Component {
 
+    
     state = {currentitems: this.props.items.filter(item => item.parentProductCategoryId === null),
         totalItems: this.props.items,
         selectedItems: [{ id: null, name:'Caspian Pizza'}]}
@@ -84,11 +87,15 @@ export class CategoryMenu extends Component {
         return (id !== null && this.state.selectedItems[this.state.selectedItems.length-1].id === id) ? swiperStyles.isBlue : null ;
     }
 
+    getRoute(id){
+        return this.state.totalItems.filter(propItem => propItem.parentProductCategoryId === id).length === 0 ? '/CategoryPagination' : '';
+    }
+
     render(){
         return(
             <>
                         <div style={{ backgroundColor: '#FFEB3B' , width: '100%' , textAlign: 'center'}}>
-                            {this.state.selectedItems.map(item => <p key={item.id} className={this.isBoldSwiper(item.id)} style={{ ...swiperStyles.base , ...this.isBlueSwiper(item.id) }} >{ item.name }<span style={{ ...arrowStyles.base , ...this.showArrow(item.id)}}> <FontAwesomeIcon style={{ display: 'inline' }} icon={faCaretRight} size="sm"/> </span></p>)}
+                            {this.state.selectedItems.map(item => <p key={item.id} className={this.isBoldSwiper(item.id)} style={{ ...swiperStyles.base , ...this.isBlueSwiper(item.id) }} onClick={() => this.swiperClicked(item)}>{ item.name }<span style={{ ...arrowStyles.base , ...this.showArrow(item.id)}}> <FontAwesomeIcon style={{ display: 'inline' }} icon={faCaretRight} size="sm"/> </span></p>)}
                         </div>    
                     <div className="container" style={{ width: '100%' , backgroundColor: '#00BCD4' , paddingTop: '0.35rem', paddingBottom: '0.35rem' ,textAlign: 'center' , color: 'white'}}>
                         <div className="row">
@@ -106,7 +113,7 @@ export class CategoryMenu extends Component {
                 <div style={{ padding: '0.3rem' , backgroundColor: '#F5F5F5' , height: '31.3rem' }}>
                     <nav style={{ backgroundColor: 'white' }}>
                         {this.state.currentitems.map(item => (
-                            <div style={{ padding: '0.4rem' , borderBottom : '1px solid #BDBDBD'}} onClick={() => this.itemClicked(item.id,item.name)} key={item.id}>
+                            <Link to={ this.getRoute(item.id) } style={{ textDecoration: 'none' }} key={item.id}><div style={{ padding: '0.4rem' , borderBottom : '1px solid #BDBDBD' }} onClick={() => this.itemClicked(item.id,item.name)} key={item.id}>
                                 <div className="container">
                                     <div className="row">
                                         <div className="col-auto">
@@ -123,6 +130,7 @@ export class CategoryMenu extends Component {
                                     </div>
                                 </div>
                             </div>
+                            </Link>
                         ))}
                     </nav>
                 </div>

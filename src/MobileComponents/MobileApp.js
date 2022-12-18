@@ -6,6 +6,7 @@ import { HomePage } from '../SharedComponents/HomePage'
 import { DrawerLayout } from './DrawerLayout'
 import { Header } from './Header'
 import { CategoryPagination } from '../SharedComponents/CategoryPagination' 
+import { BrowserRouter , Routes , Route } from 'react-router-dom'
 
 export class MobileApp extends Component {
 
@@ -79,27 +80,6 @@ export class MobileApp extends Component {
     .catch((error) => {});
     }
 
-    selectComponent(){
-        switch (this.state.CurrentPage) {
-            case 'h':
-                return <HomePage />
-            case 'b':
-                if(this.state.CategoryItems.length === 0){
-                    break;
-                }
-                return <CategoryMenu items={this.state.CategoryItems} setCurrentCategoryId = {this.setCurrentCategoryId}/>;
-            case 'c':
-                return <CategoryPagination currentMainPage={this.state.currentMainPage} 
-                currentCategotyId={this.state.currentCategotyId}
-                currentCategotyPage = {this.state.currentCategotyPage}
-                hasMore = {this.state.categotyHasMore} 
-                items = { this.state.categotyItems}
-                fetchMoreCategoryData = {this.fetchMoreCategoryData}/>;
-            default:
-                return <HomePage />
-        }
-    }
-
     toggleDrawer = () => {
         this.setState({
             isDrawerOpen: !this.state.isDrawerOpen
@@ -115,12 +95,25 @@ export class MobileApp extends Component {
     render(){
         return(
             <>
-                <Header />                
-                <DrawerLayout isOpen = {this.state.isDrawerOpen} toggleDrawer = {this.toggleDrawer}/>
-                <div style={{ marginBottom: '3.3rem' , marginTop: '3.3rem'}}>
-                    {this.selectComponent()}
+                <Header />          
+                <div style={{ marginTop: '3.3rem' , marginBottom: '3.3rem' }}>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="/">
+                                <Route index element={<HomePage />}></Route>
+                                <Route path="CategoryMenu" element={<CategoryMenu items={this.state.CategoryItems} setCurrentCategoryId = {this.setCurrentCategoryId}/>}></Route>
+                                <Route path="CategoryPagination" element={<CategoryPagination currentMainPage={this.state.currentMainPage} 
+                                currentCategotyId={this.state.currentCategotyId}
+                                currentCategotyPage = {this.state.currentCategotyPage}
+                                hasMore = {this.state.categotyHasMore} 
+                                items = { this.state.categotyItems}
+                                fetchMoreCategoryData = {this.fetchMoreCategoryData}/>}></Route>
+                            </Route>
+                        </Routes>
+                        <NavigationBar toggleDrawer = {this.toggleDrawer} setCurrentComponent = {this.setCurrentComponent}/>
+                    </BrowserRouter>
                 </div>
-                <NavigationBar toggleDrawer = {this.toggleDrawer} setCurrentComponent = {this.setCurrentComponent}/>
+                <DrawerLayout isOpen = {this.state.isDrawerOpen} toggleDrawer = {this.toggleDrawer}/>                
             </>
         )
     }

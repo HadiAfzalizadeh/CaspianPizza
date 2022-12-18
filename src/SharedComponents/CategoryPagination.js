@@ -30,7 +30,7 @@ export class CategoryPagination extends Component {
       <div>
         {
             <InfiniteScroll
-            style={{ marginBottom: 20 }}
+            style={{ marginBottom: '20px' , marginTop: '3.5rem'}}
             dataLength={this.props.items.length}
             next={this.props.fetchMoreCategoryData}
             hasMore={this.props.hasMore}
