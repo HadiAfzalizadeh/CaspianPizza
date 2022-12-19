@@ -3,7 +3,7 @@ import { HomePage } from "../SharedComponents/HomePage";
 import { CategoryPage } from "./CategoryPage";
 import { Header } from "./Header";
 import axios from "axios";
-import { ProductDetail } from "./ProductDetail";
+import { BrowserRouter , Routes , Route } from 'react-router-dom'
 
 export class DesktopApp extends Component {
 
@@ -24,17 +24,6 @@ export class DesktopApp extends Component {
       });
     })
     .catch(error => {});
-  }
-
-  selectComponent() {
-    switch (this.state.currentMainPage) {
-      case "h":
-        return <HomePage />;
-      case "c":
-        return <CategoryPage currentMainPage={this.state.currentMainPage} currentCategotyId={this.state.currentCategotyId} currentCategotyPage = {this.state.currentCategotyPage} categotyHasMore = {this.state.categotyHasMore} categotyItems = { this.state.categotyItems} fetchMoreCategoryData = {this.fetchMoreCategoryData}/>;
-      default:
-        return <HomePage />;
-    }
   }
 
   selectCategoryId = (categotyId) => {
@@ -92,11 +81,21 @@ export class DesktopApp extends Component {
     }
     return (
       <>
-        {/* <ProductDetail /> */}
-        <Header selectCategoryId={this.selectCategoryId} megaMenuItems = { this.state.megaMenuItems }/>
-        <div className="container">
-          <div className="row">{this.selectComponent()}</div>
-        </div>
+          <BrowserRouter>
+          <Header selectCategoryId={this.selectCategoryId} megaMenuItems = { this.state.megaMenuItems }/>
+            <Routes>
+                <Route path="/">
+                  <Route index element={<HomePage />}></Route>
+                  <Route path="CategoryMenu" element={
+                  <CategoryPage
+                    currentCategotyId={this.state.currentCategotyId} 
+                    currentCategotyPage = {this.state.currentCategotyPage} 
+                    categotyHasMore = {this.state.categotyHasMore} 
+                    categotyItems = { this.state.categotyItems} 
+                    fetchMoreCategoryData = {this.fetchMoreCategoryData}/>}></Route>
+                </Route>
+              </Routes>
+          </BrowserRouter>
       </>
     );
   }

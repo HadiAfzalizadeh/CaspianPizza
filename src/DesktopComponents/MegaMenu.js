@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Paper } from "@mui/material";
+import { Link } from 'react-router-dom'
 
 export class MegaMenu extends Component {
   constructor(props) {
@@ -73,6 +74,10 @@ export class MegaMenu extends Component {
     }
   };
 
+  getItemLinkRoute = (id) => {
+    return this.state.items.filter((item) => item.parentProductCategoryId === id).length === 0 ? '/CategoryMenu' : null;
+  }
+
   render() {
     return (
       <Paper style={{  position: 'absolute' , zIndex: '10' , }}>
@@ -102,13 +107,14 @@ export class MegaMenu extends Component {
                 {this.state.items
                   .filter((item) => item.parentProductCategoryId === null)
                   .map((item) => (
-                    <button
+                    <Link
+                      to="/CategoryMenu"
                       key={item.id}
                       onClick={() => this.itemClicked(item.id)}
                       className="linkButton item"
                     >
                       <p className="parentItemText">{item.name}</p>
-                    </button>
+                    </Link>
                   ))}
               </nav>
             </div>

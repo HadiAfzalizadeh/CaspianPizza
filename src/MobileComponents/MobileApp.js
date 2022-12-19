@@ -15,7 +15,6 @@ export class MobileApp extends Component {
         currentCategotyPage: 3,
         CategoryItems: [],
         categotyHasMore: true,
-        CurrentPage : 'h',
         isDrawerOpen: false,
         currentCategotyId: -1,
         categotyItems: []
@@ -57,8 +56,7 @@ export class MobileApp extends Component {
 
     setCurrentCategoryId = (categotyId) => {
         this.setState({
-            currentCategotyId: categotyId,
-            CurrentPage: 'c'
+            currentCategotyId: categotyId
         });
         axios
     .get(
@@ -86,12 +84,6 @@ export class MobileApp extends Component {
         });
     }
 
-    setCurrentComponent = (component) => {
-        this.setState({
-            CurrentPage: component
-        });
-    }
-
     render(){
         return(
             <>
@@ -102,7 +94,7 @@ export class MobileApp extends Component {
                             <Route path="/">
                                 <Route index element={<HomePage />}></Route>
                                 <Route path="CategoryMenu" element={<CategoryMenu items={this.state.CategoryItems} setCurrentCategoryId = {this.setCurrentCategoryId}/>}></Route>
-                                <Route path="CategoryPagination" element={<CategoryPagination currentMainPage={this.state.currentMainPage} 
+                                <Route path="CategoryPagination" element={<CategoryPagination 
                                 currentCategotyId={this.state.currentCategotyId}
                                 currentCategotyPage = {this.state.currentCategotyPage}
                                 hasMore = {this.state.categotyHasMore} 
@@ -110,7 +102,7 @@ export class MobileApp extends Component {
                                 fetchMoreCategoryData = {this.fetchMoreCategoryData}/>}></Route>
                             </Route>
                         </Routes>
-                        <NavigationBar toggleDrawer = {this.toggleDrawer} setCurrentComponent = {this.setCurrentComponent}/>
+                        <NavigationBar toggleDrawer = {this.toggleDrawer} />
                     </BrowserRouter>
                 </div>
                 <DrawerLayout isOpen = {this.state.isDrawerOpen} toggleDrawer = {this.toggleDrawer}/>                

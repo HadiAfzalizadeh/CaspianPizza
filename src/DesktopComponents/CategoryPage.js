@@ -4,8 +4,7 @@ import { CategoryPagination } from "../SharedComponents/CategoryPagination"
 export class CategoryPage extends Component {
     render(){
         return(
-            <CategoryPagination 
-            currentMainPage={this.props.currentMainPage } 
+            <CategoryPagination  
             currentCategotyId={this.props.currentCategotyId }
             currentCategotyPage = {this.props.currentCategotyPage }
             hasMore = {this.props.categotyHasMore } 

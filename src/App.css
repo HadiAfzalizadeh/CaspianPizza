@@ -32,6 +32,11 @@
   font-weight: 500;
 }
 
+.f_Poppins{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
 /*---------------------------------------------------------------------------*/
 .bottom-nav{
     z-index: 200 !important;
