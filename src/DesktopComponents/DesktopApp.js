@@ -26,30 +26,30 @@ export class DesktopApp extends Component {
     .catch(error => {});
   }
 
-  selectCategoryId = (categotyId) => {
-    this.setState({
-        currentMainPage: "c",
-        currentCategotyId: categotyId
-    });
-    axios
-    .get(
-      "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=1&PageSize=8&ProductCategoryId=" +
-      categotyId
-    )
-    .then((response) => {
-      this.setState({
-        categotyItems: response.data.data,
-        currentCategotyPage: 3,
-        categotyHasMore: true
-      });
-      if(response.data.meta.totalRows === this.state.categotyItems.length){
-          this.setState({
-            categotyHasMore: false
-          });
-      }
-    })
-    .catch((error) => {});
-  }
+  // selectCategoryId = (categotyId) => {
+  //   this.setState({
+  //       currentMainPage: "c",
+  //       currentCategotyId: categotyId
+  //   });
+  //   axios
+  //   .get(
+  //     "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=1&PageSize=8&ProductCategoryId=" +
+  //     categotyId
+  //   )
+  //   .then((response) => {
+  //     this.setState({
+  //       categotyItems: response.data.data,
+  //       currentCategotyPage: 3,
+  //       categotyHasMore: true
+  //     });
+  //     if(response.data.meta.totalRows === this.state.categotyItems.length){
+  //         this.setState({
+  //           categotyHasMore: false
+  //         });
+  //     }
+  //   })
+  //   .catch((error) => {});
+  // }
 
   fetchMoreCategoryData = () => {
     this.setState({
@@ -76,23 +76,26 @@ export class DesktopApp extends Component {
   };
 
   render() {
-    if(this.state.megaMenuItems.length === 0){
-      return null;
-    }
+    // if(this.state.megaMenuItems.length === 0){
+    //   return null;
+    // }
     return (
       <>
+      
+      {/* <Header /> */}
           <BrowserRouter>
-          <Header selectCategoryId={this.selectCategoryId} megaMenuItems = { this.state.megaMenuItems }/>
+          <Header selectCategoryId={9} megaMenuItems = { [] }/>
+          {/* <Header selectCategoryId={this.selectCategoryId} megaMenuItems = { this.state.megaMenuItems }/> */}
             <Routes>
                 <Route path="/">
-                  <Route index element={<HomePage />}></Route>
-                  <Route path="CategoryMenu" element={
+                  {/* <Route index element={<HomePage />}></Route> */}
+                  {/* <Route path="CategoryMenu" element={
                   <CategoryPage
                     currentCategotyId={this.state.currentCategotyId} 
                     currentCategotyPage = {this.state.currentCategotyPage} 
                     categotyHasMore = {this.state.categotyHasMore} 
                     categotyItems = { this.state.categotyItems} 
-                    fetchMoreCategoryData = {this.fetchMoreCategoryData}/>}></Route>
+                    fetchMoreCategoryData = {this.fetchMoreCategoryData}/>}></Route> */}
                 </Route>
               </Routes>
           </BrowserRouter>

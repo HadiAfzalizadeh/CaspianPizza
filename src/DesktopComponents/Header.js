@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faMagnifyingGlass,
+  faRightToBracket,
   faCartShopping,
+  faMagnifyingGlass
 } from "@fortawesome/free-solid-svg-icons";
 import { Component } from "react";
 import { MegaMenu } from "./MegaMenu";
@@ -10,70 +11,92 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import { Link } from 'react-router-dom'
+import { borderBottom } from "@mui/system";
 
 export class Header extends Component {
-  state = {
-    openMenu: false,
-  };
+  // state = {
+  //   openMenu: false,
+  // };
 
-  toggleMegaMenu = () => {
-    this.setState({
-      openMenu: !this.state.openMenu,
-    });
-  };
+  // toggleMegaMenu = () => {
+  //   this.setState({
+  //     openMenu: !this.state.openMenu,
+  //   });
+  // };
 
-  showMegaMenu() {
-    return this.state.openMenu === true ? (
-      <MegaMenu
-        selectCategoryId={this.props.selectCategoryId}
-        items={this.props.megaMenuItems}
-        toggleMegaMenu = {this.toggleMegaMenu}
-      />
-    ) : null;
-  }
+  // showMegaMenu() {
+  //   return this.state.openMenu === true ? (
+  //     <MegaMenu
+  //       selectCategoryId={this.props.selectCategoryId}
+  //       items={this.props.megaMenuItems}
+  //       toggleMegaMenu = {this.toggleMegaMenu}
+  //     />
+  //   ) : null;
+  // }
 
 
 
   render() {
     return (
-      <div className="container-fluid" style={{ position: 'fixed' , top: 0 }}>
+      <div className="container-fluid" style={{ position: 'fixed' , top: 0 , borderBottom: '1px solid black'}}>
         <div className="row">
-          <div className="col-auto text-center h-100" style={{ backgroundColor: '#795548' }}>
-            <div className="text-center" style={{ width: "16rem" }}>
+          <div className="col-sm-2 text-center p-0 d-none d-sm-block" style={{ backgroundColor: '#795548' , maxHeight:'7.5rem' }}>
               <Link to="/">
                   <img
-                    style={{ width: "8rem", height: "auto" }}
+                    style={{ maxWidth:'7.5rem', height: "auto" }}
                     src="/logo.png"
                     alt="logo"></img>
                 </Link>
-            </div>
           </div>
-          <div className="col" >
+          <div className="col-sm-10">
             <div className="row align-items-center" style={{ backgroundColor: '#D32F2F' ,  height: '2.5rem'}}>
               <div className="col">
-                <Link style={{ color: '#FFFFFF' , textDecoration: 'none' }}>Sign In / Register</Link>
+                <Link className="f_Poppins" style={{ color: '#FFEB3B' , textDecoration: 'none' }}><FontAwesomeIcon style={{ marginRight: '5px' , color: 'white'}} icon={ faRightToBracket }/>Sign In / Register</Link>
               </div>
               <div className="col text-end">
-                <div className="d-inline-flex align-items-center pr-2">
-                  <Link style={{ color: '#FFFFFF' , textDecoration: 'none' }}>Basket</Link>
-                  <Link style={{ color: '#FFFFFF' , textDecoration: 'none' }}>Checkout</Link>
+                <div className="d-inline-flex align-items-center pe-5">
+                  <Link className="f_Poppins" style={{backgroundColor:'#03A9F4' , color: '#FFEB3B' , textDecoration: 'none' }}><FontAwesomeIcon style={{  marginRight: '5px'}} icon={ faCartShopping }/>Basket</Link>
+                  <Link className="f_Poppins" style={{ color: '#FFEB3B' , textDecoration: 'none'}}><FontAwesomeIcon style={{  marginRight: '5px'}} icon={ faRightToBracket }/>Checkout</Link>
                 </div>
               </div>
             </div>
-            <div className="row" style={{ backgroundColor: '#FFA000' , height: '5.5rem'}}>
-            <nav className="navbar navbar-expand">
-              <div className="collapse navbar-collapse">
+            <div className="row align-items-center" style={{  height: '5rem'}}>
+              <div className="col-auto d-block d-sm-none" style={{ backgroundColor: '#795548' }}>
+                <Link to="/">
+                    <img
+                      style={{ width:'4.25rem' , height: 'auto' }}
+                      src="/logo.png"
+                      alt="logo"></img>
+                  </Link>
+              </div>
+              <div className="col align-self-end">
+              <nav className="navbar navbar-expand">
+              <div className="collapse navbar-collapse text-center">
                 <div className="navbar-nav">
-                  <div className="nav-item nav-link active f_Poppins" style={{ color: 'black' , cursor: 'pointer'}}>BROWSE & SHOP</div>
-                  <Link className="nav-item nav-link f_Poppins" style={{ color: 'black' }}>OFFERS</Link>
-                  <Link className="nav-item nav-link f_Poppins" style={{ color: 'black' }}>BOOK SLOT</Link>
+                  <div className="nav-item nav-link active f_Poppins" style={{ color: '#424750', cursor: 'pointer'}}>Browse & Shop</div>
+                  <Link className="nav-item nav-link f_Poppins" style={{ color: '#424750' }}>Offers</Link>
+                  <Link className="nav-item nav-link f_Poppins" style={{ color: '#424750' }}>Book Slot</Link>
                 </div>
               </div>
             </nav>
+              </div>
+              <div className="col-4 pe-5">
+
+            <div className="mx-auto" style={{width: '100%'}}>
+                <div className="input-group">
+                    <input type="text" className="form-control f_Poppins" style={{ borderRadius: 0 , backgroundColor: '#FFF9C460'}} placeholder="Search"></input>
+                    <div className="input-group-append">
+                        <button style={{ borderRadius: 0 , backgroundColor: '#F57C00' , borderColor: 'none' }} className="btn btn-primary px-3"><FontAwesomeIcon icon={ faMagnifyingGlass } style={{ color: '#FFEB3B' }}/></button>
+                    </div>
+                </div>
+            </div>
+
+              </div>
             </div>
           </div>
         </div>
       </div>
+      
 /* <div className="container-fluid">
         <div className="row">
             <div className="col-lg-3 d-none d-lg-block">
