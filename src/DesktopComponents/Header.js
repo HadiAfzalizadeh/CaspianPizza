@@ -14,88 +14,88 @@ import { Link } from 'react-router-dom'
 import { borderBottom } from "@mui/system";
 
 export class Header extends Component {
-  // state = {
-  //   openMenu: false,
-  // };
+  state = {
+    openMenu: false,
+  };
 
-  // toggleMegaMenu = () => {
-  //   this.setState({
-  //     openMenu: !this.state.openMenu,
-  //   });
-  // };
+  toggleMegaMenu = () => {
+    this.setState({
+      openMenu: !this.state.openMenu,
+    });
+  };
 
-  // showMegaMenu() {
-  //   return this.state.openMenu === true ? (
-  //     <MegaMenu
-  //       selectCategoryId={this.props.selectCategoryId}
-  //       items={this.props.megaMenuItems}
-  //       toggleMegaMenu = {this.toggleMegaMenu}
-  //     />
-  //   ) : null;
-  // }
+  showMegaMenu() {
+    return this.state.openMenu === true ? (
+      <MegaMenu
+        selectCategoryId={this.props.selectCategoryId}
+        items={this.props.megaMenuItems}
+        toggleMegaMenu = {this.toggleMegaMenu}
+      />
+    ) : null;
+  }
 
 
 
   render() {
     return (
-      <div className="container-fluid" style={{ position: 'fixed' , top: 0 , borderBottom: '1px solid black'}}>
-        <div className="row">
-          <div className="col-sm-2 text-center p-0 d-none d-sm-block" style={{ backgroundColor: '#795548' , maxHeight:'7.5rem' }}>
-              <Link to="/">
-                  <img
-                    style={{ maxWidth:'7.5rem', height: "auto" }}
-                    src="/logo.png"
-                    alt="logo"></img>
-                </Link>
-          </div>
-          <div className="col-sm-10">
-            <div className="row align-items-center" style={{ backgroundColor: '#D32F2F' ,  height: '2.5rem'}}>
-              <div className="col">
-                <Link className="f_Poppins" style={{ color: '#FFEB3B' , textDecoration: 'none' }}><FontAwesomeIcon style={{ marginRight: '5px' , color: 'white'}} icon={ faRightToBracket }/>Sign In / Register</Link>
-              </div>
-              <div className="col text-end">
-                <div className="d-inline-flex align-items-center pe-5">
-                  <Link className="f_Poppins" style={{backgroundColor:'#03A9F4' , color: '#FFEB3B' , textDecoration: 'none' }}><FontAwesomeIcon style={{  marginRight: '5px'}} icon={ faCartShopping }/>Basket</Link>
-                  <Link className="f_Poppins" style={{ color: '#FFEB3B' , textDecoration: 'none'}}><FontAwesomeIcon style={{  marginRight: '5px'}} icon={ faRightToBracket }/>Checkout</Link>
-                </div>
-              </div>
-            </div>
-            <div className="row align-items-center" style={{  height: '5rem'}}>
-              <div className="col-auto d-block d-sm-none" style={{ backgroundColor: '#795548' }}>
-                <Link to="/">
-                    <img
-                      style={{ width:'4.25rem' , height: 'auto' }}
-                      src="/logo.png"
-                      alt="logo"></img>
-                  </Link>
-              </div>
-              <div className="col align-self-end">
-              <nav className="navbar navbar-expand">
-              <div className="collapse navbar-collapse text-center">
-                <div className="navbar-nav">
-                  <div className="nav-item nav-link active f_Poppins" style={{ color: '#424750', cursor: 'pointer'}}>Browse & Shop</div>
-                  <Link className="nav-item nav-link f_Poppins" style={{ color: '#424750' }}>Offers</Link>
-                  <Link className="nav-item nav-link f_Poppins" style={{ color: '#424750' }}>Book Slot</Link>
-                </div>
-              </div>
-            </nav>
-              </div>
-              <div className="col-4 pe-5">
+      // <div className="container-fluid" style={{ position: 'fixed' , top: 0 , borderBottom: '1px solid black'}}>
+      //   <div className="row">
+      //     <div className="col-sm-2 text-center p-0 d-none d-sm-block" style={{ backgroundColor: '#795548' , maxHeight:'7.5rem' }}>
+      //         <Link to="/">
+      //             <img
+      //               style={{ maxWidth:'7.5rem', height: "auto" }}
+      //               src="/logo.png"
+      //               alt="logo"></img>
+      //           </Link>
+      //     </div>
+      //     <div className="col-sm-10">
+      //       <div className="row align-items-center" style={{ backgroundColor: '#D32F2F' ,  height: '2.5rem'}}>
+      //         <div className="col">
+      //           <Link className="f_Poppins" style={{ color: '#FFEB3B' , textDecoration: 'none' }}><FontAwesomeIcon style={{ marginRight: '5px' , color: 'white'}} icon={ faRightToBracket }/>Sign In / Register</Link>
+      //         </div>
+      //         <div className="col text-end">
+      //           <div className="d-inline-flex align-items-center pe-5">
+      //             <Link className="f_Poppins" style={{backgroundColor:'#03A9F4' , color: '#FFEB3B' , textDecoration: 'none' }}><FontAwesomeIcon style={{  marginRight: '5px'}} icon={ faCartShopping }/>Basket</Link>
+      //             <Link className="f_Poppins" style={{ color: '#FFEB3B' , textDecoration: 'none'}}><FontAwesomeIcon style={{  marginRight: '5px'}} icon={ faRightToBracket }/>Checkout</Link>
+      //           </div>
+      //         </div>
+      //       </div>
+      //       <div className="row align-items-center" style={{  height: '5rem'}}>
+      //         <div className="col-auto d-block d-sm-none" style={{ backgroundColor: '#795548' }}>
+      //           <Link to="/">
+      //               <img
+      //                 style={{ width:'4.25rem' , height: 'auto' }}
+      //                 src="/logo.png"
+      //                 alt="logo"></img>
+      //             </Link>
+      //         </div>
+      //         <div className="col align-self-end">
+      //         <nav className="navbar navbar-expand">
+      //         <div className="collapse navbar-collapse text-center">
+      //           <div className="navbar-nav">
+      //             <div className="nav-item nav-link active f_Poppins" style={{ color: '#424750', cursor: 'pointer'}}>Browse & Shop</div>
+      //             <Link className="nav-item nav-link f_Poppins" style={{ color: '#424750' }}>Offers</Link>
+      //             <Link className="nav-item nav-link f_Poppins" style={{ color: '#424750' }}>Book Slot</Link>
+      //           </div>
+      //         </div>
+      //       </nav>
+      //         </div>
+      //         <div className="col-4 pe-5">
 
-            <div className="mx-auto" style={{width: '100%'}}>
-                <div className="input-group">
-                    <input type="text" className="form-control f_Poppins" style={{ borderRadius: 0 , backgroundColor: '#FFF9C460'}} placeholder="Search"></input>
-                    <div className="input-group-append">
-                        <button style={{ borderRadius: 0 , backgroundColor: '#F57C00' , borderColor: 'none' }} className="btn btn-primary px-3"><FontAwesomeIcon icon={ faMagnifyingGlass } style={{ color: '#FFEB3B' }}/></button>
-                    </div>
-                </div>
-            </div>
+      //       <div className="mx-auto" style={{width: '100%'}}>
+      //           <div className="input-group">
+      //               <input type="text" className="form-control f_Poppins" style={{ borderRadius: 0 , backgroundColor: '#FFF9C460'}} placeholder="Search"></input>
+      //               <div className="input-group-append">
+      //                   <button style={{ borderRadius: 0 , backgroundColor: '#F57C00' , borderColor: 'none' }} className="btn btn-primary px-3"><FontAwesomeIcon icon={ faMagnifyingGlass } style={{ color: '#FFEB3B' }}/></button>
+      //               </div>
+      //           </div>
+      //       </div>
 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   </div>
+      // </div>
       
 /* <div className="container-fluid">
         <div className="row">
@@ -166,91 +166,91 @@ export class Header extends Component {
     </div> */
 
 
-      // <div style={{ marginBottom: "1rem" }}>
-      //   <Paper style={{ width: "100%", backgroundColor: "#FFC107" }}>
-      //     <div className="container">
-      //       <div className="row">
-      //         <div className="col-auto">
-      //           <a href="/">
-      //             <img
-      //               style={{ width: "8rem", height: "auto" }}
-      //               src="/logo.png"
-      //               alt="logo"
-      //             ></img>
-      //           </a>
-      //         </div>
-      //         <div className="col" style={{ paddingTop: "10px" }}>
-      //           <div className="row">
-      //             <div className="col-6" style={{ height: '4rem' }}>
-      //               <Button variant="contained">SIGN IN / REGISTER</Button>
-      //             </div>
-      //             <div className="col-6" style={{ height: '4rem' }}>
-      //               <nav className="rightTextAlign">
-      //                 <Button
-      //                   variant="contained"
-      //                   startIcon={<FontAwesomeIcon icon={faCartShopping} />}
-      //                 >
-      //                   My Basket
-      //                 </Button>
-      //                 {/* <div className="linkButton inlineDisplay">Checkout</div> */}
-      //                 <Button variant="contained">Checkout</Button>
-      //               </nav>
-      //             </div>
-      //           </div>
-      //           <div className="row">
-      //             <div className="col-8" style={{ height: '4rem' }}>
-      //               <Paper>
-      //                   <nav id="menuParent" style={{ padding: '1rem'}}>
-      //                   <div
-      //                       onClick={this.toggleMegaMenu}
-      //                       className="linkButton inlineDisplay margin-right"
-      //                   >
-      //                       BROWSE & SHOP
-      //                   </div>
-      //                   <div className="linkButton inlineDisplay margin-right">
-      //                       OFFERS
-      //                   </div>
-      //                   <div className="linkButton inlineDisplay margin-right">
-      //                       BOOK SLOT
-      //                   </div>
-      //                   </nav>
-      //               </Paper>
-      //             </div>
-      //             <div className="col-4" style={{ height: '4rem' }}>
-      //               <div className="input-group mb-3">
-      //                 <Paper
-      //                   component="form"
-      //                   sx={{
-      //                     p: "2px 4px",
-      //                     display: "flex",
-      //                     alignItems: "center",
-      //                     width: 400,
-      //                   }}
-      //                 >
-      //                   <InputBase
-      //                     sx={{ ml: 1, flex: 1 }}
-      //                     placeholder="Search"
-      //                     inputProps={{ "aria-label": "search" }}
-      //                   />
-      //                   <IconButton
-      //                     type="button"
-      //                     sx={{ p: "10px" }}
-      //                     aria-label="search"
-      //                   >
-      //                     <FontAwesomeIcon icon={faMagnifyingGlass} />
-      //                   </IconButton>
-      //                 </Paper>
-      //               </div>
-      //             </div>
-      //           </div>
-      //         </div>
-      //       </div>
-      //       <div className="row" id="MegaMenuParent" style={{ position: 'relative' }}>
-      //         {this.showMegaMenu()}
-      //       </div>
-      //     </div>
-      //   </Paper>
-      // </div>
+      <div style={{ marginBottom: "1rem" }}>
+        <Paper style={{ width: "100%", backgroundColor: "#FFC107" }}>
+          <div className="container">
+            <div className="row">
+              <div className="col-auto">
+                <a href="/">
+                  <img
+                    style={{ width: "8rem", height: "auto" }}
+                    src="/logo.png"
+                    alt="logo"
+                  ></img>
+                </a>
+              </div>
+              <div className="col" style={{ paddingTop: "10px" }}>
+                <div className="row">
+                  <div className="col-6" style={{ height: '4rem' }}>
+                    <Button variant="contained">SIGN IN / REGISTER</Button>
+                  </div>
+                  <div className="col-6" style={{ height: '4rem' }}>
+                    <nav className="rightTextAlign">
+                      <Button
+                        variant="contained"
+                        startIcon={<FontAwesomeIcon icon={faCartShopping} />}
+                      >
+                        My Basket
+                      </Button>
+                      {/* <div className="linkButton inlineDisplay">Checkout</div> */}
+                      <Button variant="contained">Checkout</Button>
+                    </nav>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-8" style={{ height: '4rem' }}>
+                    <Paper>
+                        <nav id="menuParent" style={{ padding: '1rem'}}>
+                        <div
+                            onClick={this.toggleMegaMenu}
+                            className="linkButton inlineDisplay margin-right"
+                        >
+                            BROWSE & SHOP
+                        </div>
+                        <div className="linkButton inlineDisplay margin-right">
+                            OFFERS
+                        </div>
+                        <div className="linkButton inlineDisplay margin-right">
+                            BOOK SLOT
+                        </div>
+                        </nav>
+                    </Paper>
+                  </div>
+                  <div className="col-4" style={{ height: '4rem' }}>
+                    <div className="input-group mb-3">
+                      <Paper
+                        component="form"
+                        sx={{
+                          p: "2px 4px",
+                          display: "flex",
+                          alignItems: "center",
+                          width: 400,
+                        }}
+                      >
+                        <InputBase
+                          sx={{ ml: 1, flex: 1 }}
+                          placeholder="Search"
+                          inputProps={{ "aria-label": "search" }}
+                        />
+                        <IconButton
+                          type="button"
+                          sx={{ p: "10px" }}
+                          aria-label="search"
+                        >
+                          <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        </IconButton>
+                      </Paper>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row" id="MegaMenuParent" style={{ position: 'relative' }}>
+              {this.showMegaMenu()}
+            </div>
+          </div>
+        </Paper>
+      </div>
     );
   }
 }

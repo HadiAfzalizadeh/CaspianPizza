@@ -37,6 +37,21 @@
   font-weight: 600;
 }
 
+.text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+          line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+}
+
+.hoverableCard:hover {
+  box-shadow: 0 0 10px 5px #ddd;
+  z-index: 1001;
+}
+
 /*---------------------------------------------------------------------------*/
 .bottom-nav{
     z-index: 200 !important;
