@@ -5,6 +5,10 @@ import { Header } from "./Header";
 import axios from "axios";
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
 import { CategoryPagination } from "../SharedComponents/CategoryPagination";
+import { ProductDetail } from "../DesktopComponents/ProductDetail"
+import { Basket } from "../SharedComponents/Basket";
+import { Auth } from "../SharedComponents/Auth";
+import { BookSlot } from "../SharedComponents/BookSlot";
 
 export class DesktopApp extends Component {
 
@@ -95,6 +99,10 @@ export class DesktopApp extends Component {
                     categotyHasMore = {this.state.categotyHasMore} 
                     categotyItems = { this.state.categotyItems} 
                     fetchMoreCategoryData = {this.fetchMoreCategoryData}/>}></Route>
+                    <Route path="ProductDetail" element={<ProductDetail />}></Route>
+                    <Route path="Basket" element={<Basket />}></Route>
+                    <Route path="SignIn" element={<Auth />}></Route>
+                    <Route path="BookSlot" element={<BookSlot />}></Route>
                 </Route>
               </Routes>
           </BrowserRouter>
