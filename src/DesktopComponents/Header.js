@@ -182,15 +182,20 @@ export class Header extends Component {
               <div className="col" style={{ paddingTop: "10px" }}>
                 <div className="row">
                   <div className="col-6" style={{ height: '4rem' }}>
-                    <Button variant="contained">SIGN IN / REGISTER</Button>
+                    
+
+
+                    <Link to="Auth" variant="contained">
+                        <Button variant="contained">SIGN IN / REGISTER</Button>
+                      </Link>
                   </div>
                   <div className="col-6" style={{ height: '4rem' }}>
                     <nav className="rightTextAlign">
                       <Link to="Basket"
                         variant="contained"
-                        startIcon={<FontAwesomeIcon icon={faCartShopping} />}
+                        
                       >
-                        My Basket
+                        <Button variant="contained" startIcon={<FontAwesomeIcon icon={faCartShopping} />}>My Basket</Button>
                       </Link>
                       {/* <div className="linkButton inlineDisplay">Checkout</div> */}
                       <Button variant="contained">Checkout</Button>
