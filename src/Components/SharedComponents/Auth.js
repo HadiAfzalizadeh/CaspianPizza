@@ -4,20 +4,14 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const Auth = () => {
-	const formik = useFormik({
+	const signInFormik = useFormik({
 		initialValues: {
-		  firstName: '',
-		  lastName: '',
 		  email: '',
+		  pass: ''
 		},
 		validationSchema: Yup.object({
-		  firstName: Yup.string()
-			.max(15, 'Must be 15 characters or less')
-			.required('Required'),
-		  lastName: Yup.string()
-			.max(20, 'Must be 20 characters or less')
-			.required('Required'),
-		  email: Yup.string().email('Invalid email address').required('Required'),
+			email: Yup.string().email('Invalid email address').required('Required'),
+			pass: Yup.string().min(5, 'Atleast 5 chracters').required('Required')
 		}),
 		onSubmit: values => {
 		  alert(JSON.stringify(values, null, 2));
@@ -29,14 +23,22 @@ const Auth = () => {
 		<input id="tab-1" type="radio" name="tab" className="sign-in" checked></input><label for="tab-1" className="tab">Sign In</label>
 		<input id="tab-2" type="radio" name="tab" className="sign-up"></input><label for="tab-2" className="tab">Sign Up</label>
 		<div className="login-form">
-			<form className="sign-in-htm">
+			<form className="sign-in-htm" onSubmit={signInFormik.handleSubmit}>
 				<div className="group">
-					<label for="email" className="label">Email Address</label>
-					<input id="email" type="text" className="input"></input>
-				</div>
+					<label htmlFor="email" className="label">Email Address</label>
+					<input id="email" type="text" className="input" 
+					{...signInFormik.getFieldProps('email')} style={{ marginBottom: '2px' }}></input>
+					{signInFormik.touched.email && signInFormik.errors.email ? (
+						<div style={{ color: '#fa837a'}}>{signInFormik.errors.email}</div>
+					) : null}
+				</div> 
 				<div className="group">
-					<label for="pass" className="label">Password</label>
-					<input id="pass" type="password" className="input" data-type="password"></input>
+					<label htmlFor="pass" className="label">Password</label>
+					<input id="pass" type="password" className="input" data-type="password"
+					{...signInFormik.getFieldProps('pass')} style={{ marginBottom: '2px' }}></input>
+					{signInFormik.touched.pass && signInFormik.errors.pass ? (
+						<div style={{ color: '#fa837a' }}>{signInFormik.errors.pass}</div>
+					) : null}
 				</div>
 				<div className="group">
 					<input type="submit" className="button" value="Sign In"></input>
@@ -56,16 +58,16 @@ const Auth = () => {
 					<input id="user" type="text" className="input"></input>
 				</div>
 				<div className="group">
-					<label for="pass" className="label">Password</label>
-					<input id="pass" type="password" className="input" data-type="password"></input>
+					<label for="pass1" className="label">Password</label>
+					<input id="pass1" type="password" className="input" data-type="password"></input>
 				</div>
 				<div className="group">
-					<label for="pass" className="label">Repeat Password</label>
-					<input id="pass" type="password" className="input" data-type="password"></input>
+					<label for="pass2" className="label">Repeat Password</label>
+					<input id="pass2" type="password" className="input" data-type="password"></input>
 				</div>
 				<div className="group">
-					<label for="pass" className="label">Email Address</label>
-					<input id="pass" type="text" className="input"></input>
+					<label for="pass3" className="label">Email Address</label>
+					<input id="pass3" type="text" className="input"></input>
 				</div>
 				<div className="group">
 					<input type="submit" className="button" value="Sign Up"></input>
