@@ -9,9 +9,14 @@ const login = (email, password) => {
         password,
       })
       .then((response) => {
-         localStorage.setItem("user", JSON.stringify(response.data.data));
-        return response.data.data;
-      });
+         if(response.data.data !== null){
+          localStorage.setItem("user", JSON.stringify(response.data.data));
+          return response.data.data;
+         }else{
+          // return response.data.message;
+          throw new Error(response.data.message);
+         }
+      })
   };
 
   const logout = () => {
@@ -23,4 +28,4 @@ const login = (email, password) => {
     logout,
   };
   
-  export default authService;
+  export default AuthService;

@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faRightToBracket,
   faCartShopping,
   faMagnifyingGlass
 } from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +10,24 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import { Link } from 'react-router-dom'
-import { borderBottom } from "@mui/system";
+import { useSelector , useDispatch } from "react-redux";
+import { logout } from "../../Slices/auth";
+
+
+
+function SignInOrLogout() {
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.auth);
+    if(isLoggedIn){
+  return(
+      <Button onClick={() => dispatch(logout())} variant="contained">Log Out</Button>)
+    }else{
+      return(
+      <Link to="Auth/SignIn" variant="contained">
+        <Button variant="contained">SIGN IN / REGISTER</Button>
+        </Link>)
+    }
+}
 
 export class Header extends Component {
   state = {
@@ -185,9 +201,7 @@ export class Header extends Component {
                     
 
 
-                    <Link to="Auth" variant="contained">
-                        <Button variant="contained">SIGN IN / REGISTER</Button>
-                      </Link>
+                    <SignInOrLogout />
                   </div>
                   <div className="col-6" style={{ height: '4rem' }}>
                     <nav className="rightTextAlign">

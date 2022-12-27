@@ -1,7 +1,7 @@
 import './App.css';
 
 import { isMobile } from 'react-device-detect';
-import { DesktopApp } from './Components/DesktopComponents/DesktopApp';
+import  DesktopApp  from './Components/DesktopComponents/DesktopApp';
 import { MobileApp } from './Components/MobileComponents/MobileApp';
 
 function SelectDeviceComponent() {

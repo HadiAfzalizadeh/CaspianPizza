@@ -7,9 +7,14 @@ import { BrowserRouter , Routes , Route } from 'react-router-dom'
 import { ProductDetail } from "../DesktopComponents/ProductDetail"
 import { Basket } from "../SharedComponents/Basket";
 import { BookSlot } from "../SharedComponents/BookSlot";
-import Auth from "../SharedComponents/Auth";
+import  SignIn  from "../SharedComponents/SignIn";
+import SignUp  from "../SharedComponents/SignUp";
+import GuardedRoute from "../SharedComponents/GuardedRoute";
+import { connect } from "react-redux";
 
-export class DesktopApp extends Component {
+
+
+class DesktopApp extends Component {
 
   state = {
     currentMainPage: "",
@@ -80,12 +85,8 @@ export class DesktopApp extends Component {
   };
 
   render() {
-    // if(this.state.megaMenuItems.length === 0){
-    //   return null;
-    // }
     return (
       <>
-      {/* <Header /> */}
           <BrowserRouter>
           <Header selectCategoryId={this.selectCategoryId} megaMenuItems = { this.state.megaMenuItems }/>
             <Routes>
@@ -100,8 +101,12 @@ export class DesktopApp extends Component {
                     fetchMoreCategoryData = {this.fetchMoreCategoryData}/>}></Route>
                     <Route path="ProductDetail" element={<ProductDetail />}></Route>
                     <Route path="Basket" element={<Basket />}></Route>
-                    <Route path="Auth" element={<Auth />}></Route>
+                    <Route path="Auth">
+                      <Route path="SignIn" element={<GuardedRoute  component={SignIn} distance="/" auth={!this.props.isLoggedIn}/>}></Route>
+                      <Route path="SignUp" element={<GuardedRoute  component={SignUp} distance="/" auth={!this.props.isLoggedIn}/>}></Route>
+                    </Route>
                     <Route path="BookSlot" element={<BookSlot />}></Route>
+                    <Route path="*" element={<GuardedRoute  component={HomePage} distance="/" auth={false}/>}></Route>
                 </Route>
               </Routes>
           </BrowserRouter>
@@ -109,3 +114,9 @@ export class DesktopApp extends Component {
     );
   }
 }
+
+
+
+const mapStateToProps = (state) => ({ isLoggedIn: state.auth.isLoggedIn })
+
+export default connect(mapStateToProps)(DesktopApp)
