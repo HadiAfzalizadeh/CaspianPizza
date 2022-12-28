@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { isMobile } from 'react-device-detect';
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getProductByCategory } from "../../Slices/category.slice";
 
 function ItemImage(props){
   return(
@@ -77,6 +79,33 @@ function LandscapeCard(props){
   )));
 }
 
+
+
+function InfiniteScrollComponent(props){
+
+  return(
+    <InfiniteScroll
+      style={{ marginBottom: '20px' }}
+      dataLength={props.items.length}
+      next={props.fetchMoreCategoryData}
+      hasMore={props.hasMore}
+      loader={
+          <div className="centerTextalign parentLoader">
+          <FontAwesomeIcon icon={faSpinner} className="spinner loaderIconSize"/>
+          </div>
+      }
+      >
+        <div className="container justify-content-center" style={{ boxShadow: '0 0px 21px -4px #ddd' }}>
+                <Link to="/ProductDetail" style={{ textDecoration: 'none' , color: 'black'}}>{(isMobile || props.isPortrate) ? <LandscapeCard items={props.items}/> : <PortraitCard items={props.items}/>} 
+                </Link>
+        </div>
+      </InfiniteScroll>
+    )
+
+  
+}
+
+
 export class CategoryPagination extends Component {
 
   render() {
@@ -87,7 +116,7 @@ export class CategoryPagination extends Component {
           <h5 className="mb-0">Bagels</h5>
         </div> 
         </div>
-      <InfiniteScroll
+      {/* <InfiniteScroll
             style={{ marginBottom: '20px' }}
             dataLength={this.props.items.length}
             next={this.props.fetchMoreCategoryData}
@@ -102,9 +131,33 @@ export class CategoryPagination extends Component {
                       <Link to="/ProductDetail" style={{ textDecoration: 'none' , color: 'black'}}>{(isMobile || this.props.isPortrate) ? <LandscapeCard items={this.props.items}/> : <PortraitCard items={this.props.items}/>} 
                       </Link>
               </div>
-            </InfiniteScroll>
+            </InfiniteScroll> */}
+
+
+
+      <InfiniteScrollComponent 
+        items = {this.props.items} 
+        fetchMoreCategoryData  = {this.props.fetchMoreCategoryData}
+        hasMore = {this.props.hasMore}
+        isPortrate = {this.props.isPortrate}/>
+
       </>
             
     );
   }
 }
+
+
+// const mapStateToProps = (state) => ({
+//    items: state.category.categotyItems,
+//    hasMore: state.category.categotyHasMore,
+//    isPortrate: state.category.itemOrientation === "portrait" ? true : false
+// })
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     getProductByCategory: (page,pageSize,categotyId) => dispatch(getProductByCategory({ page:page, pageSize:pageSize , categotyId:categotyId , type: 'Get_Product_By_Category'}))
+//   }
+// }
+
+// export default connect(mapStateToProps,mapDispatchToProps)(CategoryPagination)

@@ -11,7 +11,7 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import { Link } from 'react-router-dom'
 import { useSelector , useDispatch } from "react-redux";
-import { logout } from "../../Slices/auth";
+import { logout } from "../../Slices/auth.slice";
 
 
 
@@ -25,7 +25,7 @@ function SignInOrLogout() {
       return(
       <Link to="Auth/SignIn" variant="contained">
         <Button variant="contained">SIGN IN / REGISTER</Button>
-        </Link>)
+      </Link>)
     }
 }
 

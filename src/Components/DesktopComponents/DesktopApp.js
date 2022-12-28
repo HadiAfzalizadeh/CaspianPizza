@@ -17,7 +17,6 @@ import { connect } from "react-redux";
 class DesktopApp extends Component {
 
   state = {
-    currentMainPage: "",
     currentCategotyId: -1,
     currentCategotyPage: 3,
     megaMenuItems: [],
@@ -37,7 +36,6 @@ class DesktopApp extends Component {
 
   selectCategoryId = (categotyId) => {
     this.setState({
-        currentMainPage: "c",
         currentCategotyId: categotyId
     });
     axios

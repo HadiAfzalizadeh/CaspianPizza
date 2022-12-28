@@ -7,7 +7,7 @@ const SignUp = () => {
         <div className="login-html">
             <input id="tab-1" type="radio" name="tab" className="sign-in" ></input><label style={{ display: 'none' }} for="tab-1" className="tab">Sign In</label>
             <input id="tab-2" type="radio" name="tab" className="sign-up" checked></input><label style={{ textAlign: 'center' , width: '100%' }} for="tab-2" className="tab">Sign Up</label>
-            <div className="login-form">
+            <div className="login-form mt-3">
                 <div className="sign-up-htm">
                     <div className="group">
                         <label for="user" className="label">Username</label>

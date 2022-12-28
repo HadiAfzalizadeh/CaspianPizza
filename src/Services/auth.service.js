@@ -13,7 +13,6 @@ const login = (email, password) => {
           localStorage.setItem("user", JSON.stringify(response.data.data));
           return response.data.data;
          }else{
-          // return response.data.message;
           throw new Error(response.data.message);
          }
       })

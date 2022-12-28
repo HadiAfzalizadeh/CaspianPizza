@@ -20,10 +20,11 @@ export class CategoryPage extends Component {
                             Home / Food 
                         </div>
                         <div className="d-flex">
-                            <div className="p-1" style={{ whiteSpace: 'nowrap' }}><FontAwesomeIcon icon={faMagnifyingGlass} size="xl"/>4 Products Found</div>
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                            <div className="p-1" style={{ whiteSpace: 'nowrap' }}><FontAwesomeIcon icon={faMagnifyingGlass} size="xl"/><sapm>  4 Products Found</sapm></div>
+                            <FormControl className="mx-3" fullWidth>
+                                <InputLabel id="demo-simple-select-label">Sort</InputLabel>
                                 <Select
+                                defaultValue={10}
                                 className="py-1"
                                 sx={{
                                     width: '300',
@@ -38,9 +39,11 @@ export class CategoryPage extends Component {
                                     label="Sort"
                                     // onChange={handleChange}
                                 >
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    <MenuItem value={10}>Relevance</MenuItem>
+                                    <MenuItem value={20}>Categories</MenuItem>
+                                    <MenuItem value={30}>Name</MenuItem>
+                                    <MenuItem value={40}>Price: Low to High</MenuItem>
+                                    <MenuItem value={50}>Price: High to Low</MenuItem>
                                 </Select>
                                 </FormControl>
                             <FontAwesomeIcon className="p-1" icon={faList} onClick={() =>{this.setState({isPortrate: true})}} size="xl"/>
@@ -52,7 +55,7 @@ export class CategoryPage extends Component {
                 <div className="col-3 mt-1">
                 <Accordion >
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography>Collapsible Group Item #1</Typography>
+          <Typography>Category</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -65,7 +68,7 @@ export class CategoryPage extends Component {
       </Accordion>
       <Accordion >
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>Collapsible Group Item #2</Typography>
+          <Typography>Features</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -78,7 +81,7 @@ export class CategoryPage extends Component {
       </Accordion>
       <Accordion >
         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-          <Typography>Collapsible Group Item #3</Typography>
+          <Typography>Brand</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -88,7 +91,23 @@ export class CategoryPage extends Component {
             sit amet blandit leo lobortis eget.
           </Typography>
         </AccordionDetails>
-      </Accordion>
+        </Accordion>
+        <Accordion >
+      <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+          <Typography>Size</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+            sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+        </Accordion>
+
+
+
                 </div>
                 <div className="col-9">
                     <CategoryPagination  
@@ -97,7 +116,8 @@ export class CategoryPage extends Component {
                     hasMore = {this.props.categotyHasMore } 
                     items = { this.props.categotyItems }
                     fetchMoreCategoryData = {this.props.fetchMoreCategoryData}
-                    isPortrate = {this.state.isPortrate}/>    
+                    isPortrate = {this.state.isPortrate}/>   
+                    {/* <CategoryPagination  />    */}
                 </div>
                 </div>
             </div>

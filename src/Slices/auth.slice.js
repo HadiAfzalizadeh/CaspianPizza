@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import AuthService from "../Services/auth.service";
-import { setMessage } from "./authMessage";
+import { setMessage } from "./message.slice";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -11,12 +11,7 @@ export const login = createAsyncThunk(
         const data = await AuthService.login(email, pass);
         return { user: data };
       } catch (error) {
-        const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+        const message = error.name === 'AxiosError' ? "Oops! Something went wrong" : error.message;
         thunkAPI.dispatch(setMessage(message));
         return thunkAPI.rejectWithValue();
       }
