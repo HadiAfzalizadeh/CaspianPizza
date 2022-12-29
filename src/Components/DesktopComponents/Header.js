@@ -70,9 +70,10 @@ export class Header extends Component {
               <div className="col">
                 <Link className="f_Poppins" style={{ color: '#FFEB3B' , textDecoration: 'none', whiteSpace: 'nowrap' }}><FontAwesomeIcon style={{ marginRight: '5px' , color: 'white'}} icon={ faRightToBracket }/>Sign In / Register</Link>
               </div>
+              <div className="col text-center f_Poppins d-none d-xl-block" style={{ color: 'white' , whiteSpace: 'nowrap' }}>Welcome to Caspian Pizza online store</div>
               <div className="col text-end">
                 <div className="d-inline-flex align-items-center pe-5">
-                  <Link className="f_Poppins px-2 py-1 me-1" style={{backgroundColor:'#FFC107' , color: '#00796B' , textDecoration: 'none' , borderRadius: '5px', whiteSpace: 'nowrap'}}><FontAwesomeIcon style={{  marginRight: '5px'}} icon={ faCartShopping } color="white"/>My Basket</Link>
+                  <Link className="px-2 py-1 me-1 d-flex align-items-center" style={{backgroundColor:'#FFC107' , color: '#00796B' , textDecoration: 'none' , borderRadius: '5px', whiteSpace: 'nowrap'}}><FontAwesomeIcon className="py-1" style={{  marginRight: '5px'}} icon={ faCartShopping } color="white"/><p className="mb-0 f_Poppins d-none d-md-block">My Basket</p></Link>
                   <Link className="f_Poppins px-2 py-1" style={{ color: '#FFEB3B' , textDecoration: 'none' , border: '1px solid #FFC107' , borderRadius: '5px' , whiteSpace: 'nowrap'}}>Checkout</Link>
                 </div>
               </div>
@@ -89,19 +90,25 @@ export class Header extends Component {
                     </Link>
               </div>
               <div className="col align-self-center d-xl-none">
-              <div className="mx-auto" style={{width: '100%'}}>
-                  <div className="input-group">
+                <div className="row text-center d-block d-sm-none">
+                <p className="text-nowrap f_Poppins" style={{ color: '#00796B' }}>Welcome to Caspian Pizza online store</p>
+                </div>
+                <div className="row">
+                <div className="mx-auto d-flex align-items-center text-center" style={{width: '100%'}}>
+                <div className="input-group">
                       <input type="text" className="form-control f_Poppins" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Search"></input>
                       <div className="input-group-append">
                           <button style={{ borderRadius: 0 , backgroundColor: '#00796B' , borderColor: 'none' }} className="btn btn-primary px-3"><FontAwesomeIcon icon={ faMagnifyingGlass } style={{ color: 'white' }}/></button>
                       </div>
                   </div>
+                  <p className="f_Poppins me-2 d-none d-sm-block mb-0" style={{ color: '#00796B' , fontSize: '15px' }}>Welcome to Caspian Pizza online store</p>
               </div>
+                </div>
               </div>
             </div>
             <div className="row">
-              <div className="col align-self-center d-none d-sm-block">
-              <div className="d-flex" style={{ color: '#303F9F' }}>
+              <div className="col align-self-center d-none d-sm-block text-center">
+              <div className="d-flex justify-content-center" style={{ color: '#303F9F' }}>
                   <div className="f_Poppins " style={{ color: '#00796B' , cursor: 'pointer' , marginRight: '1rem' , whiteSpace: 'nowrap'}}>Browse & Shop</div>
                   <Link className="f_Poppins" style={{ color: '#00796B' , marginRight: '1rem' ,textDecoration: 'none' , whiteSpace: 'nowrap'}}>Offers</Link>
                   <Link className="f_Poppins" style={{ color: '#00796B' , textDecoration: 'none' , whiteSpace: 'nowrap'}}>Book Slot</Link>
