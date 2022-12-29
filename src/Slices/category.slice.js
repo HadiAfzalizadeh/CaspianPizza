@@ -18,7 +18,7 @@ export const getProductByCategory = createAsyncThunk(
 
     orientation = orientation === null ? "portrait" : orientation;
 
-  const initialState = { currentCategotyId: -1, currentCategotyPage: 3 , categotyHasMore: false , categotyItems: [1,2] , itemOrientation: orientation};
+  const initialState = { currentCategotyId: -1, currentCategotyPage: 3 , categotyHasMore: true , categotyItems: [] , itemOrientation: orientation};
 
   const categorySlice = createSlice({
     name: "category",

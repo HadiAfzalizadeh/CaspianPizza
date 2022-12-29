@@ -6,6 +6,7 @@ import { isMobile } from 'react-device-detect';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getProductByCategory } from "../../Slices/category.slice";
+import { useSelector , useDispatch } from "react-redux";
 
 function ItemImage(props){
   return(
@@ -81,14 +82,17 @@ function LandscapeCard(props){
 
 
 
-function InfiniteScrollComponent(props){
-
+function InfiniteScrollComponent(){
+  const dispatch = useDispatch();
+  const { categotyItems ,  categotyHasMore , itemOrientation } = useSelector((state) => state.category);
+  const isPortrate = true;
+  // dispatch(getProductByCategory({page:1,pageSize:8,categotyId:9}));
   return(
     <InfiniteScroll
       style={{ marginBottom: '20px' }}
-      dataLength={props.items.length}
-      next={props.fetchMoreCategoryData}
-      hasMore={props.hasMore}
+      dataLength={categotyItems.length}
+      next={dispatch(getProductByCategory({page:1,pageSize:8,categotyId:9}))}
+      hasMore={categotyHasMore}
       loader={
           <div className="centerTextalign parentLoader">
           <FontAwesomeIcon icon={faSpinner} className="spinner loaderIconSize"/>
@@ -96,7 +100,7 @@ function InfiniteScrollComponent(props){
       }
       >
         <div className="container justify-content-center" style={{ boxShadow: '0 0px 21px -4px #ddd' }}>
-                <Link to="/ProductDetail" style={{ textDecoration: 'none' , color: 'black'}}>{(isMobile || props.isPortrate) ? <LandscapeCard items={props.items}/> : <PortraitCard items={props.items}/>} 
+                <Link to="/ProductDetail" style={{ textDecoration: 'none' , color: 'black'}}>{(isMobile || isPortrate) ? <LandscapeCard items={categotyItems}/> : <PortraitCard items={categotyItems}/>} 
                 </Link>
         </div>
       </InfiniteScroll>
@@ -135,11 +139,7 @@ export class CategoryPagination extends Component {
 
 
 
-      <InfiniteScrollComponent 
-        items = {this.props.items} 
-        fetchMoreCategoryData  = {this.props.fetchMoreCategoryData}
-        hasMore = {this.props.hasMore}
-        isPortrate = {this.props.isPortrate}/>
+      <InfiniteScrollComponent />
 
       </>
             
