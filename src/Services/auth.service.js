@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const API_URL = "https://api.caspianpizza.ir/api/Authenticate";
+const Login_URL = "https://api.caspianpizza.ir/api/Authenticate";
 
 const login = (email, password) => {
     return axios
-      .post(API_URL , {
+      .post(Login_URL , {
         email,
-        password,
+        password
       })
       .then((response) => {
          if(response.data.data !== null){
@@ -18,13 +18,14 @@ const login = (email, password) => {
       })
   };
 
+
   const logout = () => {
     localStorage.removeItem("user");
   };
 
   const AuthService = {
     login,
-    logout,
+    logout
   };
   
   export default AuthService;

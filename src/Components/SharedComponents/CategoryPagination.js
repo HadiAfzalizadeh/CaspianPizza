@@ -86,7 +86,9 @@ function InfiniteScrollComponent(){
   const dispatch = useDispatch();
   const { categotyItems ,  categotyHasMore , itemOrientation } = useSelector((state) => state.category);
   const isPortrate = true;
-  // dispatch(getProductByCategory({page:1,pageSize:8,categotyId:9}));
+  if(categotyItems.length === 0){
+    return null;
+  }
   return(
     <InfiniteScroll
       style={{ marginBottom: '20px' }}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { HomePage } from "../SharedComponents/HomePage";
 import { CategoryPage } from "./CategoryPage";
-import { Header } from "./Header";
+import  { Header } from "./Header";
 import axios from "axios";
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
 import { ProductDetail } from "../DesktopComponents/ProductDetail"
@@ -90,7 +90,7 @@ class DesktopApp extends Component {
             <Routes>
                 <Route path="/">
                   <Route index element={<HomePage />}></Route>
-                  <Route path="CategoryMenu" element={
+                  <Route path="CategoryPage" element={
                   <CategoryPage
                     currentCategotyId={this.state.currentCategotyId} 
                     currentCategotyPage = {this.state.currentCategotyPage} 

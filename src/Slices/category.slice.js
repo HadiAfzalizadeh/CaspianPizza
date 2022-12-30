@@ -36,7 +36,6 @@ export const getProductByCategory = createAsyncThunk(
         state.currentCategotyPage = state.currentCategotyPage + 1;
         state.categotyHasMore = action.meta.totalRows === state.categotyItems.length ? false : true;
         state.categotyItems = state.categotyItems.concat(action.payload.data.data);
-        alert(state.categotyItems.length);
       }
     },
   });

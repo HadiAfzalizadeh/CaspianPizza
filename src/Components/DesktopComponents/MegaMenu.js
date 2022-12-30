@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-import { Paper } from "@mui/material";
-import { Link } from 'react-router-dom'
+import { useDispatch } from "react-redux";
+import { getProductByCategory } from "../../Slices/category.slice";
+import { Link , useNavigate } from 'react-router-dom'
+import { connect } from "react-redux";
 
-export class MegaMenu extends Component {
+
+
+class MegaMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,6 +49,8 @@ export class MegaMenu extends Component {
   }
 
   itemClicked = (id) => {
+    // let navigate = useNavigate();
+    // const dispatch = useDispatch();
     var selectedItemsTemp = this.state.selectedItems;
     if (
       this.state.items.filter((item) => item.id === id)[0]
@@ -71,6 +77,8 @@ export class MegaMenu extends Component {
     ) {
       this.props.toggleMegaMenu();
       this.props.selectCategoryId(id);
+      // dispatch(getProductByCategory({page:1,pageSize:8,categotyId:9}));
+      this.props.getProductByCategory(1,8,9);
     }
   };
 
@@ -78,106 +86,110 @@ export class MegaMenu extends Component {
     return this.state.items.filter((item) => item.parentProductCategoryId === id).length === 0 ? '/CategoryMenu' : null;
   }
 
+  mustNavigate(id){
+    return (this.state.items.filter((item) => item.parentProductCategoryId === id).length === 0) ? "./CategoryPage" : null;
+  }
+
   render() {
     return (
-      <Paper style={{  position: 'absolute' , zIndex: '10' , }}>
-        <div className="container" style={{ marginBottom: '1rem' }}>
-          <div className="row bottom-border">
-            <nav>
-              <a className="margin-right topBarItem" href="/html/">
-                ENFIELD BRANCH
-              </a>
-              <a className="margin-right topBarItem" href="/html/">
-                OFFERS
-              </a>
-              <a className="margin-right topBarItem" href="/html/">
-                NEW PRODUCTS
-              </a>
-              <a className="margin-right topBarItem" href="/html/">
-                HALAL RANGE
-              </a>
-              <a className="topBarItem" href="/html/">
-                OWN BRANDS
-              </a>
-            </nav>
+      <div className="container position-absolute start-50 translate-middle-x" style={{  zIndex: '10' , border: '1px solid #B2BEB5' , backgroundColor: 'white' , top: 3 , color: '#7c7c7c' }}>
+        <div className="row bottom-border p-3">
+          <div className="d-flex">
+            <p className="me-3 mb-0">ENFIELD BRANCH</p>
+            <p className="me-3 mb-0">OFFERS</p>
+            <p className="me-3 mb-0">NEW PRODUCTS</p>
+            <p className="me-3 mb-0">HALAL RANGE</p>
+            <p className="me-3 mb-0">OWN BRANDS</p>
           </div>
-          <div className="row">
-            <div className="col right-border">
-              <nav>
-                {this.state.items
-                  .filter((item) => item.parentProductCategoryId === null)
-                  .map((item) => (
-                    <Link
-                      to="/CategoryMenu"
-                      key={item.id}
-                      onClick={() => this.itemClicked(item.id)}
-                      className="linkButton item"
-                    >
-                      <p className="parentItemText">{item.name}</p>
-                    </Link>
-                  ))}
-              </nav>
             </div>
-            <div className="col right-border">
-              <nav>
-                {this.state.items
-                  .filter(
-                    (item) =>
-                      item.parentProductCategoryId ===
-                      this.state.selectedItems[0]
-                  )
-                  .map((item) => (
-                    <button
-                      key={item.id}
-                      onClick={() => this.itemClicked(item.id)}
-                      className="linkButton item"
-                    >
-                      <p className="parentItemText">{item.name}</p>
-                    </button>
-                  ))}
-              </nav>
+            <div className="row">
+              <div className="col right-border p-3">
+                <nav>
+                  {this.state.items
+                    .filter((item) => item.parentProductCategoryId === null)
+                    .map((item) => (
+                      <Link
+                      to={this.mustNavigate(item.id)}
+                        key={item.id}
+                        onClick={() => this.itemClicked(item.id)}
+                        className="linkButton item"
+                      >
+                        <p className="parentItemText">{item.name}</p>
+                      </Link>
+                    ))}
+                </nav>
+              </div>
+              <div className="col right-border p-3">
+                <nav>
+                  {this.state.items
+                    .filter(
+                      (item) =>
+                        item.parentProductCategoryId ===
+                        this.state.selectedItems[0]
+                    )
+                    .map((item) => (
+                      <Link
+                      to={this.mustNavigate(item.id)}
+                        key={item.id}
+                        onClick={() => this.itemClicked(item.id)}
+                        className="linkButton item"
+                      >
+                        <p className="parentItemText">{item.name}</p>
+                      </Link>
+                    ))}
+                </nav>
+              </div>
+              <div className="col right-border p-3">
+                <nav>
+                  {this.state.items
+                    .filter(
+                      (item) =>
+                        item.parentProductCategoryId ===
+                        this.state.selectedItems[1]
+                    )
+                    .map((item) => (
+                      <Link
+                      to={this.mustNavigate(item.id)}
+                        key={item.id}
+                        onClick={() => this.itemClicked(item.id)}
+                        className="linkButton item"
+                      >
+                        <p className="parentItemText">{item.name}</p>
+                      </Link>
+                    ))}
+                </nav>
+              </div>
+              <div className="col p-3">
+                <nav>
+                  {this.state.items
+                    .filter(
+                      (item) =>
+                        item.parentProductCategoryId ===
+                        this.state.selectedItems[2]
+                    )
+                    .map((item) => (
+                      <Link
+                      to={this.mustNavigate(item.id)}
+                        key={item.id}
+                        onClick={() => this.itemClicked(item.id)}
+                        className="linkButton item"
+                      >
+                        <p className="parentItemText">{item.name}</p>
+                      </Link>
+                    ))}
+                </nav>
+              </div>
             </div>
-            <div className="col right-border">
-              <nav>
-                {this.state.items
-                  .filter(
-                    (item) =>
-                      item.parentProductCategoryId ===
-                      this.state.selectedItems[1]
-                  )
-                  .map((item) => (
-                    <button
-                      key={item.id}
-                      onClick={() => this.itemClicked(item.id)}
-                      className="linkButton item"
-                    >
-                      <p className="parentItemText">{item.name}</p>
-                    </button>
-                  ))}
-              </nav>
-            </div>
-            <div className="col">
-              <nav>
-                {this.state.items
-                  .filter(
-                    (item) =>
-                      item.parentProductCategoryId ===
-                      this.state.selectedItems[2]
-                  )
-                  .map((item) => (
-                    <button
-                      key={item.id}
-                      onClick={() => this.itemClicked(item.id)}
-                      className="linkButton item"
-                    >
-                      <p className="parentItemText">{item.name}</p>
-                    </button>
-                  ))}
-              </nav>
-            </div>
-          </div>
         </div>
-        </Paper>
     );
   }
 }
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getProductByCategory: (page,pageSize,categotyId) => dispatch(getProductByCategory({ page:page, pageSize:pageSize , categotyId:categotyId , type: 'Get_Product_By_Category'}))
+  }
+}
+
+export default connect(null,mapDispatchToProps)(MegaMenu)

@@ -33,9 +33,6 @@ useEffect(() => {
 			email: Yup.string().email('Invalid email address').required('Required'),
 			pass: Yup.string().min(3, 'Atleast 3 chracters').required('Required')
 		}),
-        onchange: () => {
-            alert('hello')
-        },
 		onSubmit: formValue => {
         setLoading(true);
         dispatch(clearMessage());
@@ -83,14 +80,20 @@ useEffect(() => {
                             <div style={{ color: '#fa837a' }}>{signInFormik.errors.pass}</div>
                         ) : null}
                     </div>
-                    <div className="group">
-                        <input type="submit" className="button" value="Sign In"></input>
-                    </div>
                     {message && (
                         <div className="form-group">
-                        <div className="text-center" style={{ color: '#fa837a' , width: '100%'}}>{message}</div>
+                        <div className="text-center mb-3" style={{ color: '#fa837a' , width: '100%'}}>{message}</div>
                         </div>
                     )}
+                    <div className="group">
+                        <button type="submit" className="button text-center" style={{ padding: '10px 10px' }}>{loading && (
+                            <FontAwesomeIcon style={{ color: 'white' }} icon={faSpinner} className="spinner loaderIconSize"/>
+                        )}
+                        {!loading && (
+                            <p className="mb-0 py-1">Sign In</p>
+                        )}</button>
+                    </div>
+                    
                     <div className="hr"></div>
                     <div className="foot-lnk">
                     <label style={{ color: 'white' }}>Don’t have an account ?
@@ -98,10 +101,6 @@ useEffect(() => {
                         <br></br>
                         <br></br>
                         <a href="#forgot" style={{ color: 'white' , textDecoration: 'none' }}>Forgot Password?</a>
-                        <br></br>
-                        {loading && (
-                            <FontAwesomeIcon style={{  marginTop: '2rem' , color: 'white' }} icon={faSpinner} className="spinner loaderIconSize"/>
-                        )}
                     </div>
                 </form>
             </div>
