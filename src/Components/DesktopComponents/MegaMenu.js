@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { getProductByCategory } from "../../Slices/category.slice";
 import { Link , useNavigate } from 'react-router-dom'
 import { connect } from "react-redux";
+import { setCategotyId } from "../../Slices/category.slice";
 
 
 
@@ -76,9 +77,9 @@ class MegaMenu extends Component {
         .length === 0
     ) {
       this.props.toggleMegaMenu();
-      this.props.selectCategoryId(id);
+      this.props.setCategotyId(id);
+      // this.props.selectCategoryId(id);
       // dispatch(getProductByCategory({page:1,pageSize:8,categotyId:9}));
-      this.props.getProductByCategory(1,8,9);
     }
   };
 
@@ -188,7 +189,7 @@ class MegaMenu extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getProductByCategory: (page,pageSize,categotyId) => dispatch(getProductByCategory({ page:page, pageSize:pageSize , categotyId:categotyId , type: 'Get_Product_By_Category'}))
+    setCategotyId: (categotyId) => dispatch(setCategotyId(categotyId))
   }
 }
 

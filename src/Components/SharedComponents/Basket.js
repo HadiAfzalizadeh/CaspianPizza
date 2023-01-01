@@ -91,12 +91,18 @@ export class Basket extends Component {
                             </div>
                         </div>
                         <div className="d-flex w-50 text-center justify-content-between align-items-center">
-                            <div style={{ fontSize: '15px' }}>
+                            <div className="d-none d-sm-block" style={{ fontSize: '15px' }}>
                                 <p style={{ marginBottom: 0 }}>£116.91</p>
                                 <p>+ £5.85 VAT</p>
                             </div>
                             <div>
-                            <BasketQuantity />
+                                <div>
+                                <div className="d-none d-xs-block" style={{ fontSize: '15px' }}>
+                                <p style={{ marginBottom: 0 }}>£116.91</p>
+                                <p>+ £5.85 VAT</p>
+                            </div>
+                                <BasketQuantity />
+                                </div>
                             </div>
                             <div className="d-flex align-items-center ms-2">
                             <p style={{ marginRight: '0.5rem' , marginBottom: 0 }} className="d-none d-lg-block">Remove</p>

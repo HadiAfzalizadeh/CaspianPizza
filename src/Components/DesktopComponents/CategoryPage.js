@@ -1,5 +1,5 @@
 import { Component } from "react"
-import { CategoryPagination } from "../SharedComponents/CategoryPagination"
+import  CategoryPagination  from "../SharedComponents/CategoryPagination"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faList , faGrip ,faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons"
 import { FormControl } from "@mui/material"

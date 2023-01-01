@@ -10,20 +10,8 @@ const getAllProductCategories = () => {
     .catch(error => {});
 }
 
-const getProductByCategory = (page,pageSize,categotyId) => {
-    return axios
-    .get(
-      "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + page + "&PageSize=" + pageSize +"&ProductCategoryId=" +
-      categotyId
-    )
-    .then((response) => {
-        return response.data;
-    })
-}
-
 const CategoryService = {
-    getAllProductCategories,
-    getProductByCategory,
+    getAllProductCategories
   };
   
   export default CategoryService;

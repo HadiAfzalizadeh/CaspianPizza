@@ -5,7 +5,7 @@ import axios from 'axios'
 import { HomePage } from '../SharedComponents/HomePage'
 import { DrawerLayout } from './DrawerLayout'
 import { Header } from './Header'
-import { CategoryPagination } from '../SharedComponents/CategoryPagination' 
+import CategoryPagination from '../SharedComponents/CategoryPagination' 
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
 
 export class MobileApp extends Component {

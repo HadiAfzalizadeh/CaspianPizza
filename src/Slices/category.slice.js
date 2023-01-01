@@ -1,20 +1,6 @@
-import { faBedPulse } from "@fortawesome/free-solid-svg-icons";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import CategoryService from "../Services/category.service";
+import { createSlice } from "@reduxjs/toolkit";
 
 var orientation = JSON.parse(localStorage.getItem("orientation"));
-
-export const getProductByCategory = createAsyncThunk(
-    "category/getProductByCategory",
-    async ({page,pageSize,categotyId,type}, thunkAPI) => {
-      try {
-        const data = await CategoryService.getProductByCategory(page,pageSize,categotyId);
-        return { data: data };
-      } catch (error) {
-        return thunkAPI.rejectWithValue();
-      }
-    }
-  );
 
     orientation = orientation === null ? "portrait" : orientation;
 
@@ -30,14 +16,7 @@ export const getProductByCategory = createAsyncThunk(
         setOrientation: (state, action) => {
             return { itemOrientation: action.payload };
         }
-    },
-    extraReducers: {
-      [getProductByCategory.fulfilled]: (state, action) => {
-        state.currentCategotyPage = state.currentCategotyPage + 1;
-        state.categotyHasMore = action.meta.totalRows === state.categotyItems.length ? false : true;
-        state.categotyItems = state.categotyItems.concat(action.payload.data.data);
-      }
-    },
+    }
   });
 
 const { reducer, actions } = categorySlice;

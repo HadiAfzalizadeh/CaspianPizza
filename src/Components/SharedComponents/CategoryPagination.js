@@ -5,7 +5,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { isMobile } from 'react-device-detect';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getProductByCategory } from "../../Slices/category.slice";
+import axios from "axios";
 import { useSelector , useDispatch } from "react-redux";
 
 function ItemImage(props){
@@ -81,38 +81,73 @@ function LandscapeCard(props){
 }
 
 
-
-function InfiniteScrollComponent(){
-  const dispatch = useDispatch();
-  const { categotyItems ,  categotyHasMore , itemOrientation } = useSelector((state) => state.category);
-  const isPortrate = true;
-  if(categotyItems.length === 0){
-    return null;
-  }
-  return(
-    <InfiniteScroll
-      style={{ marginBottom: '20px' }}
-      dataLength={categotyItems.length}
-      next={dispatch(getProductByCategory({page:1,pageSize:8,categotyId:9}))}
-      hasMore={categotyHasMore}
-      loader={
-          <div className="centerTextalign parentLoader">
-          <FontAwesomeIcon icon={faSpinner} className="spinner loaderIconSize"/>
-          </div>
-      }
-      >
-        <div className="container justify-content-center" style={{ boxShadow: '0 0px 21px -4px #ddd' }}>
-                <Link to="/ProductDetail" style={{ textDecoration: 'none' , color: 'black'}}>{(isMobile || isPortrate) ? <LandscapeCard items={categotyItems}/> : <PortraitCard items={categotyItems}/>} 
-                </Link>
-        </div>
-      </InfiniteScroll>
-    )
+class CategoryPagination extends Component {
 
   
-}
+  state = {
+    currentCategotyId: -1,
+    page: 1,
+    hasMore: true,
+    items: []
+  };
+
+  nextCategoryRequest = (pageSize) => {
+    if(this.state.items.length  >  7){
+      alert('fdf');
+      axios
+    .get(
+      "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + this.state.page + "&PageSize=" + pageSize + "&ProductCategoryId=" +
+      this.props.currentCategotyId
+    )
+    .then((response) => {
+      this.setState({
+        items: this.state.items.concat(response.data.data)
+      });
+      if(response.data.meta.totalRows === this.state.items.length){
+          this.setState({
+            hasMore: false
+          });
+      }
+    })
+    .catch((error) => {});
+    }
+   
+  }
+
+  categoryRequest = (pageSize) => {
+    axios
+    .get(
+      "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + this.state.page + "&PageSize=" + pageSize + "&ProductCategoryId=" +
+      this.props.currentCategotyId
+    )
+    .then((response) => {
+      this.setState({
+        items: response.data.data
+      });
+      if(response.data.meta.totalRows === this.state.items.length){
+          this.setState({
+            hasMore: false
+          });
+      }
+    })
+    .catch((error) => {});
+  }
+
+  componentDidMount(){
+    this.categoryRequest(8);
+  }
 
 
-export class CategoryPagination extends Component {
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(prevProps.currentCategotyId !== this.props.currentCategotyId){
+      this.setState({
+        page: 1
+      });
+      this.categoryRequest(8);
+    }
+    
+  }
 
   render() {
     return (
@@ -122,7 +157,7 @@ export class CategoryPagination extends Component {
           <h5 className="mb-0">Bagels</h5>
         </div> 
         </div>
-      {/* <InfiniteScroll
+      <InfiniteScroll
             style={{ marginBottom: '20px' }}
             dataLength={this.props.items.length}
             next={this.props.fetchMoreCategoryData}
@@ -137,11 +172,25 @@ export class CategoryPagination extends Component {
                       <Link to="/ProductDetail" style={{ textDecoration: 'none' , color: 'black'}}>{(isMobile || this.props.isPortrate) ? <LandscapeCard items={this.props.items}/> : <PortraitCard items={this.props.items}/>} 
                       </Link>
               </div>
+            </InfiniteScroll>
+
+            {/* <InfiniteScroll
+            style={{ marginBottom: '20px' }}
+            dataLength={this.state.items.length}
+            next={this.nextCategoryRequest(4)}
+            hasMore={this.state.hasMore}
+            loader={
+                <div className="centerTextalign parentLoader">
+                <FontAwesomeIcon icon={faSpinner} className="spinner loaderIconSize"/>
+                </div>
+            }
+            >
+              <div className="container justify-content-center" style={{ boxShadow: '0 0px 21px -4px #ddd' }}>
+                      <Link to="/ProductDetail" style={{ textDecoration: 'none' , color: 'black'}}>{(isMobile || this.props.isPortrate) ? <LandscapeCard items={this.state.items}/> : <PortraitCard items={this.state.items}/>} 
+                      </Link>
+              </div>
             </InfiniteScroll> */}
 
-
-
-      <InfiniteScrollComponent />
 
       </>
             
@@ -150,16 +199,9 @@ export class CategoryPagination extends Component {
 }
 
 
-// const mapStateToProps = (state) => ({
-//    items: state.category.categotyItems,
-//    hasMore: state.category.categotyHasMore,
-//    isPortrate: state.category.itemOrientation === "portrait" ? true : false
-// })
+const mapStateToProps = (state) => ({
+  //  isPortrate: state.category.itemOrientation === "portrait" ? true : false
+  currentCategotyId: state.category.currentCategotyId
+})
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     getProductByCategory: (page,pageSize,categotyId) => dispatch(getProductByCategory({ page:page, pageSize:pageSize , categotyId:categotyId , type: 'Get_Product_By_Category'}))
-//   }
-// }
-
-// export default connect(mapStateToProps,mapDispatchToProps)(CategoryPagination)
+export default connect(mapStateToProps)(CategoryPagination)
