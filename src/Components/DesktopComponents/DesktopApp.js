@@ -6,7 +6,7 @@ import axios from "axios";
 import { BrowserRouter , Routes , Route } from 'react-router-dom'
 import { ProductDetail } from "../DesktopComponents/ProductDetail"
 import { Basket } from "../SharedComponents/Basket";
-import { BookSlot } from "../SharedComponents/BookSlot";
+import BookSlot from "./BookSlot";
 import  SignIn  from "../SharedComponents/SignIn";
 import SignUp  from "../SharedComponents/SignUp";
 import GuardedRoute from "../SharedComponents/GuardedRoute";
@@ -99,6 +99,7 @@ class DesktopApp extends Component {
                     fetchMoreCategoryData = {this.fetchMoreCategoryData}/>}></Route>
                     <Route path="ProductDetail" element={<ProductDetail />}></Route>
                     <Route path="Basket" element={<Basket />}></Route>
+                    <Route path="BookSlot" element={<BookSlot />}></Route>
                     <Route path="Auth">
                       <Route path="SignIn" element={<GuardedRoute  component={SignIn} distance="/" auth={!this.props.isLoggedIn}/>}></Route>
                       <Route path="SignUp" element={<GuardedRoute  component={SignUp} distance="/" auth={!this.props.isLoggedIn}/>}></Route>
