@@ -81,10 +81,14 @@ export class Basket extends Component {
                     </div>
                     <Link variant="text" style={{ display: 'block' , textDecoration: 'underline' }}>CHANGE SLOT</Link>
                 </div>
-                <div className="d-flex align-items-center p-3 bg-white mt-2">
+                <div className="d-flex justify-content-between align-items-center p-3 bg-white mt-2">
+                    <div className="d-flex ">
                     <Link to="../BookSlot" className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded text-nowrap" style={{ border: '1px solid #00796B' , color: '#00796B' }}>Book Your Slot</Link>
                     <p style={{ marginBottom: 0 , marginLeft: '0.5rem' }}>You have not yet booked a slot for delivery or collection.
                     Prices and availability can only be confirmed when you do.</p>
+                    <p style={{ marginBottom: 0 , marginLeft: '0.5rem' }}>Your COLLECTION slot for Monday 2nd January has now expired. Please book a new slot.</p>
+                    </div>
+                    <Link to="../BookSlot" className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded text-nowrap ml-auto" style={{ border: '1px solid #FF5722' , color: '#FF5722' }}>Book a new slot</Link>
                     </div>
                 <div className="d-flex justify-content-between align-items-center p-3 bg-white mt-2">
                 <div>

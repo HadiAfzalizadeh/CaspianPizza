@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Provider } from "react-redux";
 import store from "./store";
+import "react-datepicker/dist/react-datepicker.css";
 
 <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet" />
 
