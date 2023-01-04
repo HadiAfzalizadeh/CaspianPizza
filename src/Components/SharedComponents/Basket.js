@@ -22,48 +22,58 @@ const customStyles = {
 export class Basket extends Component {
 
     state={
-        modalIsOpen: false,
-
+        deletebasketmodalIsOpen: false,
+        vouchermodalIsOpen: false
     }
 
-    openModal = () => {
+    openDeleteBasketModal = () => {
         this.setState({
-            modalIsOpen: true
+            deletebasketmodalIsOpen: true
           });
 
     }
-
-    subtitle;
-
-
-    afterOpenModal() {
-        this.subtitle.style.color = '#f00';
-    }
     
-      closeModal = () => {
+      closeDeleteBasketModal = () => {
         this.setState({
-            modalIsOpen: false
+            deletebasketmodalIsOpen: false
         })
       }
+
+      openVoucherBasketModal = () => {
+        this.setState({
+            vouchermodalIsOpen: true
+        })
+        }
+
+        closeVoucherBasketModal = () => {
+            this.setState({
+                vouchermodalIsOpen: false
+              });
+        }
 
     render(){
         return(
             <>
-
- 
-
-<button onClick={this.openModal}>Open Modal</button>
-
       <Modal
-        isOpen={this.state.modalIsOpen}
-        onAfterOpen={this.afterOpenModal}
-        onRequestClose={this.closeModal}
+        isOpen={this.state.deletebasketmodalIsOpen}
         style={customStyles}
         ariaHideApp={false}
-        contentLabel="Example Modal"
+        className="Modal"
+        overlayClassName="Overlay"
       >
-        <h2 ref={(_subtitle) => (this.subtitle = _subtitle)}>Hello</h2>
-        <button onClick={this.closeModal}>close</button>
+        <h2 ref={(_subtitle) => (this.subtitle = _subtitle)}>Delete Basket</h2>
+        <button onClick={this.closeDeleteBasketModal}>close</button>
+        <div>I am a modal</div>
+      </Modal>
+      <Modal
+        isOpen={this.state.vouchermodalIsOpen}
+        style={customStyles}
+        ariaHideApp={false}
+        className="Modal"
+        overlayClassName="Overlay"
+      >
+        <h2 ref={(_subtitle) => (this.subtitle = _subtitle)}>Add voucher</h2>
+        <button onClick={this.closeVoucherBasketModal}>close</button>
         <div>I am a modal</div>
       </Modal>
 
@@ -82,13 +92,13 @@ export class Basket extends Component {
                     <Link variant="text" style={{ display: 'block' , textDecoration: 'underline' }}>CHANGE SLOT</Link>
                 </div>
                 <div className="d-flex justify-content-between align-items-center p-3 bg-white mt-2">
-                    <div className="d-flex ">
-                    <Link to="../BookSlot" className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded text-nowrap" style={{ border: '1px solid #00796B' , color: '#00796B' }}>Book Your Slot</Link>
+                    <div className="d-flex align-items-center">
+                    <div><Link to="../BookSlot" className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded text-nowrap" style={{ border: '1px solid #00796B' , color: '#00796B' }}>Book Your Slot</Link></div>
                     <p style={{ marginBottom: 0 , marginLeft: '0.5rem' }}>You have not yet booked a slot for delivery or collection.
                     Prices and availability can only be confirmed when you do.</p>
                     <p style={{ marginBottom: 0 , marginLeft: '0.5rem' }}>Your COLLECTION slot for Monday 2nd January has now expired. Please book a new slot.</p>
                     </div>
-                    <Link to="../BookSlot" className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded text-nowrap ml-auto" style={{ border: '1px solid #FF5722' , color: '#FF5722' }}>Book a new slot</Link>
+                    <Link to="../BookSlot" className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded text-nowrap" style={{ border: '1px solid #FF5722' , color: '#FF5722' }}>Book a new slot</Link>
                     </div>
                 <div className="d-flex justify-content-between align-items-center p-3 bg-white mt-2">
                 <div>
@@ -111,8 +121,8 @@ export class Basket extends Component {
                     </p>
                 </div>
                 <div>
-                    <Link variant="text" style={{ display: 'block' , color: '#F44336', textDecoration: 'underline'  }}>DELETE BASKET</Link>
-                    <Link variant="text" style={{ display: 'block', textDecoration: 'underline'  }}>ADD VOUCHER</Link>
+                    <div onClick={this.openDeleteBasketModal} variant="text" style={{ cursor: 'pointer' , display: 'block' , color: '#F44336', textDecoration: 'underline'  }}>DELETE BASKET</div>
+                    <div onClick={this.openVoucherBasketModal} variant="text" style={{cursor: 'pointer' , display: 'block', textDecoration: 'underline'  }}>ADD VOUCHER</div>
                 </div>
                 </div>
                 <div className="p-3 bg-white mt-2">

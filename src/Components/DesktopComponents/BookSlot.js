@@ -93,8 +93,8 @@ Please arrive within your allocated time slot. If you arrive early, you may be a
                         <div className="col">
                             <p>YOUR INFO</p>
                                 <input type="text" className="form-control f_Poppins" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Delivery Phone Number (required)"></input>
-                                <input type="text" className="form-control f_Poppins mt-2" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Driver instructions (optional)"></input>
-                                <input type="text" className="form-control f_Poppins mt-2" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Your reference (optional)"></input>
+                                {values.bookSlotOptions === '1' && ( <> <input type="text" className="form-control f_Poppins mt-2" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Driver instructions (optional)"></input>
+                                <input type="text" className="form-control f_Poppins mt-2" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Your reference (optional)"></input></>)}
                             </div>
                         </div>
                     </div>
@@ -116,10 +116,11 @@ Please arrive within your allocated time slot. If you arrive early, you may be a
                     <Field class="form-check-input" type="radio" name="bookSlotOptions" id="noSlotRadio2" value="2"></Field>
                     <label class="form-check-label" for="noSlotRadio2">COLLECTION</label>
                     </div>
-        </div>)}
-        </div>
-            </Form>
+            </div>)}
+            </div>
+        </Form>
        )}
+       
             </Formik>
             
         </div>

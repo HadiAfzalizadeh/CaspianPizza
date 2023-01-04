@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { useDispatch } from "react-redux";
-import { getProductByCategory } from "../../Slices/category.slice";
-import { Link , useNavigate } from 'react-router-dom'
+import { Link  } from 'react-router-dom'
 import { connect } from "react-redux";
 import { setCategotyId } from "../../Slices/category.slice";
 

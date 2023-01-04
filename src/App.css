@@ -83,6 +83,27 @@ p {
 .nonedecoration{
   text-decoration: none;
 }
+
+.Modal {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  background-color: white;
+  padding: 10px;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000000;
+  background-color: #00000080;
+}
+
 /*-----------------------------------Sign In / Sign Up----------------------------------------*/
 
 

@@ -88,29 +88,12 @@ class CategoryPagination extends Component {
     currentCategotyId: -1,
     page: 1,
     hasMore: true,
-    items: []
+    items: [],
+    shouldRequest: true
   };
 
   nextCategoryRequest = (pageSize) => {
-    if(this.state.items.length  >  7){
-      alert('fdf');
-      axios
-    .get(
-      "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + this.state.page + "&PageSize=" + pageSize + "&ProductCategoryId=" +
-      this.props.currentCategotyId
-    )
-    .then((response) => {
-      this.setState({
-        items: this.state.items.concat(response.data.data)
-      });
-      if(response.data.meta.totalRows === this.state.items.length){
-          this.setState({
-            hasMore: false
-          });
-      }
-    })
-    .catch((error) => {});
-    }
+     
    
   }
 
@@ -157,7 +140,7 @@ class CategoryPagination extends Component {
           <h5 className="mb-0">Bagels</h5>
         </div> 
         </div>
-      <InfiniteScroll
+      {/* <InfiniteScroll
             style={{ marginBottom: '20px' }}
             dataLength={this.props.items.length}
             next={this.props.fetchMoreCategoryData}
@@ -172,12 +155,26 @@ class CategoryPagination extends Component {
                       <Link to="/ProductDetail" style={{ textDecoration: 'none' , color: 'black'}}>{(isMobile || this.props.isPortrate) ? <LandscapeCard items={this.props.items}/> : <PortraitCard items={this.props.items}/>} 
                       </Link>
               </div>
-            </InfiniteScroll>
+            </InfiniteScroll> */}
 
-            {/* <InfiniteScroll
+            <InfiniteScroll
             style={{ marginBottom: '20px' }}
             dataLength={this.state.items.length}
-            next={this.nextCategoryRequest(4)}
+            next={
+                this.state.shouldRequest && axios.get(
+                  "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + this.state.page + "&PageSize=" + 4 + "&ProductCategoryId=" +
+                  this.props.currentCategotyId).then((response) => {
+                  this.setState({
+                    items: this.state.items.concat(response.data.data),
+                    page: this.state.page + 1
+                  });
+                  if(response.data.meta.totalRows === this.state.items.length){
+                      this.setState({
+                        hasMore: false
+                      });
+                  }
+                }).catch((error) => {})  
+            }
             hasMore={this.state.hasMore}
             loader={
                 <div className="centerTextalign parentLoader">
@@ -189,7 +186,7 @@ class CategoryPagination extends Component {
                       <Link to="/ProductDetail" style={{ textDecoration: 'none' , color: 'black'}}>{(isMobile || this.props.isPortrate) ? <LandscapeCard items={this.state.items}/> : <PortraitCard items={this.state.items}/>} 
                       </Link>
               </div>
-            </InfiniteScroll> */}
+            </InfiniteScroll>
 
 
       </>
