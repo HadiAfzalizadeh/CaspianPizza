@@ -1,9 +1,6 @@
 import { Component } from "react"
-import { Button , Box , FormControl , RadioGroup , FormControlLabel , Radio ,FormLabel} from "@mui/material";
-import { Paper } from "@material-ui/core";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPlus , faMinus} from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom'
 import BasketQuantity from "./BasketQuantity";
 import Modal from 'react-modal';

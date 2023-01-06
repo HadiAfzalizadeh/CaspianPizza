@@ -91,12 +91,7 @@ class DesktopApp extends Component {
                 <Route path="/">
                   <Route index element={<HomePage />}></Route>
                   <Route path="CategoryPage" element={
-                  <CategoryPage
-                    currentCategotyId={this.state.currentCategotyId} 
-                    currentCategotyPage = {this.state.currentCategotyPage} 
-                    categotyHasMore = {this.state.categotyHasMore} 
-                    categotyItems = { this.state.categotyItems} 
-                    fetchMoreCategoryData = {this.fetchMoreCategoryData}/>}></Route>
+                  <CategoryPage />}></Route>
                     <Route path="ProductDetail" element={<ProductDetail />}></Route>
                     <Route path="Basket" element={<Basket />}></Route>
                     <Route path="BookSlot" element={<BookSlot />}></Route>

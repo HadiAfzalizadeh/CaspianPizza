@@ -80,7 +80,7 @@ export class Header extends Component {
               <Link to="/">
                       <img
                       className="m-2"
-                        style={{ width:'100px' , height: 'auto' }}
+                        style={{ width:'80px' , height: 'auto' }}
                         src="/logo.png"
                         alt="logo"></img>
                     </Link>

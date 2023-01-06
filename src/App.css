@@ -104,6 +104,31 @@ p {
   background-color: #00000080;
 }
 
+.headersbgimage{
+  background-image: url(/public/assets/images/titlebakg.jpg);
+  background-size:cover
+}
+
+.headersbgcolor{
+  background-color: #0288D1BF;
+}
+
+.cursorpointer{
+  cursor: pointer;
+}
+
+.mydarkcyan{
+  color: #00796B;
+}
+
+.mytextsecondry{
+  color:#7c7c7c;
+}
+
+.mybrown{
+  color: #795548;
+}
+
 /*-----------------------------------Sign In / Sign Up----------------------------------------*/
 
 

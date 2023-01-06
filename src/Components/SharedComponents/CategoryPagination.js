@@ -2,22 +2,19 @@ import { Component } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { isMobile } from 'react-device-detect';
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
-import { useSelector , useDispatch } from "react-redux";
+import { Link } from 'react-router-dom'
 
 function ItemImage(props){
   return(
     <div style={{ position: 'relative' }}>
       <img
-      style={{ width: '100%' , height: 'auto' }}
+      style={{ width: '100%' }}
         src={props.item.productImages.length === 0 ? "/assets/images/catPicTemp.jpg" : "data:image/png;base64, " + props.item.productImages[0].imageBody}  
         alt={props.item.name}
-      ></img>
-      <Link className="paginationAddToCartLink btn py-2 px-4 mt-3" style={{ position: 'absolute' , right: 0, left: 0, zIndex:2000 , bottom: 0, marginLeft: 'auto' , marginRight: 'auto', textDecoration: 'none' , color: '#fff' , borderColor: '#fff' , display: 'none' }}>Add To Cart</Link>
-    </div>
+      ></img>    
+      </div>
   );
 }
 
@@ -49,58 +46,22 @@ function ItemDescription(props){
     </div></div>);
 }
 
-function PortraitCard(props){
-  return(
-    <div className="row">
-    {props.items.map((item) => (
-      <div className="col-3 hoverableCard" key={item.id} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'  }}>
-                <div className="row text-center pt-3">
-                  <ItemImage item={item}/>
-                </div>
-                <div className="row">
-                  <ItemDescription item={item}/>
-                </div>
-      </div>
-      ))}
-    </div>
-
-  );
-}
-
-function LandscapeCard(props){
-  return(props.items.map((item) => (
-    <div key={item.id} className="row hoverableCard" style={{ background: '#fff' , border: '0.5px solid #e0e0e0'}}>
-      <div className="col-auto" style={ isMobile ? { width: '10rem' } : { width: '15rem' }}>
-        <ItemImage   item={item}/>
-      </div>
-      <div className="col">
-      <ItemDescription item={item}/>
-      </div>
-    </div>
-  )));
-}
-
 
 class CategoryPagination extends Component {
 
   
   state = {
     currentCategotyId: -1,
-    page: 1,
+    page: 3,
     hasMore: true,
     items: [],
     shouldRequest: true
   };
 
-  nextCategoryRequest = (pageSize) => {
-     
-   
-  }
-
-  categoryRequest = (pageSize) => {
+  componentDidMount(){
     axios
     .get(
-      "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + this.state.page + "&PageSize=" + pageSize + "&ProductCategoryId=" +
+      "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + 1 + "&PageSize=" + 8 + "&ProductCategoryId=" +
       this.props.currentCategotyId
     )
     .then((response) => {
@@ -116,51 +77,13 @@ class CategoryPagination extends Component {
     .catch((error) => {});
   }
 
-  componentDidMount(){
-    this.categoryRequest(8);
-  }
-
-
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if(prevProps.currentCategotyId !== this.props.currentCategotyId){
-      this.setState({
-        page: 1
-      });
-      this.categoryRequest(8);
-    }
-    
-  }
-
   render() {
     return (
       <>
-      <div className="container f_Poppins my-1" style={{ height: '3rem' }}>
-        <div className="row align-items-center text-center" style={{ color: 'white' , backgroundColor: '#795548' , height: '100%' }}>
-          <h5 className="mb-0">Bagels</h5>
-        </div> 
-        </div>
-      {/* <InfiniteScroll
-            style={{ marginBottom: '20px' }}
-            dataLength={this.props.items.length}
-            next={this.props.fetchMoreCategoryData}
-            hasMore={this.props.hasMore}
-            loader={
-                <div className="centerTextalign parentLoader">
-                <FontAwesomeIcon icon={faSpinner} className="spinner loaderIconSize"/>
-                </div>
-            }
-            >
-              <div className="container justify-content-center" style={{ boxShadow: '0 0px 21px -4px #ddd' }}>
-                      <Link to="/ProductDetail" style={{ textDecoration: 'none' , color: 'black'}}>{(isMobile || this.props.isPortrate) ? <LandscapeCard items={this.props.items}/> : <PortraitCard items={this.props.items}/>} 
-                      </Link>
-              </div>
-            </InfiniteScroll> */}
-
             <InfiniteScroll
-            style={{ marginBottom: '20px' }}
+            className="pb-5"
             dataLength={this.state.items.length}
-            next={
+            next={() => {
                 this.state.shouldRequest && axios.get(
                   "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + this.state.page + "&PageSize=" + 4 + "&ProductCategoryId=" +
                   this.props.currentCategotyId).then((response) => {
@@ -174,6 +97,7 @@ class CategoryPagination extends Component {
                       });
                   }
                 }).catch((error) => {})  
+              }
             }
             hasMore={this.state.hasMore}
             loader={
@@ -182,13 +106,50 @@ class CategoryPagination extends Component {
                 </div>
             }
             >
-              <div className="container justify-content-center" style={{ boxShadow: '0 0px 21px -4px #ddd' }}>
-                      <Link to="/ProductDetail" style={{ textDecoration: 'none' , color: 'black'}}>{(isMobile || this.props.isPortrate) ? <LandscapeCard items={this.state.items}/> : <PortraitCard items={this.state.items}/>} 
-                      </Link>
+          <div className="container" style={{ boxShadow: '0 0px 21px -4px #ddd' }}>
+            <div className="row justify-content-center h-100" style={{ borderRight: '1px solid #e0e0e0' , borderBottom: '1px solid #e0e0e0' , borderLeft: '1px solid #e0e0e0'}}  >
+              {this.state.items.map((item) => (
+                <>
+                <div className="col-3 hoverableCard d-none d-xl-block" key={item.id + "col3"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'}}>
+                  <Link to="/ProductDetail" style={{  textDecoration: 'none'  }}>
+                  <div className="row text-center px-2 py-3 cursorpointer">
+                            <ItemImage item={item}/>
+                          </div>
+                          <div className="row cursorpointer text-secondary">
+                            <ItemDescription item={item}/>
+                          </div>
+                          </Link>
+                          
+                </div>
+                <div className="col-4 hoverableCard d-none d-lg-block d-xl-none" key={item.id + "col4"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'  }}>
+                <div className="row text-center pt-3">
+                  <ItemImage item={item}/>
+                </div>
+                <div className="row">
+                  <ItemDescription item={item}/>
+                </div>
+                </div>
+                <div className="col-6 hoverableCard d-none d-md-block d-lg-none" key={item.id + "col6"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'  }}>
+                <div className="row text-center pt-3">
+                  <ItemImage item={item}/>
+                </div>
+                <div className="row">
+                  <ItemDescription item={item}/>
+                </div>
+                </div>
+                <div className="col-12 hoverableCard d-block d-md-none" key={item.id + "col12"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'  }}>
+                <div className="row text-center pt-3">
+                  <ItemImage item={item}/>
+                </div>
+                <div className="row">
+                  <ItemDescription item={item}/>
+                </div>
+                </div>
+                </>
+                ))}
+              </div>
               </div>
             </InfiniteScroll>
-
-
       </>
             
     );
