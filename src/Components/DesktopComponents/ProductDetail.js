@@ -30,12 +30,12 @@ function CategoryDetailHeader() {
   }
 
   function Ingredients(){
-    return(<p>Wheat Flour, Water, Sesame (7,7%), Yeast (Saccharomyces Cerevisiae), Sugar Sherbet, Salt, Baking Additive (Gluten, Wheat Flour, Emulsifiers (E472e, E481), Antioxidant (E300), Acidity Regulator (E330), Enzymes (Fungal Alpha Amylase, Hemicellulase)).</p>);
+    return(<div className="p-5 mybrown"style={{ backgroundColor: '#00BCD433'}}><p>Wheat Flour, Water, Sesame (7,7%), Yeast (Saccharomyces Cerevisiae), Sugar Sherbet, Salt, Baking Additive (Gluten, Wheat Flour, Emulsifiers (E472e, E481), Antioxidant (E300), Acidity Regulator (E330), Enzymes (Fungal Alpha Amylase, Hemicellulase)).</p></div>);
   }
 
   function NutritionValues(){
     return(
-      <>
+      <div className="p-5"style={{ backgroundColor: '#FF572233'}}>
       <div className="d-flex"><p className="f_OpenSans_Bold w-50 mybrown">Nutrition Values</p><p className="f_OpenSans_Bold w-50 mybrown">(per 100g/ml)</p></div>
       <div className="d-flex"><p className="w-50 mybrown">Energy (KJ)</p><p className="w-50 mybrown">1021</p></div>
       <div className="d-flex"><p className="w-50 mybrown">Energy (KCAL)</p><p className="w-50 mybrown">244</p></div>
@@ -45,21 +45,21 @@ function CategoryDetailHeader() {
       <div className="d-flex"><p className="w-50 mybrown">- Of Which Sugars (G)</p><p className="w-50 mybrown">{"<0.5"}</p></div>
       <div className="d-flex"><p className="w-50 mybrown">Protein (G) </p><p className="w-50 mybrown">7.3</p></div>
       <div className="d-flex"><p className="w-50 mybrown">Salt (G)</p><p className="w-50 mybrown">1.2</p></div>  
-      </>
+      </div>
     );
   }
 
   function AllergyAdvice(){
-    return(<p>For allergens, see ingredients in bold. May contain milk, egg, soy, celery, nuts.</p>);
+    return(<div className="p-5 mybrown"style={{ backgroundColor: '#FFEB3B33'}}><p>For allergens, see ingredients in bold. May contain milk, egg, soy, celery, nuts.</p></div>);
   }
 
   function UsageInfo(){
-    return(<p>Bake the defrosted product in a pre-heated oven 160 - 180ºC for 4-5 minutes. (Baking time and temperature may vary depending on the type of oven).</p>);
+    return(<div className="p-5 mybrown"style={{ backgroundColor: '#79554833'}}><p>Bake the defrosted product in a pre-heated oven 160 - 180ºC for 4-5 minutes. (Baking time and temperature may vary depending on the type of oven).</p></div>);
   }
 
   function StorageAndSize(){
     return(
-      <>
+      <div className="p-5 mybrown"style={{ backgroundColor: '#00796B33'}}>
       <div className="d-flex"><p className="w-50 mybrown">Brand</p><p className="w-50 mybrown">Letsdough</p></div>
       <div className="d-flex"><p className="w-50 mybrown">Origin</p><p className="w-50 mybrown">TurkeyLetsdough</p></div>
       <div className="d-flex"><p className="w-50 mybrown">Storage</p><p className="w-50 mybrown">Keep frozen at -18 ºC.</p></div>
@@ -70,7 +70,7 @@ function CategoryDetailHeader() {
       <div className="d-flex"><p className="w-50 mybrown">Quantity Per Layer</p><p className="w-50 mybrown">84</p></div>
       <div className="d-flex"><p className="w-50 mybrown">Pallet Quantity</p><p className="w-50 mybrown">588</p></div>
       <div className="d-flex"><p className="w-50 mybrown">Dimension</p><p className="w-50 mybrown">16.3 x 7 x 34cm</p></div>
-      </>
+      </div>
     );
   }
 
@@ -100,7 +100,7 @@ export class ProductDetail extends Component {
     }
     return ( 
       <>
-      <div className="container p-0" style={{ border  : '1px solid #e0e0e0' }}>
+      <div className="container p-0 pb-5" style={{ border  : '1px solid #e0e0e0' }}>
       <CategoryDetailHeader />
         <div className="row justify-content-center px-3">
           <div className="col-lg-4 col-sm-8 col-md-7 col-9 text-center">
@@ -138,7 +138,7 @@ export class ProductDetail extends Component {
          
             
           </div>
-          <div className="col-lg-8">
+          <div className="col-lg-8 ps-lg-5">
             <h2 className="f_Poppins mt-3 mydarkcyan">
               Section 1.10.32 of "de Finibus Bonorum et Malorum", written by
               Cicero in 45 BC
@@ -153,15 +153,15 @@ export class ProductDetail extends Component {
         <div className="row px-3">
         <Tabs className="noselect d-none d-lg-block">
     <TabList>
-      <Tab>INGREDIENTS</Tab>
-      <Tab>NUTRITION VALUES</Tab>
-      <Tab>ALLERGY ADVICE</Tab>
-      <Tab>USAGE INFO</Tab>
-      <Tab>STORAGE & SIZE</Tab>
+      <Tab style={{ backgroundColor: '#00BCD4' , color: 'white' }}>INGREDIENTS</Tab>
+      <Tab style={{ backgroundColor: '#FF5722' , color: 'white' }}>NUTRITION VALUES</Tab>
+      <Tab style={{ backgroundColor: '#FFEB3B' }}>ALLERGY ADVICE</Tab>
+      <Tab style={{ backgroundColor: '#795548' , color: 'white' }}>USAGE INFO</Tab>
+      <Tab style={{ backgroundColor: '#00796B' , color: 'white' }}>STORAGE & SIZE</Tab>
     </TabList>
 
     <TabPanel>
-      <Ingredients />
+      <Ingredients/>
     </TabPanel>
     <TabPanel>
       <NutritionValues />
@@ -180,65 +180,52 @@ export class ProductDetail extends Component {
         allowMultipleExpanded allowZeroExpanded className="noselect d-block d-lg-none" style={{ color: '#797979' }}>
     <AccordionItem>
       <AccordionItemHeading>
-          <AccordionItemButton style={{ backgroundColor: '#00796BE6' , color: 'white', textAlign: 'center' }}>
-          Features
+          <AccordionItemButton style={{ backgroundColor: '#00BCD4' , color: 'white' }}>
+          INGREDIENTS
           </AccordionItemButton>
       </AccordionItemHeading>
-      <AccordionItemPanel className="text-start ps-3 py-2">
-          <nav>
-          <div className="form-check py-1 f_OpenSans_Bold">
-            <input className="form-check-input rounded-0" type="checkbox" value="" id="flexCheckDefault1"></input>
-            <label className="form-check-label" for="flexCheckDefault1">
-              Popular
-            </label>
-          </div>
-          <div className="form-check py-1 f_OpenSans_Bold">
-            <input className="form-check-input rounded-0" type="checkbox" value="" id="flexCheckChecked2"></input>
-            <label className="form-check-label" for="flexCheckChecked2">
-              Frozen
-            </label>
-          </div>
-          </nav>
+      <AccordionItemPanel>
+      <Ingredients/>
       </AccordionItemPanel>
     </AccordionItem>
     <AccordionItem>
       <AccordionItemHeading>
-          <AccordionItemButton style={{ backgroundColor: '#00796BE6' , color: 'white' }}>
-          Brand
+          <AccordionItemButton style={{ backgroundColor: '#FF5722' , color: 'white' }}>
+          NUTRITION VALUES
           </AccordionItemButton>
       </AccordionItemHeading>
-      <AccordionItemPanel className="text-start ps-3 py-2">
-      <nav>
-          <div className="form-check py-1 f_OpenSans_Bold">
-            <input className="form-check-input rounded-0" type="checkbox" value="" id="flexCheckDefault3"></input>
-            <label className="form-check-label" for="flexCheckDefault3">
-              Letsdough
-            </label>
-          </div>
-          </nav>
+      <AccordionItemPanel>
+      <NutritionValues />
       </AccordionItemPanel>
     </AccordionItem>
     <AccordionItem>
       <AccordionItemHeading>
-          <AccordionItemButton style={{ backgroundColor: '#00796BE6' , color: 'white' }}>
-          Size
+          <AccordionItemButton style={{ backgroundColor: '#FFEB3B' , color: 'black' }}>
+          ALLERGY ADVICE
           </AccordionItemButton>
       </AccordionItemHeading>
-      <AccordionItemPanel  className="text-start ps-3 py-2">
-      <nav>
-          <div className="form-check py-1 f_OpenSans_Bold">
-            <input className="form-check-input rounded-0" type="checkbox" value="" id="flexCheckDefault4"></input>
-            <label className="form-check-label" for="flexCheckDefault4">
-              1 * 4
-            </label>
-          </div>
-          <div className="form-check py-1 f_OpenSans_Bold">
-            <input className="form-check-input rounded-0" type="checkbox" value="" id="flexCheckDefault5"></input>
-            <label className="form-check-label" for="flexCheckDefault5">
-              48 * 115
-            </label>
-          </div>
-          </nav>
+      <AccordionItemPanel >
+      <AllergyAdvice />
+      </AccordionItemPanel>
+    </AccordionItem>
+    <AccordionItem>
+      <AccordionItemHeading>
+          <AccordionItemButton style={{ backgroundColor: '#795548' , color: 'white' }}>
+          USAGE INFO
+          </AccordionItemButton>
+      </AccordionItemHeading>
+      <AccordionItemPanel >
+      <UsageInfo />
+      </AccordionItemPanel>
+    </AccordionItem>
+    <AccordionItem>
+      <AccordionItemHeading>
+          <AccordionItemButton style={{ backgroundColor: '#00796B' , color: 'white' }}>
+          STORAGE & SIZE
+          </AccordionItemButton>
+      </AccordionItemHeading>
+      <AccordionItemPanel >
+      <StorageAndSize />
       </AccordionItemPanel>
     </AccordionItem>
     </Accordion>

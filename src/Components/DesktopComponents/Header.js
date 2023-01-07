@@ -11,13 +11,22 @@ import { Button } from "@mui/material";
 import { Link } from 'react-router-dom'
 import { useSelector , useDispatch } from "react-redux";
 import { logout } from "../../Slices/auth.slice";
+import Menu, { SubMenu, Item as MenuItem } from 'rc-menu';
+// import animate from 'css-animation';
 
 
 function ShowSignInOrSignOut() {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
   if(isLoggedIn){
-    return(<Button onClick={() => dispatch(logout())} variant="contained">Log Out</Button>)
+    return(
+    // <Button onClick={() => dispatch(logout())} variant="contained">Log Out</Button>
+    <div className="cursorpointer position-relative h-100 m-0 d-inline-block">
+    <div className="container p-0 f_Poppins align-self-center h-100" style={{ display: 'contents' }}><FontAwesomeIcon style={{ marginRight: '5px' , color: 'white' }} icon={ faRightToBracket }/>My Account</div>
+    <div className="position-absolute top-100 p-2" style={{ zIndex: 1000000 , backgroundColor: '#00796B' }}>dsfd</div>
+    {/* <div className="position-absolute">dasdas</div> */}
+    </div>
+    )
   }else{
     return(
       <Link to="/Auth/SignIn" className="f_Poppins" style={{ color: '#FFEB3B' , textDecoration: 'none', whiteSpace: 'nowrap' }}><FontAwesomeIcon style={{ marginRight: '5px' , color: 'white'}} icon={ faRightToBracket }/>Sign In / Register</Link>
@@ -63,7 +72,7 @@ export class Header extends Component {
           </div>
           <div className="col-sm-9" >
             <div className="row align-items-center" style={{ backgroundColor: '#00796B' ,  height: '2.5rem'}}>
-              <div className="col">
+              <div className="col h-100">
                 <ShowSignInOrSignOut />
               </div>
               <div className="col text-center f_Poppins d-none d-xl-block" style={{ color: 'white' , whiteSpace: 'nowrap' }}>Welcome to Caspian Pizza online store</div>

@@ -9,6 +9,8 @@ import store from "./store";
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-accessible-accordion/dist/fancy-example.css';
 import 'react-tabs/style/react-tabs.css';
+import 'rc-menu/assets/index.css';
+
 
 <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet" />
 
