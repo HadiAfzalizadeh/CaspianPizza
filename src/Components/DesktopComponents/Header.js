@@ -2,34 +2,81 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
   faMagnifyingGlass,
-  faRightToBracket
+  faRightToBracket,
+  faUser,
+  faAngleDown
 } from "@fortawesome/free-solid-svg-icons";
 import { Component } from "react";
 import  MegaMenu  from "./MegaMenu";
 import { Button } from "@mui/material";
 
 import { Link } from 'react-router-dom'
+import { useEffect , useRef , useState , useCallback  } from "react";
 import { useSelector , useDispatch } from "react-redux";
 import { logout } from "../../Slices/auth.slice";
-import Menu, { SubMenu, Item as MenuItem } from 'rc-menu';
 // import animate from 'css-animation';
 
 
+const customStyles = {
+  loginMenuItem: {
+    fontSize: '0.95rem',
+    "&:hover": {
+      display: 'none'
+    }
+  },
+}
+
+
+function useOutsideAlerter(ref,setopenMenu) {
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+
+    function handleClickOutside(event){
+      if (ref.current && !ref.current.contains(event.target)) {
+        setopenMenu(false);
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref,setopenMenu]);
+}
+
 function ShowSignInOrSignOut() {
+  const [openMenu, setopenMenu] = useState(false);
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef,setopenMenu);
+
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
   if(isLoggedIn){
     return(
     // <Button onClick={() => dispatch(logout())} variant="contained">Log Out</Button>
-    <div className="cursorpointer position-relative h-100 m-0 d-inline-block">
-    <div className="container p-0 f_Poppins align-self-center h-100" style={{ display: 'contents' }}><FontAwesomeIcon style={{ marginRight: '5px' , color: 'white' }} icon={ faRightToBracket }/>My Account</div>
-    <div className="position-absolute top-100 p-2" style={{ zIndex: 1000000 , backgroundColor: '#00796B' }}>dsfd</div>
+    <div className="position-relative h-100 m-0 d-inline-flex align-items-center cursorpointer pe-1" style={openMenu ? {backgroundColor: '#FFEB3B33'} : null} ref={wrapperRef} >
+    <div className="container p-0 f_Poppins align-self-center h-100 text-white" style={{ display: 'contents' }} onClick={() => setopenMenu(!openMenu)}><FontAwesomeIcon className="ms-1" style={{ marginRight: '5px' , color: '#FFEB3B' }} icon={ faUser }/>My Account<FontAwesomeIcon className="ms-1" style={{ color: '#FFEB3B' }} icon={ faAngleDown }/></div>
+    { openMenu && (<div className="position-absolute top-100 p-2 px-4 cursorauto" style={{ zIndex: 1000000 , backgroundColor : '#00796B'}}>
+      <nav>
+        <Link className="text-decoration-none text-white" style={customStyles.loginMenuItem}><p className="text-nowrap cursorpointer" style={customStyles.loginMenuItem} onClick={() => setopenMenu(false)}>My orders</p></Link>
+        <Link className="text-decoration-none text-white" onClick={() => setopenMenu(false)}><p className="text-nowrap cursorpointer" style={{ fontSize: '0.95rem' }}>My settings</p></Link>
+        <Link className="text-decoration-none text-white" onClick={() => setopenMenu(false)}><p className="text-nowrap cursorpointer" style={{ fontSize: '0.95rem' }}>My favourites</p></Link>
+        <p className="text-nowrap cursorpointer text-white" onClick={() => {setopenMenu(false);dispatch(logout())}} style={{ fontSize: '0.95rem' }} >LOGOUT</p>
+      </nav>
+    </div>)}
     {/* <div className="position-absolute">dasdas</div> */}
     </div>
     )
   }else{
     return(
-      <Link to="/Auth/SignIn" className="f_Poppins" style={{ color: '#FFEB3B' , textDecoration: 'none', whiteSpace: 'nowrap' }}><FontAwesomeIcon style={{ marginRight: '5px' , color: 'white'}} icon={ faRightToBracket }/>Sign In / Register</Link>
+      <div className="d-flex h-100 align-items-center">
+        <Link to="/Auth/SignIn" className="f_Poppins" style={{ color: '#FFEB3B' , textDecoration: 'none', whiteSpace: 'nowrap' }}><FontAwesomeIcon style={{ marginRight: '5px' , color: 'white'}} icon={ faRightToBracket }/>Sign In / Register</Link>
+      </div>
+      
     )
   }
 }
@@ -72,7 +119,7 @@ export class Header extends Component {
           </div>
           <div className="col-sm-9" >
             <div className="row align-items-center" style={{ backgroundColor: '#00796B' ,  height: '2.5rem'}}>
-              <div className="col h-100">
+              <div className="col h-100 algin-self-center">
                 <ShowSignInOrSignOut />
               </div>
               <div className="col text-center f_Poppins d-none d-xl-block" style={{ color: 'white' , whiteSpace: 'nowrap' }}>Welcome to Caspian Pizza online store</div>

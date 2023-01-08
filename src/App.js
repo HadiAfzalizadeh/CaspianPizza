@@ -16,7 +16,7 @@ function SelectDeviceComponent() {
 }
 
 function App() {
-  // alert(uuidv4());
+  console.log(uuidv4());
   return (<SelectDeviceComponent />);
 }
 

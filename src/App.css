@@ -117,6 +117,10 @@ p {
   cursor: pointer;
 }
 
+.cursorauto{
+  cursor: auto;
+}
+
 .mydarkcyan{
   color: #00796B;
 }
@@ -131,6 +135,10 @@ p {
 
 .rc-menu-submenu-title{
   padding: 0 !important;
+}
+
+.signedinmenu{
+  font-size: 0.95rem;
 }
 
 /*-----------------------------------Sign In / Sign Up----------------------------------------*/
