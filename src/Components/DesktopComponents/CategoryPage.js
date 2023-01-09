@@ -185,7 +185,7 @@ export class CategoryPage extends Component {
     render(){
         return(
           <>
-          <div className="container-fluid d-none d-lg-block">
+          <div className="container d-none d-lg-block p-0">
             <CategoryHeader />
                 <div className="row">
                   <div className="col-3 text-center pb-5">

@@ -4,47 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import axios from "axios";
-import { Link } from 'react-router-dom'
+import ItemCard from "./ItemCard";
 
-function ItemImage(props){
-  return(
-    <div style={{ position: 'relative' }}>
-      <img
-      style={{ width: '100%' }}
-        src={props.item.productImages.length === 0 ? "/assets/images/catPicTemp.jpg" : "data:image/png;base64, " + props.item.productImages[0].imageBody}  
-        alt={props.item.name}
-      ></img>    
-      </div>
-  );
-}
 
-function ItemDescription(props){
-  return(<div><h4 className="cnterTextAlign" style={{ wordWrap: 'break-word' }}>{props.item.name}</h4>
-  <div className="text">
-    {props.item.description}
-  </div>
-    <div className="row">
-      <div className="d-flex justify-content-between">
-        <div>
-          {props.item.tradePrice}
-          </div>
-      <div>
-        {props.item.salesPrice}
-      </div>
-      </div>
-      <div className="d-flex justify-content-between">
-        <div>
-          {props.item.tradePrice}
-          </div>
-      <div>
-        {props.item.salesPrice}
-      </div>
-      </div>
-    </div>
-    <div className="row">
-      {/* <button variant="contained">ADD ITEM</button> */}
-    </div></div>);
-}
 
 
 class CategoryPagination extends Component {
@@ -111,39 +73,16 @@ class CategoryPagination extends Component {
               {this.state.items.map((item) => (
                 <>
                 <div className="col-3 hoverableCard d-none d-xl-block" key={item.id + "col3"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'}}>
-                  <Link to="/ProductDetail" style={{  textDecoration: 'none'  }}>
-                  <div className="row text-center px-2 py-3 cursorpointer">
-                            <ItemImage item={item}/>
-                          </div>
-                          <div className="row cursorpointer text-secondary">
-                            <ItemDescription item={item}/>
-                          </div>
-                          </Link>
-                          
+                  <ItemCard item={item}/>
                 </div>
                 <div className="col-4 hoverableCard d-none d-lg-block d-xl-none" key={item.id + "col4"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'  }}>
-                <div className="row text-center pt-3">
-                  <ItemImage item={item}/>
-                </div>
-                <div className="row">
-                  <ItemDescription item={item}/>
-                </div>
+                  <ItemCard item={item}/>
                 </div>
                 <div className="col-6 hoverableCard d-none d-md-block d-lg-none" key={item.id + "col6"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'  }}>
-                <div className="row text-center pt-3">
-                  <ItemImage item={item}/>
-                </div>
-                <div className="row">
-                  <ItemDescription item={item}/>
-                </div>
+                  <ItemCard item={item}/>
                 </div>
                 <div className="col-12 hoverableCard d-block d-md-none" key={item.id + "col12"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'  }}>
-                <div className="row text-center pt-3">
-                  <ItemImage item={item}/>
-                </div>
-                <div className="row">
-                  <ItemDescription item={item}/>
-                </div>
+                  <ItemCard item={item}/>
                 </div>
                 </>
                 ))}

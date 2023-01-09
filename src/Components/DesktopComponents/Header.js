@@ -58,11 +58,11 @@ function ShowSignInOrSignOut() {
   if(isLoggedIn){
     return(
     // <Button onClick={() => dispatch(logout())} variant="contained">Log Out</Button>
-    <div className="position-relative h-100 m-0 d-inline-flex align-items-center cursorpointer pe-1" style={openMenu ? {backgroundColor: '#FFEB3B33'} : null} ref={wrapperRef} >
-    <div className="container p-0 f_Poppins align-self-center h-100 text-white" style={{ display: 'contents' }} onClick={() => setopenMenu(!openMenu)}><FontAwesomeIcon className="ms-1" style={{ marginRight: '5px' , color: '#FFEB3B' }} icon={ faUser }/>My Account<FontAwesomeIcon className="ms-1" style={{ color: '#FFEB3B' }} icon={ faAngleDown }/></div>
+    <div className="position-relative h-100 m-0 d-inline-flex cursorpointer pe-1" style={openMenu ? {backgroundColor: '#FFEB3B33'} : null} ref={wrapperRef} >
+    <div className="h-100 d-inline-flex align-items-center" onClick={() => setopenMenu(!openMenu)}><div className="container p-0 f_Poppins align-self-center h-100 text-white" style={{ display: 'contents' }}><FontAwesomeIcon className="ms-1 me-2" style={{ marginRight: '5px' , color: '#FFEB3B' }} icon={ faUser }/>My Account<FontAwesomeIcon className="ms-2" style={{ color: '#FFEB3B' }} icon={ faAngleDown }/></div></div>
     { openMenu && (<div className="position-absolute top-100 p-2 px-4 cursorauto" style={{ zIndex: 1000000 , backgroundColor : '#00796B'}}>
       <nav>
-        <Link className="text-decoration-none text-white" style={customStyles.loginMenuItem}><p className="text-nowrap cursorpointer" style={customStyles.loginMenuItem} onClick={() => setopenMenu(false)}>My orders</p></Link>
+        <Link to="/Orders" className="text-decoration-none text-white" style={customStyles.loginMenuItem}><p className="text-nowrap cursorpointer" style={customStyles.loginMenuItem} onClick={() => setopenMenu(false)}>My orders</p></Link>
         <Link className="text-decoration-none text-white" onClick={() => setopenMenu(false)}><p className="text-nowrap cursorpointer" style={{ fontSize: '0.95rem' }}>My settings</p></Link>
         <Link className="text-decoration-none text-white" onClick={() => setopenMenu(false)}><p className="text-nowrap cursorpointer" style={{ fontSize: '0.95rem' }}>My favourites</p></Link>
         <p className="text-nowrap cursorpointer text-white" onClick={() => {setopenMenu(false);dispatch(logout())}} style={{ fontSize: '0.95rem' }} >LOGOUT</p>
@@ -84,12 +84,15 @@ function ShowSignInOrSignOut() {
 export class Header extends Component {
   state = {
     openMenu: false,
+    shouldOpenMenu: false
   };
 
-  toggleMegaMenu = () => {
-    this.setState({
-      openMenu: !this.state.openMenu,
-    });
+  
+
+  toggleMegaMenu = (state) => {
+      this.setState({
+        openMenu: state
+      });
   };
 
   showMegaMenu() {
@@ -107,7 +110,7 @@ export class Header extends Component {
 
   render() {
     return (
-      <div className="container-fluid noselect mb-2" style={{ backgroundColor: '#FFC107' }}>
+      <div className="container-fluid noselect mb-2" style={{ backgroundColor: '#FFC107'}}>
         <div className="row" style={{ backgroundColor: '#795548' }}>
           <div className="col-sm-3 align-self-center text-center p-0 d-none d-sm-block">
               <Link to="/">
@@ -161,7 +164,7 @@ export class Header extends Component {
             <div className="row">
               <div className="col align-self-center d-none d-sm-block text-center">
               <div className="d-flex justify-content-center" style={{ color: '#303F9F' }}>
-                  <div className="f_Poppins " onClick={this.toggleMegaMenu} style={{ color: '#00796B' , cursor: 'pointer' , marginRight: '1rem' , whiteSpace: 'nowrap'}}>Browse & Shop</div>
+                  <div className="f_Poppins " ref={this.browseRef} onClick={() => this.toggleMegaMenu(true)} style={{ color: '#00796B' , cursor: 'pointer' , marginRight: '1rem' , whiteSpace: 'nowrap'}}>Browse & Shop</div>
                   <Link className="f_Poppins" style={{ color: '#00796B' , marginRight: '1rem' ,textDecoration: 'none' , whiteSpace: 'nowrap'}}>Offers</Link>
                   <Link className="f_Poppins" style={{ color: '#00796B' , textDecoration: 'none' , whiteSpace: 'nowrap'}}>Book Slot</Link>
               </div>
@@ -183,7 +186,7 @@ export class Header extends Component {
         </div>
         <div className="row d-block d-sm-none" style={{ backgroundColor: '#FFC107' }}>
         <div className="d-flex mt-3 justify-content-center">
-                  <div className="f_Poppins " onClick={this.toggleMegaMenu} style={{ color: '#00796B', cursor: 'pointer' , marginRight: '1rem'}}>Browse & Shop</div>
+                  <div className="f_Poppins " onClick={() => this.toggleMegaMenu(true)} style={{ color: '#00796B', cursor: 'pointer' , marginRight: '1rem'}}>Browse & Shop</div>
                   <Link className="f_Poppins" style={{ color: '#00796B' , marginRight: '1rem' ,textDecoration: 'none' }}>Offers</Link>
                   <Link className="f_Poppins" style={{ color: '#00796B' , textDecoration: 'none' }}>Book Slot</Link>
               </div>
@@ -191,6 +194,7 @@ export class Header extends Component {
         <div className="row">
           {this.showMegaMenu()}
         </div>
+        
       </div>
     );
   }

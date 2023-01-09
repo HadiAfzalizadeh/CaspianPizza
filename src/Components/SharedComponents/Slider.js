@@ -30,7 +30,7 @@ export class Slider extends Component {
       return null;
     }
     return (
-      <div className="container">
+      
         <Fade {...this.properties}>
           {this.state.items
             .filter((item) => item.imageBody !== "")
@@ -43,7 +43,6 @@ export class Slider extends Component {
               />
             ))}
         </Fade>
-      </div>
     );
   }
 }

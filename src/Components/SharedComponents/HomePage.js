@@ -5,7 +5,7 @@ export class HomePage extends Component {
     render(){
         return(
             <>
-            <div>
+            <div className="container p-0">
                 <Slider />
             </div>
             </>

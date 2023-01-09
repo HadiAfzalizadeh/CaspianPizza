@@ -11,6 +11,7 @@ import  SignIn  from "../SharedComponents/SignIn";
 import SignUp  from "../SharedComponents/SignUp";
 import GuardedRoute from "../SharedComponents/GuardedRoute";
 import { connect } from "react-redux";
+import { Orders } from "./Orders";
 
 
 
@@ -100,6 +101,7 @@ class DesktopApp extends Component {
                       <Route path="SignUp" element={<GuardedRoute  component={SignUp} distance="/" auth={!this.props.isLoggedIn}/>}></Route>
                     </Route>
                     <Route path="BookSlot" element={<BookSlot />}></Route>
+                    <Route path="Orders" element={<GuardedRoute  component={Orders} distance="/SignIn" auth={this.props.isLoggedIn}/>}></Route>
                     <Route path="*" element={<GuardedRoute  component={HomePage} distance="/" auth={false}/>}></Route>
                 </Route>
               </Routes>

@@ -1,9 +1,7 @@
-import React, { Component } from "react";
+import React, { Component , useEffect} from "react";
 import { Link  } from 'react-router-dom'
 import { connect } from "react-redux";
 import { setCategotyId } from "../../Slices/category.slice";
-
-
 
 class MegaMenu extends Component {
   constructor(props) {
@@ -12,12 +10,28 @@ class MegaMenu extends Component {
       items: this.props.items,
       selectedItems: [],
     };
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+
+  /**
+   * Alert if clicked on outside of element
+   */
+  handleClickOutside(event) {
+    if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
+      this.props.toggleMegaMenu(false);
+    }
   }
 
   componentDidMount() {
     this.setState({
       selectedItems: this.setSelectedItems(null, this.props.items),
     });
+    document.addEventListener("mousedown", this.handleClickOutside);
   }
 
   setSelectedItems(id, items) {
@@ -74,7 +88,7 @@ class MegaMenu extends Component {
       this.state.items.filter((item) => item.parentProductCategoryId === id)
         .length === 0
     ) {
-      this.props.toggleMegaMenu();
+      this.props.toggleMegaMenu(false);
       this.props.setCategotyId(id);
       // this.props.selectCategoryId(id);
       // dispatch(getProductByCategory({page:1,pageSize:8,categotyId:9}));
@@ -90,8 +104,9 @@ class MegaMenu extends Component {
   }
 
   render() {
+   
     return (
-      <div className="container position-absolute start-50 translate-middle-x" style={{  zIndex: '10' , border: '1px solid #B2BEB5' , backgroundColor: 'white' , top: 3 , color: '#7c7c7c' }}>
+      <div ref={this.wrapperRef} className="container-lg position-absolute start-50 translate-middle-x" style={{  zIndex: 100000 , borderColor: '#B2BEB5', borderStyle: 'solid' , borderWidth:  '0 1px 1px 1px' , backgroundColor: 'white' , color: '#7c7c7c' }}>
         <div className="row bottom-border p-3">
           <div className="d-flex">
             <p className="me-3 mb-0">ENFIELD BRANCH</p>
