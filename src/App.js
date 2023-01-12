@@ -1,9 +1,11 @@
 import './App.css';
-
 import { isMobile } from 'react-device-detect';
 import  DesktopApp  from './Components/DesktopComponents/DesktopApp';
 import { MobileApp } from './Components/MobileComponents/MobileApp';
-import { v4 as uuidv4 } from 'uuid';
+import { useEffect } from "react";
+import axios from "axios";
+import { getMyCart } from './Slices/basket.slice';
+import { useDispatch , useSelector } from "react-redux";
 
 
 
@@ -15,9 +17,27 @@ function SelectDeviceComponent() {
   return <DesktopApp />;
 }
 
-function App() {
-  console.log(uuidv4());
-  return (<SelectDeviceComponent />);
+const App = () => {
+
+  // localStorage.removeItem("cart");
+  // localStorage.setItem("cart", JSON.stringify({browserId: "a13b07f9-8b40-4587-a09e-ea31aac75921", cartId: "152" }));
+
+  // const cart = JSON.parse(localStorage.getItem("cart"));
+
+
+  // // alert(cart.brawserId);
+
+  const dispatch = useDispatch();
+
+useEffect(() => {
+  dispatch(getMyCart());
+}, [dispatch]);
+
+
+    return(
+      <SelectDeviceComponent />
+    )
+
 }
 
 export default App;

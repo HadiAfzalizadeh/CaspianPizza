@@ -76,9 +76,21 @@ function ShowSignInOrSignOut() {
       <div className="d-flex h-100 align-items-center">
         <Link to="/Auth/SignIn" className="f_Poppins" style={{ color: '#FFEB3B' , textDecoration: 'none', whiteSpace: 'nowrap' }}><FontAwesomeIcon style={{ marginRight: '5px' , color: 'white'}} icon={ faRightToBracket }/>Sign In / Register</Link>
       </div>
-      
+
     )
   }
+}
+
+function BasketSection(){
+
+    const { cartItems } = useSelector((state) => state.basket);
+
+  return(
+    <div className="d-inline-flex align-items-center pe-5">
+    <Link to="/Basket" style={{backgroundColor:'#FFC107' , color: '#00796B' , textDecoration: 'none' , borderRadius: '5px', whiteSpace: 'nowrap'}} className="px-2 py-1 me-1 d-flex align-items-center"><div className="me-1 px-2 f_Poppins" style={{ backgroundColor: '#F44336' , color: 'white', borderRadius: '50%' }}>{cartItems.length}</div><FontAwesomeIcon className="py-1" style={{  marginRight: '5px'}} icon={ faCartShopping } color="white"/><p className="mb-0 f_Poppins d-none d-md-block">My Basket</p></Link>
+    <Link className="f_Poppins px-2 py-1" style={{ color: '#FFEB3B' , textDecoration: 'none' , border: '1px solid #FFC107' , borderRadius: '5px' , whiteSpace: 'nowrap'}}>Checkout</Link>
+    </div>
+  )
 }
 
 export class Header extends Component {
@@ -87,7 +99,7 @@ export class Header extends Component {
     shouldOpenMenu: false
   };
 
-  
+
 
   toggleMegaMenu = (state) => {
       this.setState({
@@ -127,10 +139,7 @@ export class Header extends Component {
               </div>
               <div className="col text-center f_Poppins d-none d-xl-block" style={{ color: 'white' , whiteSpace: 'nowrap' }}>Welcome to Caspian Pizza online store</div>
               <div className="col text-end">
-                <div className="d-inline-flex align-items-center pe-5">
-                  <Link to="/Basket" style={{backgroundColor:'#FFC107' , color: '#00796B' , textDecoration: 'none' , borderRadius: '5px', whiteSpace: 'nowrap'}} className="px-2 py-1 me-1 d-flex align-items-center"><FontAwesomeIcon className="py-1" style={{  marginRight: '5px'}} icon={ faCartShopping } color="white"/><p className="mb-0 f_Poppins d-none d-md-block">My Basket</p></Link>
-                  <Link className="f_Poppins px-2 py-1" style={{ color: '#FFEB3B' , textDecoration: 'none' , border: '1px solid #FFC107' , borderRadius: '5px' , whiteSpace: 'nowrap'}}>Checkout</Link>
-                </div>
+                <BasketSection />
               </div>
             </div>
             <div className="row align-items-center" style={{  height: '5rem' , background: '#FFC107'}}>
@@ -194,7 +203,7 @@ export class Header extends Component {
         <div className="row">
           {this.showMegaMenu()}
         </div>
-        
+
       </div>
     );
   }

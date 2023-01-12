@@ -16,8 +16,7 @@ class CategoryPagination extends Component {
     currentCategotyId: -1,
     page: 3,
     hasMore: true,
-    items: [],
-    shouldRequest: true
+    items: []
   };
 
   componentDidMount(){
@@ -46,7 +45,7 @@ class CategoryPagination extends Component {
             className="pb-5"
             dataLength={this.state.items.length}
             next={() => {
-                this.state.shouldRequest && axios.get(
+                axios.get(
                   "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + this.state.page + "&PageSize=" + 4 + "&ProductCategoryId=" +
                   this.props.currentCategotyId).then((response) => {
                   this.setState({

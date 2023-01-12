@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import BasketQuantity from './BasketQuantity';
 
 
 function ItemCard(props){
     return(
       <>
-       <Link to="/ProductDetail" style={{  textDecoration: 'none'  }}>
+       <div className="noselect" style={{  textDecoration: 'none'  }}>
       <div className="row text-center px-2 py-3 cursorpointer">
      
       <div style={{ position: 'relative' }}>
@@ -22,29 +23,15 @@ function ItemCard(props){
     <div className="text">
       {props.item.description}
     </div>
-      <div className="row">
-        <div className="d-flex justify-content-between">
-          <div>
-            {props.item.tradePrice}
-            </div>
-        <div>
-          {props.item.salesPrice}
-        </div>
-        </div>
-        <div className="d-flex justify-content-between">
-          <div>
-            {props.item.tradePrice}
-            </div>
-        <div>
-          {props.item.salesPrice}
-        </div>
-        </div>
+      <div className="row w-100 text-center m-0">
+      <p>£{props.item.salesPrice}</p>
       </div>
-      <div className="row">
-        {/* <button variant="contained">ADD ITEM</button> */}
-      </div></div>
+      <div className="row p-3 pt-0 m-0">
+        <BasketQuantity productId={props.item.id}/>
       </div>
-      </Link>
+      </div>
+      </div>
+      </div>
         </>
     );
   }
