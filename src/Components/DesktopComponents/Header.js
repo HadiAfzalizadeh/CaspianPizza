@@ -63,8 +63,8 @@ function ShowSignInOrSignOut() {
     { openMenu && (<div className="position-absolute top-100 p-2 px-4 cursorauto" style={{ zIndex: 1000000 , backgroundColor : '#00796B'}}>
       <nav>
         <Link to="/Orders" className="text-decoration-none text-white" style={customStyles.loginMenuItem}><p className="text-nowrap cursorpointer" style={customStyles.loginMenuItem} onClick={() => setopenMenu(false)}>My orders</p></Link>
-        <Link className="text-decoration-none text-white" onClick={() => setopenMenu(false)}><p className="text-nowrap cursorpointer" style={{ fontSize: '0.95rem' }}>My settings</p></Link>
-        <Link className="text-decoration-none text-white" onClick={() => setopenMenu(false)}><p className="text-nowrap cursorpointer" style={{ fontSize: '0.95rem' }}>My favourites</p></Link>
+        {/* <Link className="text-decoration-none text-white" onClick={() => setopenMenu(false)}><p className="text-nowrap cursorpointer" style={{ fontSize: '0.95rem' }}>My settings</p></Link> */}
+        {/* <Link className="text-decoration-none text-white" onClick={() => setopenMenu(false)}><p className="text-nowrap cursorpointer" style={{ fontSize: '0.95rem' }}>My favourites</p></Link> */}
         <p className="text-nowrap cursorpointer text-white" onClick={() => {setopenMenu(false);dispatch(logout())}} style={{ fontSize: '0.95rem' }} >LOGOUT</p>
       </nav>
     </div>)}

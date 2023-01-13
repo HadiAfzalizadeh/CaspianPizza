@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 import { useDispatch , useSelector } from "react-redux";
 import { deleteFromCart } from '../../Slices/basket.slice';
 import { connect } from "react-redux";
-import { deleteCart } from "../../Slices/basket.slice";
+import { deleteCart , getMyCart } from "../../Slices/basket.slice";
 
 const customStyles = {
     content: {
@@ -76,6 +76,10 @@ class Basket extends Component {
     state={
         deletebasketmodalIsOpen: false,
         vouchermodalIsOpen: false
+    }
+
+    componentDidMount(){
+        this.props.getMyCart();
     }
 
     openDeleteBasketModal = () => {
@@ -184,7 +188,7 @@ class Basket extends Component {
                 </div>
                 <div>
                     <div onClick={this.openDeleteBasketModal} variant="text" style={{ cursor: 'pointer' , display: 'block' , color: '#F44336', textDecoration: 'underline'  }}>DELETE BASKET</div>
-                    <div onClick={this.openVoucherBasketModal} variant="text" style={{cursor: 'pointer' , display: 'block', textDecoration: 'underline'  }}>ADD VOUCHER</div>
+                    {/* <div onClick={this.openVoucherBasketModal} variant="text" style={{cursor: 'pointer' , display: 'block', textDecoration: 'underline'  }}>ADD VOUCHER</div> */}
                 </div>
                 </div>
                 <div className="p-3 bg-white mt-2">
@@ -230,7 +234,8 @@ class Basket extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        deleteCart: (categotyId) => dispatch(deleteCart(categotyId))
+        deleteCart: (categotyId) => dispatch(deleteCart(categotyId)),
+        getMyCart: () => dispatch(getMyCart())
     }
   }
   

@@ -1,6 +1,6 @@
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Slide } from "react-slideshow-image";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from "axios";
 import ItemCard from '../SharedComponents/ItemCard';
 import { render } from '@testing-library/react';
@@ -9,14 +9,112 @@ import { json } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faAngleRight,
-  faAngleLeft
+  faCircleNotch,
+  faAngleLeft,
+  faSpinner
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom'
+import authHeader from '../../Services/auth-header';
+import InfiniteScroll from "react-infinite-scroll-component";
+import { SliderThumb } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
-function CustomLeftArrow (){
-  return(<FontAwesomeIcon style={{ color: 'black' }} icon={ faAngleLeft } size="xl"/>)
 
+function ReOrderButton(props){
+  const [loading, setloading] = useState(false);
+  const navigate = useNavigate();
+
+  return(
+    <div to="" className="py-1 px-2 me-3 f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap" style={{ border: '1px solid #00796B' , color: '#00796B' }} onClick={() => 
+      {                      
+         if(!loading){
+           setloading(true);
+           axios
+         .post("https://api.caspianpizza.ir/api/Order/ReCreateOrder/" + props.itemId , null,{ headers: authHeader() })
+         .then((response) => {
+           setloading(false);
+           navigate("/Basket");
+         })
+         .catch((error) => {alert(error);setloading(false);});
+         }
+     }}>
+       {!loading && (<span className="f_OpenSans_Bold">Re Order Now</span>)}
+     {loading && (<FontAwesomeIcon style={{ color: '#00796B' }} icon={faCircleNotch} className="spinner p-0"  size="xl"/>)}
+       </div>
+  )
+
+}
+
+function OrdersTable(props){
+  const [items, setItems] = useState([]);
+  const [hasMore, sethasMore] = useState(true);  
+  const [page, setpage] = useState(3);
+  
+
+
+  useEffect(() => {
+    axios.get('https://api.caspianpizza.ir/api/Order/GetByOrderStatus?OrderState=' + props.orderState + '&StartDate=2000/12/13&EndDate=2023/01/08&SearchKey&Page=1&PageSize=10', { headers: authHeader() })
+    .then((response) => {
+      setItems(items.concat(response.data.data));
+      if(response.data.meta.totalRows === response.data.data.length){
+        sethasMore(false);
+      }
+    })
+    .catch((error) => {});
+  }, []);
+
+
+  return(
+    
+  <InfiniteScroll
+            className="pb-5"
+            dataLength={items.length}
+            next={() => {
+              axios.get('https://api.caspianpizza.ir/api/Order/GetByOrderStatus?OrderState=' + props.orderState + '&StartDate=2000/12/13&EndDate=2023/01/08&SearchKey&Page=' + page + '&PageSize=5', { headers: authHeader() })
+              .then((response) => {
+                setpage(page+1);
+                setItems(items.concat(response.data.data));
+                if(response.data.meta.totalRows === items.length){
+                  sethasMore(false);
+                }
+              })
+              .catch((error) => {});
+              }
+            }
+            hasMore={hasMore}
+            loader={
+                <div className="centerTextalign parentLoader">
+                <FontAwesomeIcon icon={faSpinner} className="spinner loaderIconSize"/>
+                </div>
+            }
+            >
+              <table className="table px-3 py-2 noselect" style={{ borderCollapse: 'separate' , borderSpacing: '0 8px' , backgroundColor: '#F5F5F5' }}>
+  <thead className='bg-white'>
+    <tr class="thead-light">
+      <th className='f_Poppins text-center' scope="col">Order Id</th>
+      <th className='f_Poppins text-center' scope="col">Payment Id</th>
+      <th className='f_Poppins text-center' scope="col">Date</th>
+      <th className='f_Poppins text-center' scope="col">Total Price</th>
+      <th className='f_Poppins text-center' scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  {items.map((item) => (
+        <tr className='bg-white'>
+              <td className='text-center'>{item.id}</td>
+              <td className='text-center'>{item.paymentId}</td>
+              <td></td>
+              <td className='text-center'>£{item.totalPice}</td>
+              <td className='text-center'><div className=''>
+                <ReOrderButton itemId={item.id}/>
+              {/* <Link to="" className="f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap" style={{  color: '#FF9800' }}>View Details {" >"}</Link> */}
+              </div></td>
+            </tr>
+            ))}
+            </tbody>
+</table>
+        </InfiniteScroll>
+  )
 }
 
 export class Orders extends Component {
@@ -25,20 +123,6 @@ export class Orders extends Component {
         items: []
       };
     
-  componentDidMount(){
-    axios
-    .get(
-      "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + 1 + "&PageSize=" + 10 + "&ProductCategoryId=" +
-      9
-    )
-    .then((response) => {
-      this.setState({
-        items: response.data.data
-      });
-    })
-    .catch((error) => {});
-  }
-
 
     render(){
         return(
@@ -55,48 +139,18 @@ export class Orders extends Component {
     </TabList>
 
     <TabPanel>
-
+          <OrdersTable orderState={0}/>
     </TabPanel>
     <TabPanel>
-
+    <OrdersTable orderState={2}/>
     </TabPanel>
     <TabPanel>
-
+    <OrdersTable orderState={1}/>
     </TabPanel>
 
   </Tabs>
 
-        <table className="table px-3 py-2 table-hover" style={{ borderCollapse: 'separate' , borderSpacing: '0 8px' , backgroundColor: '#F5F5F5' }}>
-  <thead className='bg-white'>
-    <tr class="thead-light">
-      <th className='f_Poppins' scope="col">Row</th>
-      <th className='f_Poppins' scope="col">Order Id</th>
-      <th className='f_Poppins' scope="col">Payment Id</th>
-      <th className='f_Poppins' scope="col">Date</th>
-      <th className='f_Poppins' scope="col">Total Price</th>
-      <th className='f_Poppins' scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr className='bg-white cursorpointer'>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>£4.68</td>
-      <td>£4.68</td>
-      <td><div className=''><Link to="" className="py-1 px-2 me-3 f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap" style={{ border: '1px solid #00796B' , color: '#00796B' }}>Re Order Now</Link>
-      <Link to="" className="f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap" style={{  color: '#FF9800' }}>View Details {" >"}</Link></div></td>
-    </tr>
-    <tr className='bg-white cursorpointer'>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>£4.68</td>
-      <td>£4.68</td>
-      <td>ds</td>
-    </tr>
-  </tbody>
-</table>
+        
         </div>
     
       );
@@ -104,8 +158,6 @@ export class Orders extends Component {
     
 
 }
-
-
 
 // <div className="d-flex align-items-center px-2">
         

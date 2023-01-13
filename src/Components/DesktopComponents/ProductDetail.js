@@ -8,9 +8,11 @@ import {
   AccordionItemButton,
   AccordionItemPanel,
 } from 'react-accessible-accordion';
+import BasketQuantity from '../SharedComponents/BasketQuantity';
+import { connect } from "react-redux";
 
 
-function CategoryDetailHeader() {
+function CategoryDetailHeader(props) {
     return(           
        <div className="headersbgimage mb-2">
     <div className="headersbgcolor">
@@ -22,7 +24,7 @@ function CategoryDetailHeader() {
               </div>
           </div>
         </div>
-          <h1 className="text-center f_OpenSans_Bold">Burger</h1>
+          <h1 className="text-center f_OpenSans_Bold">{props.header}</h1>
       </div>
     </div>
       
@@ -74,7 +76,7 @@ function CategoryDetailHeader() {
     );
   }
 
-export class ProductDetail extends Component {
+class ProductDetail extends Component {
 
     state = {
         item: null,
@@ -83,7 +85,7 @@ export class ProductDetail extends Component {
     }
 
     componentDidMount() {
-        axios.get("https://api.caspianpizza.ir/api/Product/FindProductById/11")
+        axios.get("https://api.caspianpizza.ir/api/Product/FindProductById/" + this.props.ProductDetailId)
     .then(response => {
       this.setState({
         item: response.data.data,
@@ -101,7 +103,7 @@ export class ProductDetail extends Component {
     return ( 
       <>
       <div className="container p-0 pb-5" style={{ border  : '1px solid #e0e0e0' }}>
-      <CategoryDetailHeader />
+      <CategoryDetailHeader header={this.state.item.name}/>
         <div className="row justify-content-center px-3">
           <div className="col-lg-4 col-sm-8 col-md-7 col-9 text-center">
           { !this.state.isVideo && (<img
@@ -140,14 +142,17 @@ export class ProductDetail extends Component {
           </div>
           <div className="col-lg-8 ps-lg-5">
             <h2 className="f_Poppins mt-3 mydarkcyan">
-              Section 1.10.32 of "de Finibus Bonorum et Malorum", written by
-              Cicero in 45 BC
+            {this.state.item.name}
             </h2>
-            <p className="mytextsecondry">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
-            <div className="mybrown">
-              <div className="col-lg-6 col-9 d-flex justify-content-between"><p>Collection: £<span>4.36</span></p><p>Delivery: £<span>4.68</span></p></div></div>
-            <div className="d-flex col-lg-6 col-9 align-items-center justify-content-between mybrown"><p>£4.36 each</p><p>£4.36 each</p></div>
-
+            <p className="mytextsecondry">{this.state.item.description}</p>
+            <div className="mybrown mb-3">
+              {/* <div className="col-lg-6 col-9 d-flex justify-content-between"><p>Collection: £<span>4.36</span></p><p>Delivery: £<span>4.68</span></p></div> */}
+              £{this.state.item.tradePrice}
+              </div>
+            {/* <div className="d-flex col-lg-6 col-9 align-items-center justify-content-between mybrown"><p>£4.36 each</p><p>£4.36 each</p></div> */}
+            <div className="w-50 cursorpointer">
+            <BasketQuantity productId={this.state.item.id}/>
+            </div>
           </div>
         </div>
         <div className="row px-3">
@@ -236,3 +241,10 @@ export class ProductDetail extends Component {
     );
   }
 }
+
+
+const mapStateToProps = (state) => ({
+  ProductDetailId: state.category.ProductDetailId
+})
+
+export default connect(mapStateToProps)(ProductDetail)

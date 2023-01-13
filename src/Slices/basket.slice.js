@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from 'uuid';
 
 
-  const cart = JSON.parse(localStorage.getItem("cart"));
+  let cart = JSON.parse(localStorage.getItem("cart"));
 
   export const getMyCart = createAsyncThunk(
     "basket/getMyCart",
@@ -34,6 +34,7 @@ import { v4 as uuidv4 } from 'uuid';
     "basket/addToCart",
     async ({productId}, thunkAPI) => {
       try {
+        await BasketService.addToCart(cart.cartId, productId)
         return { productId: productId }
       } catch (error) {
         return thunkAPI.rejectWithValue();
@@ -57,9 +58,11 @@ import { v4 as uuidv4 } from 'uuid';
     "basket/createCart",
     async ({productId}, thunkAPI) => {
       try {
-        const data = await BasketService.createCart(cart !== null ? cart.cartId : 0, productId, cart !== null ? cart.browserId : uuidv4());
-        if(cart === null){
-            localStorage.setItem("cart", JSON.stringify({brawserId: data.brawserId, cartId: data.cartId }));
+        const data = await BasketService.createCart(localStorage.getItem("cart") !== null ? cart.cartId : 0, productId, localStorage.getItem("cart") !== null ? cart.browserId : uuidv4());
+        if(localStorage.getItem("cart") === null){
+          localStorage.removeItem("cart")
+            localStorage.setItem("cart", JSON.stringify({browserId: data.brawserId, cartId: data.cartId }));
+            cart = JSON.parse(localStorage.getItem("cart"));
         }
         return { cartItems: data.cartItems }
       } catch (error) {
@@ -74,6 +77,7 @@ import { v4 as uuidv4 } from 'uuid';
       try {
         await BasketService.deleteCart(cart.cartId, cart.browserId)
         localStorage.removeItem("cart")
+        cart = null;
         return {}
       } catch (error) {
         return thunkAPI.rejectWithValue();
@@ -94,6 +98,10 @@ import { v4 as uuidv4 } from 'uuid';
             state.cartItems =  state.cartItems.filter(function(item) { 
                 return item.productId !== action.payload.productId
             });
+            if(state.cartItems.length === 0){
+              localStorage.removeItem("cart")
+              cart = null;
+            }
         },
         [addToCart.fulfilled]: (state, action) => {
             state.cartItems[state.cartItems.indexOf(
@@ -108,6 +116,10 @@ import { v4 as uuidv4 } from 'uuid';
                 state.cartItems =  state.cartItems.filter(function(item) { 
                     return item.productId !== action.payload.productId
                 });
+                if(state.cartItems.length === 0){
+                  localStorage.removeItem("cart")
+                  cart = null;
+                }
             }
             else{state.cartItems[state.cartItems.indexOf(
                 state.cartItems.filter((item) => item.productId === action.payload.productId)[0]
@@ -119,6 +131,8 @@ import { v4 as uuidv4 } from 'uuid';
         },
         [deleteCart.fulfilled]: (state, action) => {
             state.cartItems = [];
+            localStorage.removeItem("cart")
+                  cart = null;
         },
     }
   });

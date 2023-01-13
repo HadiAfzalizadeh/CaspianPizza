@@ -38,6 +38,34 @@ class CategoryPagination extends Component {
     .catch((error) => {});
   }
 
+  
+  componentDidUpdate(prevProps) {
+    if(prevProps.currentCategotyId !== this.props.currentCategotyId ) {
+      this.setState({
+        items: [],
+        hasMore: true,
+        currentCategotyId: -1,
+         page: 3,
+      });
+      axios
+      .get(
+        "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + 1 + "&PageSize=" + 8 + "&ProductCategoryId=" +
+        this.props.currentCategotyId
+      )
+      .then((response) => {
+        this.setState({
+          items: response.data.data
+        });
+        if(response.data.meta.totalRows === this.state.items.length){
+            this.setState({
+              hasMore: false
+            });
+        }
+      })
+      .catch((error) => {});
+     }
+  }
+
   render() {
     return (
       <>
