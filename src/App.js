@@ -30,7 +30,6 @@ const App = () => {
 
 useEffect(() => {
   dispatch(getMyCart());
-  document.title = 'Caspian Pizza';
 }, [dispatch]);
 
 

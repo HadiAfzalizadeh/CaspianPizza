@@ -14,8 +14,9 @@ import 'react-multi-carousel/lib/styles.css';
 
 <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet" />
 
-
+document.title = 'Caspian Pizza';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <Provider store={store}>
     <App />
