@@ -11,7 +11,8 @@ import {
   faCircleNotch,
   faRotate,
   faSpinner,
-  faAngleRight
+  faAngleRight,
+  faCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom'
 import authHeader from '../../Services/auth-header';
@@ -26,7 +27,7 @@ function ReOrderButton(props){
   const navigate = useNavigate();
 
   return(
-    <div to="" className="py-1 px-2 me-3 f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap" style={{ border: '1px solid #00796B' , color: '#00796B' }} onClick={() => 
+    <div className="py-1 me-3 f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap d-inline px-5" style={{ border: '1px solid #00796B' , color: '#00796B' }} onClick={() => 
       {                      
          if(!loading){
            setloading(true);
@@ -313,11 +314,17 @@ function Order(props){
         <FontAwesomeIcon style={{ backgroundColor: '00b7eb ' , borderRadius: '50%' }} icon={faRotate} className='spinner p-1 text-white'/>
         <h6 className='f_Poppins ms-1' style={{ color: '#23254e' }}>In Process</h6>
         </div>
-        <FontAwesomeIcon icon={faAngleRight} style={{ color: '#23254e' }} size="xl" className='me-2'/>
+        <FontAwesomeIcon icon={faAngleRight} style={{ color: '#23254e' }} className="me-3" size="sm"/>
         </div>
-        
+        <p className='mb-0 mt-3 f_OpenSans_Regular text-secondary mb-3'><span className='p-2'>02/21/2018 18:30</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>Order ID </span><span className='me-2'>4154541</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>Payment ID </span><span className='me-2'>4154541</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>Total Price </span><span className='me-2'>£230</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>Discount </span><span className='me-2'>£19</span></p>
+        <div className='d-flex flex-row-reverse w-100'>
+        <ReOrderButton/>
+        <div className="py-1 me-3 f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap d-inline px-5" style={{ border: '1px solid #F44336' , color: '#F44336' }} >
+       <span className="f_OpenSans_Bold">Cancel Order</span>
+       </div>
+          </div>
       </div>
-      <hr className='mb-0'/>
+      <hr className='my-0 '/>
       <div className='row'>
       <OrderCarousel orderItems={props.items}/>
       </div>
