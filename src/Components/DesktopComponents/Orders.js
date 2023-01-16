@@ -12,7 +12,9 @@ import {
   faRotate,
   faSpinner,
   faAngleRight,
-  faCircle
+  faCircle,
+  faCheck,
+  faXmark
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom'
 import authHeader from '../../Services/auth-header';
@@ -27,7 +29,7 @@ function ReOrderButton(props){
   const navigate = useNavigate();
 
   return(
-    <div className="py-1 me-3 f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap d-inline px-5" style={{ border: '1px solid #00796B' , color: '#00796B' }} onClick={() => 
+    <div className="py-1 me-3 f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap d-inline px-5" style={{ border: '1px solid #303F9F' , color: '#303F9F' }} onClick={() => 
       {                      
          if(!loading){
            setloading(true);
@@ -41,7 +43,7 @@ function ReOrderButton(props){
          }
      }}>
        {!loading && (<span className="f_OpenSans_Bold">Re Order Now</span>)}
-     {loading && (<FontAwesomeIcon style={{ color: '#00796B' }} icon={faCircleNotch} className="spinner p-0"  size="xl"/>)}
+     {loading && (<FontAwesomeIcon style={{ color: '#303F9F' }} icon={faCircleNotch} className="spinner p-0"  size="xl"/>)}
        </div>
   )
 
@@ -49,7 +51,7 @@ function ReOrderButton(props){
 
 
 
-function OrdersTable(props){
+function OrdersList(props){
   const [items, setItems] = useState([]);
   const [hasMore, sethasMore] = useState(true);  
   const [page, setpage] = useState(3);
@@ -57,7 +59,7 @@ function OrdersTable(props){
 
 
   useEffect(() => {
-    axios.get('https://api.caspianpizza.ir/api/Order/GetByOrderStatus?OrderState=' + props.orderState + '&StartDate=2000/12/13&EndDate=2023/01/08&SearchKey&Page=1&PageSize=10', { headers: authHeader() })
+    axios.get('https://api.caspianpizza.ir/api/Order/GetByOrderStatus?OrderState=' + props.orderStatus + '&StartDate&EndDate&SearchKey&Page=1&PageSize=10', { headers: authHeader() })
     .then((response) => {
       setItems(items.concat(response.data.data));
       if(response.data.meta.totalRows === response.data.data.length){
@@ -74,7 +76,7 @@ function OrdersTable(props){
             className="pb-5"
             dataLength={items.length}
             next={() => {
-              axios.get('https://api.caspianpizza.ir/api/Order/GetByOrderStatus?OrderState=' + props.orderState + '&StartDate=2000/12/13&EndDate=2023/01/08&SearchKey&Page=' + page + '&PageSize=5', { headers: authHeader() })
+              axios.get('https://api.caspianpizza.ir/api/Order/GetByOrderStatus?OrderState=' + props.orderStatus + '&StartDate&EndDate&SearchKey&Page=' + page + '&PageSize=5', { headers: authHeader() })
               .then((response) => {
                 setpage(page+1);
                 setItems(items.concat(response.data.data));
@@ -90,34 +92,20 @@ function OrdersTable(props){
                 <div className="centerTextalign parentLoader">
                 <FontAwesomeIcon icon={faSpinner} className="spinner loaderIconSize"/>
                 </div>
-            }
-            >
-              <table className="table px-3 py-2 noselect" style={{ borderCollapse: 'separate' , borderSpacing: '0 8px' , backgroundColor: '#F5F5F5' }}>
-  <thead className='bg-white'>
-    <tr class="thead-light">
-      <th className='f_Poppins text-center' scope="col">Order Id</th>
-      <th className='f_Poppins text-center' scope="col">Payment Id</th>
-      <th className='f_Poppins text-center' scope="col">Date</th>
-      <th className='f_Poppins text-center' scope="col">Total Price</th>
-      <th className='f_Poppins text-center' scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-  {items.map((item) => (
-        <tr className='bg-white'>
-              <td className='text-center'>{item.id}</td>
-              <td className='text-center'>{item.paymentId}</td>
-              <td></td>
-              <td className='text-center'>£{item.totalPice}</td>
-              <td className='text-center'><div className=''>
-                <ReOrderButton itemId={item.id}/>
-              {/* <Link to="" className="f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap" style={{  color: '#FF9800' }}>View Details {" >"}</Link> */}
-              </div></td>
-            </tr>
-            ))}
-            </tbody>
-</table>
+            }>
+              <div className='container-fluid'>
+              {items.map((item) => (<Order key={item.id} item={item}/>))}
+              </div>
+            
         </InfiniteScroll>
+  )
+}
+
+function CancelButton(){
+  return(
+    <div className="py-1 me-3 f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap d-inline px-5" style={{ border: '1px solid #F44336' , color: '#F44336' }} >
+  <span className="f_OpenSans_Bold">Cancel Order</span>
+  </div>
   )
 }
 
@@ -304,29 +292,38 @@ function ItemCard(props){
     </div>)
   }
 
-  // 212121
+/* <tr className='bg-white'>
+              <td className='text-center'>{item.id}</td>
+              <td className='text-center'>{item.paymentId}</td>
+              <td></td>
+              <td className='text-center'>£{item.totalPice}</td>
+              <td className='text-center'><div className=''>
+                <ReOrderButton itemId={item.id}/>*/
+
+
 function Order(props){
   return(
-    <div className='mt-2 rounded' style={{ border: '1px solid #00000033' }}>
+    <div className='mt-3' style={{ border: '1px solid #00000033' }}>
       <div className='row p-3 cursorpointer'>
         <div className='d-flex justify-content-between'>
-        <div className='d-flex'>
-        <FontAwesomeIcon style={{ backgroundColor: '00b7eb ' , borderRadius: '50%' }} icon={faRotate} className='spinner p-1 text-white'/>
-        <h6 className='f_Poppins ms-1' style={{ color: '#23254e' }}>In Process</h6>
+        <div className='d-flex align-items-center'>
+        {props.item.orderState === 0 && (<><FontAwesomeIcon style={{ backgroundColor: '#00b7eb' , borderRadius: '50%' }} icon={faRotate} className='spinner p-1 text-white'/>
+        <h6 className='f_Poppins ms-2 mb-0' style={{ color: '#23254e' }}>In Process</h6></>)}
+        {props.item.orderState === 2 && (<><FontAwesomeIcon style={{ backgroundColor: '#4CAF50 ' , borderRadius: '50%' }} icon={faCheck} className='p-1 text-white'/>
+        <h6 className='f_Poppins ms-2 mb-0' style={{ color: '#23254e' }}>Delivered</h6></>)}
+        {props.item.orderState === 1 && (<><FontAwesomeIcon style={{ backgroundColor: '#FF5722 ' , borderRadius: '50%' , aspectRatio: '1/1'}} icon={faXmark} className='p-1 text-white'/>
+        <h6 className='f_Poppins ms-2 mb-0' style={{ color: '#23254e' }}>Cancelled</h6></>)}
         </div>
         <FontAwesomeIcon icon={faAngleRight} style={{ color: '#23254e' }} className="me-3" size="sm"/>
         </div>
-        <p className='mb-0 mt-3 f_OpenSans_Regular text-secondary mb-3'><span className='p-2'>02/21/2018 18:30</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>Order ID </span><span className='me-2'>4154541</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>Payment ID </span><span className='me-2'>4154541</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>Total Price </span><span className='me-2'>£230</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>Discount </span><span className='me-2'>£19</span></p>
-        <div className='d-flex flex-row-reverse w-100'>
+        <p className='mb-0 mt-3 f_OpenSans_Regular text-secondary mb-3'><span className='p-2'>{props.item.insertTime.substring(0,props.item.insertTime.indexOf( "T" ))} {props.item.insertTime.substring(props.item.insertTime.indexOf( "T" )+1,props.item.insertTime.indexOf( "." ))}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>Order ID </span><span className='me-2'>{props.item.id}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>Payment ID </span><span className='me-2'>{props.item.paymentId}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>Total Price </span><span className='me-2'>£{props.item.totalPice}</span>{props.item.totalPice !== props.item.totalPiceWithoutDiscount && (<><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>Your Profit </span><span className='me-2'>£{props.item.totalPice - props.item.totalPiceWithoutDiscount}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>Total Pice Without Discount </span><span className='me-2'>£{props.item.totalPiceWithoutDiscount}</span></>)}</p>
+        <div className='text-end w-100'>
         <ReOrderButton/>
-        <div className="py-1 me-3 f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap d-inline px-5" style={{ border: '1px solid #F44336' , color: '#F44336' }} >
-       <span className="f_OpenSans_Bold">Cancel Order</span>
-       </div>
           </div>
       </div>
       <hr className='my-0 '/>
       <div className='row'>
-      <OrderCarousel orderItems={props.items}/>
+      {/* <OrderCarousel orderItems={props.item}/> */}
       </div>
     </div>
   )
@@ -357,30 +354,29 @@ export class Orders extends Component {
     render(){
         return(
         <div className="container px-0">
-        <div className="text-center py-2 mb-0 align-items-center" style={{ backgroundColor: '#2196F3' }}>
-            <h3 className="f_Poppins text-white mb-0">My Orders</h3>
-        </div>
+        
 
-        {/* <Tabs className="noselect mt-1">
-    <TabList style={{ border: '0 0 0 1px solid' , borderColor: '#FF5722' }}>
-      <Tab style={{ backgroundColor: '#FFC107', color: '#212121' }}>In Process Orders</Tab>
-      <Tab style={{ backgroundColor: '#00796B' , color: 'white' }}>Delivered Orders</Tab>
+        <Tabs className="noselect mt-2">
+        <div className="text-center ps-4 py-2 mb-0 align-items-center" style={{ backgroundColor: '#673AB7' }}>
+            <h4 className="f_Poppins text-white mb-0">My Orders</h4>
+        </div>
+    <TabList>
+      <Tab style={{ backgroundColor: '#00b7eb', color: 'white' }}>In Process Orders</Tab>
+      <Tab style={{ backgroundColor: '#4CAF50' , color: 'white' }}>Delivered Orders</Tab>
       <Tab style={{ backgroundColor: '#FF5722' , color: 'white' }}>Cancelled Orders</Tab>
     </TabList>
 
     <TabPanel>
-          <OrdersTable orderState={0}/>
+    <OrdersList orderStatus={0}/>
     </TabPanel>
     <TabPanel>
-    <OrdersTable orderState={2}/>
+    <OrdersList orderStatus={2}/>
     </TabPanel>
     <TabPanel>
-    <OrdersTable orderState={1}/>
+    <OrdersList orderStatus={1}/>
     </TabPanel>
 
-  </Tabs> */}
-
-  <Order items={this.state.items}/>
+  </Tabs>
         </div>
     
       );

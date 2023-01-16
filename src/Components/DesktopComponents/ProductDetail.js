@@ -80,8 +80,7 @@ class ProductDetail extends Component {
 
     state = {
         item: null,
-        selectedImageBody: null,
-        isVideo: false
+        selectedImageBody: null
     }
 
     componentDidMount() {
@@ -106,15 +105,11 @@ class ProductDetail extends Component {
       <CategoryDetailHeader header={this.state.item.name}/>
         <div className="row justify-content-center px-3">
           <div className="col-lg-4 col-sm-8 col-md-7 col-9 text-center">
-          { !this.state.isVideo && (<img
+          <img
               src={ this.state.selectedImageBody === null ? "/assets/images/catPicTemp.jpg" : "data:image/png;base64, " + this.state.selectedImageBody}
               alt="alt product"
               className="img-fluid mb-2"
-            ></img>)}
-            { this.state.isVideo && (<video className="w-100" controls>
-                <source src="mov_bbb.mp4" type="video/mp4"></source> 
-                Your browser does not support HTML video.
-            </video>)}
+            ></img>
             <div className="row imagetiles">
               {this.state.item.productImages.map((item) => (
                 <div className="col-3 mb-2 align-self-center cursorpointer" key={item.id} 
@@ -127,15 +122,7 @@ class ProductDetail extends Component {
                     />
                 </div>
                  ))}
-                
-                <div className="col-3 mb-2 p-3 align-items-center cursorpointer" onClick={() => {this.setState({isVideo: true})}}>
-                <img
-                        src="/assets/images/video-play-icon.svg"
-                        srcSet="/assets/images/video-play-icon.svg"
-                        alt="Temp"
-                        loading="lazy"
-                        className="img-fluid"/>
-                </div>
+              
             </div>
          
             
@@ -155,7 +142,7 @@ class ProductDetail extends Component {
             </div>
           </div>
         </div>
-        <div className="row px-3">
+        <div className="row px-3 pt-3">
         <Tabs className="noselect d-none d-lg-block">
     <TabList>
       <Tab style={{ backgroundColor: '#00BCD4' , color: 'white' }}>INGREDIENTS</Tab>
