@@ -53,7 +53,7 @@ function CartItem(){
                          <p style={{ marginBottom: 0 }}>£116.91</p>
                          <p>+ £5.85 VAT</p>
                      </div>
-                         <BasketQuantity productId={item.productId}/>
+                         <div style={{ maxWidth: '200px' }}><BasketQuantity  productId={item.productId}/></div>
                          </div>
                      </div>
                      <div className="d-flex align-items-center ms-2 cursorpointer" onClick={() => 

@@ -12,6 +12,7 @@ import SignUp  from "../SharedComponents/SignUp";
 import GuardedRoute from "../SharedComponents/GuardedRoute";
 import { connect } from "react-redux";
 import { Orders } from "./Orders";
+import { OrderDetail } from "./OrderDetail";
 
 
 
@@ -101,7 +102,10 @@ class DesktopApp extends Component {
                       <Route path="SignUp" element={<GuardedRoute  component={SignUp} distance="/" auth={!this.props.isLoggedIn}/>}></Route>
                     </Route>
                     <Route path="BookSlot" element={<BookSlot />}></Route>
+                    <Route path="MyOrders">
                     <Route path="Orders" element={<GuardedRoute  component={Orders} distance="/SignIn" auth={this.props.isLoggedIn}/>}></Route>
+                    <Route path="OrderDetail" element={<GuardedRoute  component={OrderDetail} distance="/SignIn" auth={this.props.isLoggedIn}/>}></Route>
+                    </Route>
                     <Route path="*" element={<GuardedRoute  component={HomePage} distance="/" auth={false}/>}></Route>
                 </Route>
               </Routes>
@@ -110,8 +114,6 @@ class DesktopApp extends Component {
     );
   }
 }
-
-
 
 const mapStateToProps = (state) => ({ isLoggedIn: state.auth.isLoggedIn })
 

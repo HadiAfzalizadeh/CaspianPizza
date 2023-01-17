@@ -2,17 +2,26 @@ import { Link } from 'react-router-dom';
 import BasketQuantity from './BasketQuantity';
 import { useDispatch } from "react-redux";
 import { setProductDetailId } from "../../Slices/category.slice";
+import { useNavigate } from "react-router-dom";
+import React, { useRef } from 'react';
 
 
 
 function ItemCard(props){
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const quantityRef = useRef();
 
     return(
       <>
-       <div className="noselect" style={{  textDecoration: 'none'  }}>
+       <div className="noselect cursorpointer" style={{  textDecoration: 'none'  }} onClick={event => {
+        if(!quantityRef.current.contains(event.target)){
+          dispatch(setProductDetailId(props.item.id));
+          navigate("/ProductDetail")
+        }
+        
+       }}>
       <div className="row text-center px-2 py-3">
         <img
         style={{ width: '100%', height:'auto'}}
@@ -22,14 +31,14 @@ function ItemCard(props){
         </div>
   
         <div className="row text-secondary">
-      <h5 className="text-center f_Poppins mb-0 captiontext" style={{ wordWrap: 'break-word' , fontSize: '1.3em', lineHeight: '1.31em', height: '2.62em' }}>{props.item.name}</h5>
+      <h5 className="text-center f_Poppins mb-0 captiontext mb-1" style={{ wordWrap: 'break-word' , fontSize: '1.3em', lineHeight: '1.31em', height: '2.62em' }}>{props.item.name}</h5>
     <div className="text-center text pt-0" style={{ wordWrap: 'break-word' , fontSize: '1em', lineHeight: '1.1em', height: '3.4em' }}>
       {props.item.description}
     </div>
       <div className="row w-100 text-center m-0 my-1">
       <p className='f_Poppins mb-0'>£{props.item.salesPrice}</p>
       </div>
-      <div className="row p-3 pt-0 m-0 cursorpointer">
+      <div ref={quantityRef}  className="row p-3 pt-0 m-0 cursorpointer">
         <BasketQuantity productId={props.item.id}/>
       </div>
       {/* <div className="row p-3 pt-0 m-0">

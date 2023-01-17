@@ -138,7 +138,7 @@ class ProductDetail extends Component {
               </div>
             {/* <div className="d-flex col-lg-6 col-9 align-items-center justify-content-between mybrown"><p>£4.36 each</p><p>£4.36 each</p></div> */}
             <div className="w-50 cursorpointer">
-            <BasketQuantity productId={this.state.item.id}/>
+            <div style={{ maxWidth: '250px' }}><BasketQuantity productId={this.state.item.id}/></div>
             </div>
           </div>
         </div>

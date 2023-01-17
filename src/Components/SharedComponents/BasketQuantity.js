@@ -19,7 +19,7 @@ const BasketQuantity = (props) => {
     const { cartItems } = useSelector((state) => state.basket);
 
     return(
-        <>
+        <div>
         {cartItems.find((item) => item.productId === props.productId) && (
         <div className="w-100 text-center"><div className="input-group quantity mx-auto text-nowrap">
             <div className="input-group-btn d-inline">
@@ -39,7 +39,7 @@ const BasketQuantity = (props) => {
                 {loadingMinus && (<FontAwesomeIcon icon={faCircleNotch} className="spinner" size="xl"/>)}
                 </button>
             </div>
-            <input  type="text" className="form-control border-0 text-center" value=
+            <input id="bq" type="text" className="form-control border-0 text-center" value=
             {cartItems.filter((item) => item.productId === props.productId)[0].count}
              style={{  backgroundColor: '#FFC107' , height: '40px' }} disabled></input>
             <div className="input-group-btn d-inline">
@@ -79,7 +79,7 @@ const BasketQuantity = (props) => {
                     {loadingAdd && (<FontAwesomeIcon style={{ color: '#00796B' }} icon={faCircleNotch} className="spinner p-0"  size="xl"/>)}
                         </div>
         )}
-        </>
+        </div>
         
     )
 }
