@@ -155,6 +155,20 @@ p {
   font-size: 0.95rem;
 }
 
+.indicator {
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+  background-color: #009688;
+  color: white;
+  margin: 0;
+}
+
+.indicator.active {
+  color: #795548;
+  background: #FFC107;
+}
+
 /*-----------------------------------Sign In / Sign Up----------------------------------------*/
 
 

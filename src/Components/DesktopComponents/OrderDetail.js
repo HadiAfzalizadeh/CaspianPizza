@@ -13,25 +13,49 @@ import { OrderGeneralDetailForDetail } from '../SharedComponents/OrderGeneralDet
 import { Link } from 'react-router-dom'
 import ItemCard from "../SharedComponents/ItemCard";
 import {  useSelector } from "react-redux";
+import { Component } from "react";
+import { connect } from "react-redux";
 
 
+class OrderDetail extends Component {
 
-export const OrderDetail = () => {
-    const [item, setItem] = useState(null);
-    const { OrderDetailId } = useSelector((state) => state.basket);
+  state= {
+    item: null,
+  }
 
-    useEffect(() => {
-      console.log("dsd" + OrderDetailId);
-        axios.get('https://api.caspianpizza.ir/api/OrderDetail/FindOrderDetailByOrderIdForUser/' + 38  , { headers: authHeader() })
+    // const { OrderDetailId } = useSelector((state) => state.basket);
+
+  //   useEffect(() => {
+  //     alert(OrderDetailId)
+  //       axios.get('https://api.caspianpizza.ir/api/OrderDetail/FindOrderDetailByOrderIdForUser/' + OrderDetailId  , { headers: authHeader() })
+  //       .then((response) => {
+  //         console.log(response.data.data)
+  //         setItem(response.data.data);
+  //       })
+  //       .catch((error) => {});
+  //     }, [OrderDetailId]);
+
+  //     componentDidMount() {
+  //       axios.get('https://api.caspianpizza.ir/api/OrderDetail/FindOrderDetailByOrderIdForUser/' + OrderDetailId  , { headers: authHeader() })
+  //       .then((response) => {
+          
+  //         setItem(response.data.data);
+  //       })
+  //       .catch((error) => {});
+  // }
+
+  componentDidMount() {
+    axios.get('https://api.caspianpizza.ir/api/OrderDetail/FindOrderDetailByOrderIdForUser/' + this.props.OrderDetailId  , { headers: authHeader() })
         .then((response) => {
-          console.log(response.data.data)
-          setItem(response.data.data);
+          this.setState({
+            item: response.data.data
+          });
         })
         .catch((error) => {});
-      }, [OrderDetailId]);
-
-
-      if(item === null){
+}
+      
+render() {
+      if(this.state.item === null){
             return null;
       }
 
@@ -41,22 +65,22 @@ export const OrderDetail = () => {
             <div className="text-center ps-4 py-2 mb-0 align-items-center" style={{ backgroundColor: '#673AB7' }}>
             <h4 className="f_Poppins text-white mb-0">My Orders</h4>
         </div>
-        <div className="d-flex justify-content-between p-3" style={{ color: '#23254e' }}><Link to="../Orders"><FontAwesomeIcon icon={faArrowLeft} className="p-0"  size="xl" style={{ color: '#23254e' }} /></Link><h4 className="f_Poppins mb-0">Order { item.orderId } Detail</h4><FontAwesomeIcon icon={faArrowRight} className="p-0 invisible"  size="xl"/></div>
+        <div className="d-flex justify-content-between p-3" style={{ color: '#23254e' }}><Link to="../Orders"><FontAwesomeIcon icon={faArrowLeft} className="p-0"  size="xl" style={{ color: '#23254e' }} /></Link><h4 className="f_Poppins mb-0">Order { this.state.item.orderId } Detail</h4><FontAwesomeIcon icon={faArrowRight} className="p-0 invisible"  size="xl"/></div>
         <hr className='my-0'/>
-           <OrderGeneralDetailForDetail item={item} showArrow={false}/>
+           <OrderGeneralDetailForDetail item={this.state.item} showArrow={false}/>
            <hr className='my-0 '/>
            <div className="p-3">
-           <span>Order Recipient </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>{item.fullName}</span>
+           <span>Order Recipient </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>{this.state.item.fullName}</span>
            <FontAwesomeIcon className='ms-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/>
-           <span className="ms-3">Phone Number </span><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>{item.phone}</span>
+           <span className="ms-3">Phone Number </span><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>{this.state.item.phone}</span>
            </div>
            <div className="p-3">
-           <span>Address </span><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>{item.address}</span>
+           <span>Address </span><span className='f_OpenSans_Bold' style={{ color: '#23254e' }}>{this.state.item.address}</span>
            </div>
            </div>
            <div className='container my-3'>
            <div className="row justify-content-center text-center">
-           {item.orderDetailItems.map((item) => (
+           {this.state.item.orderDetailItems.map((item) => (
                 <>
                 <div className="col-2 hoverableCard d-none d-xl-block" key={item.orderId + "col2"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'}}>
                   <ItemCard item={item.product}/>
@@ -77,4 +101,12 @@ export const OrderDetail = () => {
     
         </>
     )
+           }
 }
+
+
+const mapStateToProps = (state) => ({
+  OrderDetailId: state.category.OrderDetailId
+})
+
+export default connect(mapStateToProps)(OrderDetail)

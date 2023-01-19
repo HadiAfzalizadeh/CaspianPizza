@@ -21,14 +21,16 @@ function PayButton(){
 
     return(
         <div className="text-end my-3">
-                <button className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded text-nowrap me-3" style={{ border: '1px solid #00796B' , color: '#00796B' }} onClick={() => {
-                    dispatch(payForUser())
-                    .unwrap()
-                    .then(() => {
-                        navigate("/MyOrders/OrderDetail");
-                    })
-                    .catch()
-                }}>Pay Now</button>
+                <button className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded text-nowrap me-3" style={{ border: '1px solid #00796B' , color: '#00796B' }} 
+                // onClick={() => {
+                //     dispatch(payForUser())
+                //     .unwrap()
+                //     .then(() => {
+                //         navigate("/MyOrders/OrderDetail");
+                //     })
+                //     .catch()
+                // }}
+                >Pay Now</button>
             </div>
     )
 }

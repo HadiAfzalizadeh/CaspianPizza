@@ -6,9 +6,10 @@ import Select from 'react-select';
 import { Form , Field} from 'formik';
 import { Link } from 'react-router-dom';
 import { PaymentMultiStep } from '../SharedComponents/PaymentMultiStep';
+import { Button } from 'bootstrap';
+import setBookSlot from '../../Slices/category.slice';
 
 const timeOptions = [
-    { value: '0', label: 'Please select your slot time' },
     { value: '1', label: '06:00 - 06:30' },
     { value: '2', label: '06:30 - 07:00' },
     { value: '3', label: '07:00 - 07:30' },
@@ -46,7 +47,10 @@ const BookSlot = () => {
         <>
         <div className="container align-items-center p-3 pt-4" style={{ width: '100%'  , background: '#00BCD4' }}>
             <Formik
-                initialValues={{ bookSlotOptions: ''  }}
+                initialValues={{ bookSlotOptions: '1'  }}
+                onSubmit={(values, { setSubmitting }) => {
+                    setBookSlot()
+                  }}
             >
                 {({
          values
@@ -70,7 +74,7 @@ const BookSlot = () => {
                         <label class="form-check-label" for="inlineRadio2">COLLECTION</label>
                         </div>
                         </div>
-                       <p className="pt-3">Your next available slot: <span style={{ color: '#00796B' }}>Tomorrow</span></p>
+                       {/* <p className="pt-3">Your next available slot: <span style={{ color: '#00796B' }}>Tomorrow</span></p> */}
                        <p>All collection slots are 30 minutes long.
 Please arrive within your allocated time slot. If you arrive early, you may be asked to wait.</p>
                     </div>
@@ -86,22 +90,22 @@ Please arrive within your allocated time slot. If you arrive early, you may be a
                             </div>
                             <div className="w-50">
                             <p>Time</p>
-                            <Select options={timeOptions} />
+                            <Select defaultValue={{ value: '1', label: '06:00 - 06:30' }} options={timeOptions} />
                             </div>
                         </div>
-                        <div className="row mt-3">
+                        {/* <div className="row mt-3">
                         <div className="col">
                             <p>YOUR INFO</p>
                                 <input type="text" className="form-control f_Poppins" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Delivery Phone Number (required)"></input>
                                 {values.bookSlotOptions === '1' && ( <> <input type="text" className="form-control f_Poppins mt-2" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Driver instructions (optional)"></input>
                                 <input type="text" className="form-control f_Poppins mt-2" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Your reference (optional)"></input></>)}
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
             </div>
             <div className="text-center mt-5">
-            <Link to="/Checkout" className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded w-50 mx-1 px-5" style={{ border: '1px solid #00796B' , color: '#00796B' }}>RESERVE & CHECKOUT</Link>
+            <Link to="/Checkout" className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded w-50 mx-1 px-5" style={{ border: '1px solid #00796B' , color: '#00796B' }} type="submit">RESERVE & CHECKOUT</Link>
             </div></>)}
 
             {!values.bookSlotOptions && ( <div className="container text-center w-100 bg-white mt-2 p-3 pb-5"> 

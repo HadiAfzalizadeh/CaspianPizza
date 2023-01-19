@@ -12,7 +12,7 @@ import React, { useState , useRef } from 'react';
 import axios from "axios";
 import authHeader from '../../Services/auth-header';
 import { useDispatch } from "react-redux";
-import { setOrderDetailId } from "../../Slices/basket.slice";
+import { setOrderDetailId } from "../../Slices/category.slice";
 
 
 function ReOrderButton(props){
@@ -21,7 +21,7 @@ function ReOrderButton(props){
   
     return(
       <div className="py-1 me-3 f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap d-inline px-5" style={{ border: '1px solid #303F9F' , color: '#303F9F' }} onClick={() => 
-        {                      
+        {                   
            if(!loading){
              setloading(true);
              axios
@@ -49,7 +49,7 @@ export const OrderGeneralDetail = (props) => {
     return(
         <div className='row p-3 cursorpointer' onClick={(event) => {
           if(!quantityRef.current.contains(event.target)){
-            // dispatch(setOrderDetailId(props.item.id));
+            dispatch(setOrderDetailId(props.item.id));
           navigate("../OrderDetail");
           }
         }}>

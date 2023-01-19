@@ -12,8 +12,9 @@ import SignUp  from "../SharedComponents/SignUp";
 import GuardedRoute from "../SharedComponents/GuardedRoute";
 import { connect } from "react-redux";
 import { Orders } from "./Orders";
-import { OrderDetail } from "./OrderDetail";
+import  OrderDetail from "./OrderDetail";
 import Checkout from "./Checkout";
+import { Footer } from "./Footer";
 
 
 
@@ -111,6 +112,7 @@ class DesktopApp extends Component {
                     <Route path="*" element={<GuardedRoute  component={HomePage} distance="/" auth={false}/>}></Route>
                 </Route>
               </Routes>
+              <Footer />
           </BrowserRouter>
       </>
     );

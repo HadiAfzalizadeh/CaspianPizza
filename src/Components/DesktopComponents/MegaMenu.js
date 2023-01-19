@@ -109,7 +109,6 @@ class MegaMenu extends Component {
       <div ref={this.wrapperRef} className="container-lg position-absolute start-50 translate-middle-x" style={{  zIndex: 100000 , borderColor: '#B2BEB5', borderStyle: 'solid' , borderWidth:  '0 1px 1px 1px' , backgroundColor: 'white' , color: '#7c7c7c' }}>
         <div className="row bottom-border p-3">
           <div className="d-flex">
-            <p className="me-3 mb-0">ENFIELD BRANCH</p>
             <p className="me-3 mb-0">OFFERS</p>
             <p className="me-3 mb-0">NEW PRODUCTS</p>
             <p className="me-3 mb-0">HALAL RANGE</p>

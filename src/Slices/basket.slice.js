@@ -97,16 +97,11 @@ import { v4 as uuidv4 } from 'uuid';
     }
   );
 
-  const initialState = {cartItems: []};
+  const initialState = {cartItems: [], OrderDetailId: -1};
 
   const basketslice = createSlice({
     name: "basket",
     initialState,
-    reducers: {
-      setOrderDetailId: (state, action) => {
-        return { OrderDetailId: action.payload };
-      }
-  },
     extraReducers: {
         [getMyCart.fulfilled]: (state, action) => {
             state.cartItems = action.payload.cartItems;
@@ -162,9 +157,8 @@ import { v4 as uuidv4 } from 'uuid';
     }
   });
 
-  const { reducer, actions } = basketslice;
+  const { reducer } = basketslice;
 
-  export const { setOrderDetailId } = actions
 
   export default reducer;
 
