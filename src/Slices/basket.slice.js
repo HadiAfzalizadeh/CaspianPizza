@@ -1,6 +1,7 @@
 import BasketService from "../Services/basket.service";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from 'uuid';
+import { json } from "react-router-dom";
 
 
   let cart = JSON.parse(localStorage.getItem("cart"));
@@ -97,11 +98,32 @@ import { v4 as uuidv4 } from 'uuid';
     }
   );
 
-  const initialState = {cartItems: [], OrderDetailId: -1};
+  export const ReCreateOrder = createAsyncThunk(
+    "basket/ReCreateOrder",
+    async ({orderId}, thunkAPI) => {
+      try {
+        const data = await BasketService.ReCreateOrder(orderId,localStorage.getItem("cart") !== null ? cart.browserId : uuidv4())
+        return { data: data }
+      } catch (error) {
+        return thunkAPI.rejectWithValue();
+      }
+    }
+  );
+
+
+  const initialState = {cartItems: []};
 
   const basketslice = createSlice({
     name: "basket",
     initialState,
+    reducers: {
+      setOrderDetailId: (state, action) => {
+        return { OrderDetailId: action.payload ,cartItems: state.cartItems };
+      },
+      setBookSlot: (state, action) => {
+        return { isDelivery: action.payload.isDelivery , date: action.payload.date, time: action.payload.time,cartItems: state.cartItems};
+      }
+    },
     extraReducers: {
         [getMyCart.fulfilled]: (state, action) => {
             state.cartItems = action.payload.cartItems;
@@ -148,17 +170,17 @@ import { v4 as uuidv4 } from 'uuid';
                   cart = null;
         },
         [payForUser.fulfilled]: (state, action) => {
-          console.log(action.data.data.orderId)
-          state.OrderDetailId= action.data.data.orderId
+          state.OrderDetailId= action.payload.data.data.orderId
           state.cartItems = [];
           localStorage.removeItem("cart")
                 cart = null;
-      }
+        },
+        [ReCreateOrder.fulfilled]: (state, action) => {
+          
+        }
     }
   });
 
-  const { reducer } = basketslice;
-
-
-  export default reducer;
+  export const { setOrderDetailId, setBookSlot } = basketslice.actions
+  export default basketslice.reducer;
 

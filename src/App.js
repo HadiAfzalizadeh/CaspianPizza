@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { getMyCart } from './Slices/basket.slice';
 import { useDispatch , useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -25,6 +26,8 @@ const App = () => {
   // const cart = JSON.parse(localStorage.getItem("cart"));
 
   // // alert(cart.brawserId);
+
+  // console.log(uuidv4());
 
   const dispatch = useDispatch();
 

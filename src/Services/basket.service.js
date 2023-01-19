@@ -86,10 +86,16 @@ const getMyCart = (browserId) => {
       paymentType: 2,
       amount: 0,
       amountPaidWithCredit: 0,
-      address: "string",
-      phone: 54545
+      address: "",
+      phone: ""
     }, { headers: authHeader() })
     .then((response) => {return response.data;})
+  };
+
+  const ReCreateOrder = (orderId,browserId) => {
+    return axios
+    .post("https://api.caspianpizza.ir/api/Order/ReCreateOrder?orderId=" + orderId + "&BrowserId=" + browserId ,{ headers: authHeader()})
+    .then((response) => {return response.data.data;})
   };
 
   const BasketService = {
@@ -99,7 +105,8 @@ const getMyCart = (browserId) => {
     removeFromCart,
     createCart,
     deleteCart,
-    payForUser
+    payForUser,
+    ReCreateOrder
   };
   
   export default BasketService;

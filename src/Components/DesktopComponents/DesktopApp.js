@@ -94,17 +94,15 @@ class DesktopApp extends Component {
             <Routes>
                 <Route path="/">
                   <Route index element={<HomePage />}></Route>
-                  <Route path="CategoryPage" element={
-                  <CategoryPage />}></Route>
+                  <Route path="CategoryPage" element={<CategoryPage />}></Route>
                     <Route path="ProductDetail" element={<ProductDetail />}></Route>
                     <Route path="Basket" element={<Basket />}></Route>
-                    <Route path="BookSlot" element={<BookSlot />}></Route>
-                    <Route path="Checkout" element={<Checkout />}></Route>
+                    <Route path="Checkout" element={<GuardedRoute  component={Checkout} distance="/" auth={this.props.isLoggedIn}/>}></Route>
                     <Route path="Auth">
                       <Route path="SignIn" element={<GuardedRoute  component={SignIn} distance="/" auth={!this.props.isLoggedIn}/>}></Route>
                       <Route path="SignUp" element={<GuardedRoute  component={SignUp} distance="/" auth={!this.props.isLoggedIn}/>}></Route>
                     </Route>
-                    <Route path="BookSlot" element={<BookSlot />}></Route>
+                    <Route path="BookSlot" element={<GuardedRoute  component={BookSlot} distance="/" auth={this.props.isLoggedIn}/>}></Route>
                     <Route path="MyOrders">
                     <Route path="Orders" element={<GuardedRoute  component={Orders} distance="/SignIn" auth={this.props.isLoggedIn}/>}></Route>
                     <Route path="OrderDetail" element={<GuardedRoute  component={OrderDetail} distance="/SignIn" auth={this.props.isLoggedIn}/>}></Route>

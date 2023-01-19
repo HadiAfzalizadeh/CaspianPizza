@@ -18,17 +18,11 @@ var orientation = JSON.parse(localStorage.getItem("orientation"));
         },
         setProductDetailId: (state, action) => {
           return { ProductDetailId: action.payload };
-        },
-        setOrderDetailId: (state, action) => {
-          return { OrderDetailId: action.payload };
-        },
-        setBookSlot: (state, action) => {
-          return { isDelivery: action.payload.isDelivery , date: action.payload.date, time: action.payload.time};
         }
     }
   });
 
 const { reducer, actions } = categorySlice;
 
-export const { setCategotyId, setOrientation , setProductDetailId , setOrderDetailId } = actions
+export const { setCategotyId, setOrientation , setProductDetailId } = actions
 export default reducer;

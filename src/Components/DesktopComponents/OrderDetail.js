@@ -23,27 +23,6 @@ class OrderDetail extends Component {
     item: null,
   }
 
-    // const { OrderDetailId } = useSelector((state) => state.basket);
-
-  //   useEffect(() => {
-  //     alert(OrderDetailId)
-  //       axios.get('https://api.caspianpizza.ir/api/OrderDetail/FindOrderDetailByOrderIdForUser/' + OrderDetailId  , { headers: authHeader() })
-  //       .then((response) => {
-  //         console.log(response.data.data)
-  //         setItem(response.data.data);
-  //       })
-  //       .catch((error) => {});
-  //     }, [OrderDetailId]);
-
-  //     componentDidMount() {
-  //       axios.get('https://api.caspianpizza.ir/api/OrderDetail/FindOrderDetailByOrderIdForUser/' + OrderDetailId  , { headers: authHeader() })
-  //       .then((response) => {
-          
-  //         setItem(response.data.data);
-  //       })
-  //       .catch((error) => {});
-  // }
-
   componentDidMount() {
     axios.get('https://api.caspianpizza.ir/api/OrderDetail/FindOrderDetailByOrderIdForUser/' + this.props.OrderDetailId  , { headers: authHeader() })
         .then((response) => {
@@ -106,7 +85,7 @@ render() {
 
 
 const mapStateToProps = (state) => ({
-  OrderDetailId: state.category.OrderDetailId
+  OrderDetailId: state.basket.OrderDetailId
 })
 
 export default connect(mapStateToProps)(OrderDetail)

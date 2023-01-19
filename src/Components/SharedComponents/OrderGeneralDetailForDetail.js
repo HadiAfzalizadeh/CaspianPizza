@@ -49,7 +49,7 @@ export const OrderGeneralDetailForDetail = (props) => {
     return(
         <div className='row p-3 cursorpointer' onClick={(event) => {
           if(!quantityRef.current.contains(event.target)){
-            // dispatch(setOrderDetailId(props.item.id));
+            dispatch(setOrderDetailId(props.item.id));
           navigate("../OrderDetail");
           }
         }}>

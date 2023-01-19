@@ -12,26 +12,28 @@ import React, { useState , useRef } from 'react';
 import axios from "axios";
 import authHeader from '../../Services/auth-header';
 import { useDispatch } from "react-redux";
-import { setOrderDetailId } from "../../Slices/category.slice";
+import { setOrderDetailId } from "../../Slices/basket.slice";
+import { ReCreateOrder } from "../../Slices/basket.slice";
 
 
 function ReOrderButton(props){
     const [loading, setloading] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
   
     return(
       <div className="py-1 me-3 f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap d-inline px-5" style={{ border: '1px solid #303F9F' , color: '#303F9F' }} onClick={() => 
         {                   
            if(!loading){
-             setloading(true);
-             axios
-           .post("https://api.caspianpizza.ir/api/Order/ReCreateOrder/" + props.itemId , null,{ headers: authHeader() })
-           .then((response) => {
-             setloading(false);
-             navigate("/Basket");
-           })
-           .catch((error) => {alert(error);setloading(false);});
-           }
+            setloading(true);
+        dispatch(ReCreateOrder())
+        .unwrap()
+        .then(() => {
+          setloading(false);
+          navigate("/Basket");
+        })
+        .catch(()=>{setloading(false);})
+        }
        }}>
          {!loading && (<span className="f_OpenSans_Bold">Re Order Now</span>)}
        {loading && (<FontAwesomeIcon style={{ color: '#303F9F' }} icon={faCircleNotch} className="spinner p-0"  size="xl"/>)}

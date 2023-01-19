@@ -1,5 +1,5 @@
-import { Component , useEffect} from "react"
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { Component , useEffect , useState} from "react"
+import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from 'react-router-dom'
 import BasketQuantity from "../SharedComponents/BasketQuantity";
@@ -15,22 +15,28 @@ import { setOrderDetailId } from "../../Slices/category.slice";
 function PayButton(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    
-    
+    const [loading, setLoading] = useState(false);
 
     return(
         <div className="text-end my-3">
                 <button className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded text-nowrap me-3" style={{ border: '1px solid #00796B' , color: '#00796B' }} 
-                // onClick={() => {
-                //     dispatch(payForUser())
-                //     .unwrap()
-                //     .then(() => {
-                //         navigate("/MyOrders/OrderDetail");
-                //     })
-                //     .catch()
-                // }}
-                >Pay Now</button>
+                onClick={() => {
+                    if(!loading){
+                        setLoading(true);
+                    dispatch(payForUser())
+                    .unwrap()
+                    .then(() => {
+                        setLoading(false);
+                        navigate("/MyOrders/OrderDetail");
+                    })
+                    .catch(()=>{setLoading(false);})
+                    }
+                }}
+                >
+                    {!loading && (<span className="f_OpenSans_Bold">Pay Now</span>)}
+       {loading && (<FontAwesomeIcon style={{ color: '#303F9F' }} icon={faCircleNotch} className="spinner p-0"  size="xl"/>)}
+
+                    </button>
             </div>
     )
 }
