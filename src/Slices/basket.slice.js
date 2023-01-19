@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
     async (thunkAPI) => {
       try {
         const data = await BasketService.getMyCart(cart.browserId)
-        return { cartItems: data }
+        return { cartItems: data.cartItems, sumAmount: data.sumAmount }
       } catch (error) {
         return thunkAPI.rejectWithValue();
       }
@@ -85,14 +85,32 @@ import { v4 as uuidv4 } from 'uuid';
     }
   );
 
+  export const payForUser = createAsyncThunk(
+    "basket/payForUser",
+    async (thunkAPI) => {
+      try {
+        const data = await BasketService.payForUser(cart.browserId)
+        return { data: data }
+      } catch (error) {
+        return thunkAPI.rejectWithValue();
+      }
+    }
+  );
+
   const initialState = {cartItems: []};
 
   const basketslice = createSlice({
     name: "basket",
     initialState,
+    reducers: {
+      setOrderDetailId: (state, action) => {
+        return { OrderDetailId: action.payload };
+      }
+  },
     extraReducers: {
         [getMyCart.fulfilled]: (state, action) => {
             state.cartItems = action.payload.cartItems;
+            state.sumAmount = action.payload.sumAmount;
         },
         [deleteFromCart.fulfilled]: (state, action) => {
             state.cartItems =  state.cartItems.filter(function(item) { 
@@ -134,8 +152,19 @@ import { v4 as uuidv4 } from 'uuid';
             localStorage.removeItem("cart")
                   cart = null;
         },
+        [payForUser.fulfilled]: (state, action) => {
+          console.log(action.data.data.orderId)
+          state.OrderDetailId= action.data.data.orderId
+          state.cartItems = [];
+          localStorage.removeItem("cart")
+                cart = null;
+      }
     }
   });
 
-  const { reducer } = basketslice;
+  const { reducer, actions } = basketslice;
+
+  export const { setOrderDetailId } = actions
+
   export default reducer;
+

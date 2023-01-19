@@ -4,6 +4,8 @@ import { Formik } from 'formik';
 import DatePicker from "react-datepicker";
 import Select from 'react-select';
 import { Form , Field} from 'formik';
+import { Link } from 'react-router-dom';
+import { PaymentMultiStep } from '../SharedComponents/PaymentMultiStep';
 
 const timeOptions = [
     { value: '0', label: 'Please select your slot time' },
@@ -43,8 +45,6 @@ const BookSlot = () => {
     return(
         <>
         <div className="container align-items-center p-3 pt-4" style={{ width: '100%'  , background: '#00BCD4' }}>
-        
-            
             <Formik
                 initialValues={{ bookSlotOptions: ''  }}
             >
@@ -100,9 +100,8 @@ Please arrive within your allocated time slot. If you arrive early, you may be a
                     </div>
 
             </div>
-            <div className="d-flex mt-5">
-            <button to="../BookSlot" className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded w-50 mx-1" style={{ border: '1px solid #00796B' , color: '#00796B' }}>RESERVE & CONTINUE SHOPPING</button>
-            <button to="../BookSlot" className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded w-50 mx-1" style={{ border: '1px solid #00796B' , color: '#00796B' }}>RESERVE & CHECKOUT</button>
+            <div className="text-center mt-5">
+            <Link to="/Checkout" className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded w-50 mx-1 px-5" style={{ border: '1px solid #00796B' , color: '#00796B' }}>RESERVE & CHECKOUT</Link>
             </div></>)}
 
             {!values.bookSlotOptions && ( <div className="container text-center w-100 bg-white mt-2 p-3 pb-5"> 

@@ -23,11 +23,13 @@ function ItemCard(props){
         
        }}>
       <div className="row text-center px-2 py-3">
+        <div style={{ width: '100%'}}>
         <img
-        style={{ width: '100%', height:'auto'}}
+        style={{ width: '100%' , aspectRatio: '1/1'}}
           src={props.item.productImages.length === 0 ? "/assets/images/catPicTemp.jpg" : "data:image/png;base64, " + props.item.productImages[0].imageBody}  
           alt={props.item.name}
-        ></img>    
+        ></img> 
+        </div>   
         </div>
   
         <div className="row text-secondary">

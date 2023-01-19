@@ -13,6 +13,7 @@ import GuardedRoute from "../SharedComponents/GuardedRoute";
 import { connect } from "react-redux";
 import { Orders } from "./Orders";
 import { OrderDetail } from "./OrderDetail";
+import Checkout from "./Checkout";
 
 
 
@@ -97,6 +98,7 @@ class DesktopApp extends Component {
                     <Route path="ProductDetail" element={<ProductDetail />}></Route>
                     <Route path="Basket" element={<Basket />}></Route>
                     <Route path="BookSlot" element={<BookSlot />}></Route>
+                    <Route path="Checkout" element={<Checkout />}></Route>
                     <Route path="Auth">
                       <Route path="SignIn" element={<GuardedRoute  component={SignIn} distance="/" auth={!this.props.isLoggedIn}/>}></Route>
                       <Route path="SignUp" element={<GuardedRoute  component={SignUp} distance="/" auth={!this.props.isLoggedIn}/>}></Route>

@@ -18,7 +18,7 @@ function OrdersList(props){
 
 
   useEffect(() => {
-    axios.get('https://api.caspianpizza.ir/api/Order/GetByOrderStatus?OrderState=' + props.orderStatus + '&StartDate&EndDate&SearchKey&Page=1&PageSize=10', { headers: authHeader() })
+    axios.get('https://api.caspianpizza.ir/api/Order/GetByOrderStatusForUser?OrderState=' + props.orderStatus + '&StartDate&EndDate&SearchKey&Page=1&PageSize=10', { headers: authHeader() })
     .then((response) => {
       setItems(items.concat(response.data.data));
       if(response.data.meta.totalRows === response.data.data.length){
@@ -35,7 +35,7 @@ function OrdersList(props){
             className="pb-5"
             dataLength={items.length}
             next={() => {
-              axios.get('https://api.caspianpizza.ir/api/Order/GetByOrderStatus?OrderState=' + props.orderStatus + '&StartDate&EndDate&SearchKey&Page=' + page + '&PageSize=5', { headers: authHeader() })
+              axios.get('https://api.caspianpizza.ir/api/Order/GetByOrderStatusForUser?OrderState=' + props.orderStatus + '&StartDate&EndDate&SearchKey&Page=' + page + '&PageSize=5', { headers: authHeader() })
               .then((response) => {
                 setpage(page+1);
                 setItems(items.concat(response.data.data));
@@ -77,15 +77,17 @@ function ItemCard(props){
        <div className="noselect mb-2">
       <div className="row text-center px-2 pt-3 mb-1">
       <div style={{ position: 'relative' }}>
-        <img
-        style={{ width: '100%' }}
-          src={props.item.productImages.length === 0 ? "/assets/images/catPicTemp.jpg" : "data:image/png;base64, " + props.item.productImages[0].imageBody}  
-          alt={props.item.name}
-        ></img>    
+        <div className='w-100'>
+        <img className='w-100'
+        style={{ aspectRatio: '1/1'}}
+          src={props.item.productImage.length === 0 ? "/assets/images/catPicTemp.jpg" : "data:image/png;base64, " + props.item.productImage}  
+          alt={props.item.productCode}
+        ></img> 
+        </div>   
         </div>
         </div>
         <div className="row text-secondary">
-    <div><h4 className="cnterTextAlign text-nowrap" style={{ fontSize: '1rem' }}>{props.item.name}</h4></div>
+    <div><h4 className="cnterTextAlign text-nowrap" style={{ fontSize: '1rem' }}>{props.item.productCode}</h4></div>
       </div>
       </div>
         </>
@@ -93,6 +95,7 @@ function ItemCard(props){
   }
 
   function OrderCarousel(props){
+
     return(<div className="d-flex align-items-center px-2">
           
     <Carousel
@@ -238,10 +241,10 @@ function ItemCard(props){
     swipeable
     >
     
-    {props.orderItems.map((item) => (
+    {props.orderDetails.map((item) => (
     <div key={item.id}>
     <div className="px-2">
-             <ItemCard item={item}/>
+             <ItemCard item={item.product}/>
             </div>
     </div>
             ))}
@@ -254,50 +257,29 @@ function ItemCard(props){
 function Order(props){
   
   const navigate = useNavigate();
+  
 
   return(
     <div className='mt-3' style={{ border: '1px solid #00000033' }}>
-      <div onClick={() => {
-            navigate("../OrderDetail");
-          }}>
+      <div>
       <OrderGeneralDetail item={props.item} showArrow={true}/>
       </div>
       <hr className='my-0 '/>
       <div className='row'>
-      {/* <OrderCarousel orderItems={props.item}/> */}
+      <OrderCarousel orderDetails={props.item.orderDetails}/>
       </div>
     </div>
   )
 }
 
 export class Orders extends Component {
-    
-    state = {
-        items: []
-      };
-
-
-      componentDidMount() {
-        axios
-    .get(
-      "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + 1 + "&PageSize=" + 50 + "&ProductCategoryId=" +
-      9
-    )
-    .then((response) => {
-      this.setState({
-        items: response.data.data
-      });
-    })
-    .catch((error) => {});
-      }
-    
 
     render(){
         return(
         <div className="container px-0">
         
 
-        <Tabs className="noselect mt-2" style={{ border: '1px solid #00000033' }}>
+        <Tabs className="noselect mt-2">
         <div className="text-center ps-4 py-2 mb-0 align-items-center" style={{ backgroundColor: '#673AB7' }}>
             <h4 className="f_Poppins text-white mb-0">My Orders</h4>
         </div>
