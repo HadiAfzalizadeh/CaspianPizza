@@ -102,7 +102,12 @@ import { json } from "react-router-dom";
     "basket/ReCreateOrder",
     async ({orderId}, thunkAPI) => {
       try {
-        const data = await BasketService.ReCreateOrder(orderId,localStorage.getItem("cart") !== null ? cart.browserId : uuidv4())
+        const data = await BasketService.ReCreateOrder(orderId,localStorage.getItem("cart") !== null ? cart.browserId : uuidv4());
+        if(localStorage.getItem("cart") === null){
+          localStorage.removeItem("cart")
+            localStorage.setItem("cart", JSON.stringify({browserId: data.brawserId, cartId: data.cartId }));
+            cart = JSON.parse(localStorage.getItem("cart"));
+        }
         return { data: data }
       } catch (error) {
         return thunkAPI.rejectWithValue();
@@ -166,17 +171,20 @@ import { json } from "react-router-dom";
         },
         [deleteCart.fulfilled]: (state, action) => {
             state.cartItems = [];
+            state.sumAmount = 0;
             localStorage.removeItem("cart")
                   cart = null;
         },
         [payForUser.fulfilled]: (state, action) => {
           state.OrderDetailId= action.payload.data.data.orderId
           state.cartItems = [];
+          state.sumAmount = 0;
           localStorage.removeItem("cart")
                 cart = null;
         },
         [ReCreateOrder.fulfilled]: (state, action) => {
-          
+          state.cartItems = action.payload.data.cartDto.carts[0].cartItems;
+            state.sumAmount = action.payload.data.cartDto.carts[0].sumAmount;
         }
     }
   });

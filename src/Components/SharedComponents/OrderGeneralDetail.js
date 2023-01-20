@@ -26,7 +26,8 @@ function ReOrderButton(props){
         {                   
            if(!loading){
             setloading(true);
-        dispatch(ReCreateOrder())
+            const { itemId } = props;
+        dispatch(ReCreateOrder({ orderId: itemId }))
         .unwrap()
         .then(() => {
           setloading(false);

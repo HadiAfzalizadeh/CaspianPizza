@@ -26,6 +26,8 @@ function CartItem(){
 
     const { cartItems } = useSelector((state) => state.basket);
 
+
+
     return(
             <>
             {cartItems.map((item) => (  
@@ -50,7 +52,7 @@ function CartItem(){
                      <div>
                          <div>
                          <div className="d-md-none d-sm-block" style={{ fontSize: '15px' }}>
-                         <p style={{ marginBottom: 0 }}>£116.91</p>
+                         <p style={{ marginBottom: 0 }}>£{item.price}</p>
                      </div>
                          <div style={{ maxWidth: '200px' }}><BasketQuantity  productId={item.productId}/></div>
                          </div>
@@ -75,10 +77,6 @@ class Basket extends Component {
     state={
         deletebasketmodalIsOpen: false,
         vouchermodalIsOpen: false
-    }
-
-    componentDidMount(){
-        this.props.getMyCart();
     }
 
     openDeleteBasketModal = () => {

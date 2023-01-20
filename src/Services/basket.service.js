@@ -94,10 +94,12 @@ const getMyCart = (browserId) => {
 
   const ReCreateOrder = (orderId,browserId) => {
     return axios
-    .post("https://api.caspianpizza.ir/api/Order/ReCreateOrder?orderId=" + orderId + "&BrowserId=" + browserId ,{ headers: authHeader()})
+    .post("https://api.caspianpizza.ir/api/Order/ReCreateOrder/" + orderId  + "?BrowserId=" + browserId, null ,{ headers: authHeader()})
     .then((response) => {return response.data.data;})
   };
 
+
+  
   const BasketService = {
     getMyCart,
     deleteFromCart,

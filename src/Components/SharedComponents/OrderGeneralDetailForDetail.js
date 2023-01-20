@@ -13,25 +13,28 @@ import axios from "axios";
 import authHeader from '../../Services/auth-header';
 import { useDispatch } from "react-redux";
 import { setOrderDetailId } from "../../Slices/basket.slice";
+import { ReCreateOrder } from "../../Slices/basket.slice";
 
 
 function ReOrderButton(props){
     const [loading, setloading] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
   
     return(
       <div className="py-1 me-3 f_OpenSans_Bold bg-transparent nonedecoration rounded text-nowrap d-inline px-5" style={{ border: '1px solid #303F9F' , color: '#303F9F' }} onClick={() => 
-        {                      
+        {                   
            if(!loading){
-             setloading(true);
-             axios
-           .post("https://api.caspianpizza.ir/api/Order/ReCreateOrder/" + props.itemId , null,{ headers: authHeader() })
-           .then((response) => {
-             setloading(false);
-             navigate("/Basket");
-           })
-           .catch((error) => {alert(error);setloading(false);});
-           }
+            setloading(true);
+            const { itemId } = props;
+        dispatch(ReCreateOrder({ orderId: itemId }))
+        .unwrap()
+        .then(() => {
+          setloading(false);
+          navigate("/Basket");
+        })
+        .catch(()=>{setloading(false);})
+        }
        }}>
          {!loading && (<span className="f_OpenSans_Bold">Re Order Now</span>)}
        {loading && (<FontAwesomeIcon style={{ color: '#303F9F' }} icon={faCircleNotch} className="spinner p-0"  size="xl"/>)}
@@ -66,7 +69,7 @@ export const OrderGeneralDetailForDetail = (props) => {
             </div>
             <p className='mb-0 mt-3 f_OpenSans_Regular text-secondary mb-3'><span className='p-2' style={{ color: '#23254e' }}>{props.item.insertTime.substring(0,props.item.insertTime.indexOf( "T" ))} {props.item.insertTime.substring(props.item.insertTime.indexOf( "T" )+1,props.item.insertTime.indexOf( "." ))}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Order ID </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>{props.item.orderId}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Payment ID </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>{props.item.paymentId}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Total Price </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>£{props.item.totalPrice}</span>{props.item.totalPice !== props.item.totalPiceWithoutDiscount && (<><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Your Profit </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>£{props.item.totalPrice - props.item.totalPiceWithoutDiscount}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Price Without Discount </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>£{props.item.totalPiceWithoutDiscount}</span></>)}</p>
             <div ref={quantityRef} className='text-end w-100'>
-            <ReOrderButton itemId={props.item.id}/>
+            <ReOrderButton itemId={props.item.orderId}/>
               </div>
           </div>
     )
