@@ -1,7 +1,7 @@
 import React, { Component , useEffect} from "react";
 import { Link  } from 'react-router-dom'
 import { connect } from "react-redux";
-import { setCategotyId } from "../../Slices/category.slice";
+import { setCategoryId } from "../../Slices/category.slice";
 
 class MegaMenu extends Component {
   constructor(props) {
@@ -201,7 +201,7 @@ class MegaMenu extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCategotyId: (categotyId) => dispatch(setCategotyId(categotyId))
+    setCategoryId: (categotyId) => dispatch(setCategoryId(categotyId))
   }
 }
 

@@ -79,6 +79,10 @@ class Basket extends Component {
         vouchermodalIsOpen: false
     }
 
+    componentDidMount(){
+        this.props.getMyCart();
+    }
+
     openDeleteBasketModal = () => {
         this.setState({
             deletebasketmodalIsOpen: true
