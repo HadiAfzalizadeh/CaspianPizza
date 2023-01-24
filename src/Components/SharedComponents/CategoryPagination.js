@@ -5,65 +5,17 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import axios from "axios";
 import ItemCard from "./ItemCard";
+import { getProductByCategory , clearItems } from "../../Slices/category.slice";
 
 
 
 
 class CategoryPagination extends Component {
 
-  
-  state = {
-    currentCategotyId: -1,
-    page: 3,
-    hasMore: true,
-    items: []
-  };
+  page = 1;
 
   componentDidMount(){
-    axios
-    .get(
-      "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + 1 + "&PageSize=" + 8 + "&ProductCategoryId=" +
-      this.props.currentCategotyId
-    )
-    .then((response) => {
-      this.setState({
-        items: response.data.data
-      });
-      if(response.data.meta.totalRows === this.state.items.length){
-          this.setState({
-            hasMore: false
-          });
-      }
-    })
-    .catch((error) => {});
-  }
-
-  
-  componentDidUpdate(prevProps) {
-    if(prevProps.currentCategotyId !== this.props.currentCategotyId ) {
-      this.setState({
-        items: [],
-        hasMore: true,
-        currentCategotyId: -1,
-         page: 3,
-      });
-      axios
-      .get(
-        "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + 1 + "&PageSize=" + 8 + "&ProductCategoryId=" +
-        this.props.currentCategotyId
-      )
-      .then((response) => {
-        this.setState({
-          items: response.data.data
-        });
-        if(response.data.meta.totalRows === this.state.items.length){
-            this.setState({
-              hasMore: false
-            });
-        }
-      })
-      .catch((error) => {});
-     }
+    this.props.clearItems();
   }
 
   render() {
@@ -71,24 +23,13 @@ class CategoryPagination extends Component {
       <>
             <InfiniteScroll
             className="pb-5"
-            dataLength={this.state.items.length}
+            dataLength={this.props.categoryItems.length}
             next={() => {
-                axios.get(
-                  "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + this.state.page + "&PageSize=" + 4 + "&ProductCategoryId=" +
-                  this.props.currentCategotyId).then((response) => {
-                  this.setState({
-                    items: this.state.items.concat(response.data.data),
-                    page: this.state.page + 1
-                  });
-                  if(response.data.meta.totalRows === this.state.items.length){
-                      this.setState({
-                        hasMore: false
-                      });
-                  }
-                }).catch((error) => {})  
+              this.page = this.page === 1 ? 3 : this.page + 1;
+              this.props.getProductByCategory(1, 4);
               }
             }
-            hasMore={this.state.hasMore}
+            hasMore={true}
             loader={
                 <div className="centerTextalign parentLoader">
                 <FontAwesomeIcon icon={faSpinner} className="spinner loaderIconSize"/>
@@ -97,7 +38,7 @@ class CategoryPagination extends Component {
             >
           <div className="container" style={{ boxShadow: '0 0px 21px -4px #ddd' }}>
             <div className="row justify-content-center h-100" style={{ borderRight: '1px solid #e0e0e0' , borderBottom: '1px solid #e0e0e0' , borderLeft: '1px solid #e0e0e0'}}  >
-              {this.state.items.map((item) => (
+              {this.props.categoryItems.map((item) => (
                 <>
                 <div className="col-3 hoverableCard d-none d-xl-block" key={item.id + "col3"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'}}>
                   <ItemCard item={item}/>
@@ -122,10 +63,16 @@ class CategoryPagination extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearItems: () => dispatch(clearItems()),
+    getProductByCategory: (page, pageSize) => dispatch(getProductByCategory({ page, pageSize }))
+  }
+}
 
 const mapStateToProps = (state) => ({
-  //  isPortrate: state.category.itemOrientation === "portrait" ? true : false
-  currentCategotyId: state.category.currentCategotyId
+  categoryItems: state.category.categoryItems,
+  hasMore: state.category.hasMore
 })
 
-export default connect(mapStateToProps)(CategoryPagination)
+export default connect(mapStateToProps,mapDispatchToProps)(CategoryPagination)

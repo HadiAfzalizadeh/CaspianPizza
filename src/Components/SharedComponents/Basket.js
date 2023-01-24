@@ -188,7 +188,7 @@ class Basket extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        deleteCart: (categotyId) => dispatch(deleteCart(categotyId)),
+        deleteCart: () => dispatch(deleteCart()),
         getMyCart: () => dispatch(getMyCart())
     }
   }

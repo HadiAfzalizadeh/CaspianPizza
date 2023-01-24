@@ -1,7 +1,6 @@
 import BasketService from "../Services/basket.service";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from 'uuid';
-import { json } from "react-router-dom";
 
 
   let cart = JSON.parse(localStorage.getItem("cart"));
