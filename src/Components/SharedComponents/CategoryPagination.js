@@ -5,18 +5,12 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import axios from "axios";
 import ItemCard from "./ItemCard";
-import { getProductByCategory , clearItems } from "../../Slices/category.slice";
+import { getProductByCategory } from "../../Slices/category.slice";
 
 
 
 
 class CategoryPagination extends Component {
-
-  page = 1;
-
-  componentDidMount(){
-    this.props.clearItems();
-  }
 
   render() {
     return (
@@ -24,12 +18,8 @@ class CategoryPagination extends Component {
             <InfiniteScroll
             className="pb-5"
             dataLength={this.props.categoryItems.length}
-            next={() => {
-              this.page = this.page === 1 ? 3 : this.page + 1;
-              this.props.getProductByCategory(1, 4);
-              }
-            }
-            hasMore={true}
+            next={() => this.props.getProductByCategory(0)}
+            hasMore={this.props.categoryItems.length < 30}
             loader={
                 <div className="centerTextalign parentLoader">
                 <FontAwesomeIcon icon={faSpinner} className="spinner loaderIconSize"/>
@@ -65,8 +55,7 @@ class CategoryPagination extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    clearItems: () => dispatch(clearItems()),
-    getProductByCategory: (page, pageSize) => dispatch(getProductByCategory({ page, pageSize }))
+    getProductByCategory: (categoryId) => dispatch(getProductByCategory({ categoryId }))
   }
 }
 

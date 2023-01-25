@@ -1,7 +1,7 @@
 import React, { Component , useEffect} from "react";
 import { Link  } from 'react-router-dom'
 import { connect } from "react-redux";
-import { setCategoryId , getProductByCategory , clearItems } from "../../Slices/category.slice";
+import { setCategoryId , getProductByCategory  } from "../../Slices/category.slice";
 
 class MegaMenu extends Component {
   constructor(props) {
@@ -89,9 +89,7 @@ class MegaMenu extends Component {
         .length === 0
     ) {
       this.props.toggleMegaMenu(false);
-      this.props.setCategoryId(id);
-      this.props.clearItems();
-      this.props.getProductByCategory(1,8)
+      this.props.getProductByCategory(id)
       // this.setCategoryId(id);
     }
   };
@@ -202,9 +200,7 @@ class MegaMenu extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    clearItems: () => dispatch(clearItems()),
-    getProductByCategory: (page, pageSize) => dispatch(getProductByCategory({ page, pageSize })),
-    setCategoryId: (categoryId) => dispatch(setCategoryId(categoryId))
+    getProductByCategory: (categoryId) => dispatch(getProductByCategory({ categoryId }))
   }
 }
 
