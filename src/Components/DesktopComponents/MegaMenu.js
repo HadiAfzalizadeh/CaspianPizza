@@ -89,7 +89,7 @@ class MegaMenu extends Component {
         .length === 0
     ) {
       this.props.toggleMegaMenu(false);
-      this.props.getProductByCategory(id)
+      // this.props.getProductByCategory(id)
       // this.setCategoryId(id);
     }
   };

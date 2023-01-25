@@ -12,14 +12,84 @@ import { getProductByCategory } from "../../Slices/category.slice";
 
 class CategoryPagination extends Component {
 
+  
+  state = {
+    currentCategotyId: -1,
+    page: 3,
+    hasMore: true,
+    items: []
+  };
+
+  componentDidMount(){
+    axios
+    .get(
+      "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + 1 + "&PageSize=" + 8 + "&ProductCategoryId=" +
+      9
+    )
+    .then((response) => {
+      this.setState({
+        items: response.data.data
+      });
+      if(response.data.meta.totalRows === this.state.items.length){
+          this.setState({
+            hasMore: false
+          });
+      }
+    })
+    .catch((error) => {});
+  }
+
+  
+  componentDidUpdate(prevProps) {
+    if(prevProps.currentCategotyId !== this.props.currentCategotyId ) {
+      this.setState({
+        items: [],
+        hasMore: true,
+        currentCategotyId: -1,
+         page: 3,
+      });
+      axios
+      .get(
+        "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + 1 + "&PageSize=" + 8 + "&ProductCategoryId=" +
+        9
+      )
+      .then((response) => {
+        this.setState({
+          items: response.data.data
+        });
+        if(response.data.meta.totalRows === this.state.items.length){
+            this.setState({
+              hasMore: false
+            });
+        }
+      })
+      .catch((error) => {});
+     }
+  }
+
   render() {
     return (
       <>
             <InfiniteScroll
             className="pb-5"
-            dataLength={this.props.categoryItems.length}
-            next={() => this.props.getProductByCategory(0)}
-            hasMore={this.props.categoryItems.length < 30}
+            dataLength={this.state.items.length}
+            next={() => {
+                axios.get(
+                  "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + this.state.page + "&PageSize=" + 4 + "&ProductCategoryId=" +
+                  9).then((response) => {
+                  this.setState({
+                    items: this.state.items.concat(response.data.data),
+                    page: this.state.page + 1
+                  });
+                  if(response.data.meta.totalRows === this.state.items.length){
+                      this.setState({
+                        hasMore: false
+                      });
+                  }
+                }).catch((error) => {})  
+              }
+            }
+            hasMore={this.state.hasMore}
             loader={
                 <div className="centerTextalign parentLoader">
                 <FontAwesomeIcon icon={faSpinner} className="spinner loaderIconSize"/>
@@ -28,7 +98,7 @@ class CategoryPagination extends Component {
             >
           <div className="container" style={{ boxShadow: '0 0px 21px -4px #ddd' }}>
             <div className="row justify-content-center h-100" style={{ borderRight: '1px solid #e0e0e0' , borderBottom: '1px solid #e0e0e0' , borderLeft: '1px solid #e0e0e0'}}  >
-              {this.props.categoryItems.map((item) => (
+              {this.state.items.map((item) => (
                 <>
                 <div className="col-3 hoverableCard d-none d-xl-block" key={item.id + "col3"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'}}>
                   <ItemCard item={item}/>
@@ -59,9 +129,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const mapStateToProps = (state) => ({
-  categoryItems: state.category.categoryItems,
-  hasMore: state.category.hasMore
-})
 
-export default connect(mapStateToProps,mapDispatchToProps)(CategoryPagination)
+export default connect(null,mapDispatchToProps)(CategoryPagination)
