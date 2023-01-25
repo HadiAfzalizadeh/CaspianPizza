@@ -1,7 +1,7 @@
 import React, { Component , useEffect} from "react";
 import { Link  } from 'react-router-dom'
 import { connect } from "react-redux";
-import { setCategotyId } from "../../Slices/category.slice";
+import { setCategoryId , getProductByCategory  } from "../../Slices/category.slice";
 
 class MegaMenu extends Component {
   constructor(props) {
@@ -89,9 +89,8 @@ class MegaMenu extends Component {
         .length === 0
     ) {
       this.props.toggleMegaMenu(false);
-      this.props.setCategotyId(id);
-      // this.props.selectCategoryId(id);
-      // dispatch(getProductByCategory({page:1,pageSize:8,categotyId:9}));
+      this.props.getProductByCategory(id)
+      // this.setCategoryId(id);
     }
   };
 
@@ -109,7 +108,6 @@ class MegaMenu extends Component {
       <div ref={this.wrapperRef} className="container-lg position-absolute start-50 translate-middle-x" style={{  zIndex: 100000 , borderColor: '#B2BEB5', borderStyle: 'solid' , borderWidth:  '0 1px 1px 1px' , backgroundColor: 'white' , color: '#7c7c7c' }}>
         <div className="row bottom-border p-3">
           <div className="d-flex">
-            <p className="me-3 mb-0">ENFIELD BRANCH</p>
             <p className="me-3 mb-0">OFFERS</p>
             <p className="me-3 mb-0">NEW PRODUCTS</p>
             <p className="me-3 mb-0">HALAL RANGE</p>
@@ -202,7 +200,7 @@ class MegaMenu extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCategotyId: (categotyId) => dispatch(setCategotyId(categotyId))
+    getProductByCategory: (categoryId) => dispatch(getProductByCategory({ categoryId }))
   }
 }
 

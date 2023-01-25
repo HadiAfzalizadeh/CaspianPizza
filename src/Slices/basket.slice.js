@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
     async (thunkAPI) => {
       try {
         const data = await BasketService.getMyCart(cart.browserId)
-        return { cartItems: data }
+        return { cartItems: data.cartItems, sumAmount: data.sumAmount }
       } catch (error) {
         return thunkAPI.rejectWithValue();
       }
@@ -85,14 +85,53 @@ import { v4 as uuidv4 } from 'uuid';
     }
   );
 
+  export const payForUser = createAsyncThunk(
+    "basket/payForUser",
+    async (thunkAPI) => {
+      try {
+        const data = await BasketService.payForUser(cart.browserId)
+        return { data: data }
+      } catch (error) {
+        return thunkAPI.rejectWithValue();
+      }
+    }
+  );
+
+  export const ReCreateOrder = createAsyncThunk(
+    "basket/ReCreateOrder",
+    async ({orderId}, thunkAPI) => {
+      try {
+        const data = await BasketService.ReCreateOrder(orderId,localStorage.getItem("cart") !== null ? cart.browserId : uuidv4());
+        if(localStorage.getItem("cart") === null){
+          localStorage.removeItem("cart")
+            localStorage.setItem("cart", JSON.stringify({browserId: data.brawserId, cartId: data.cartId }));
+            cart = JSON.parse(localStorage.getItem("cart"));
+        }
+        return { data: data }
+      } catch (error) {
+        return thunkAPI.rejectWithValue();
+      }
+    }
+  );
+
+
   const initialState = {cartItems: []};
 
   const basketslice = createSlice({
     name: "basket",
     initialState,
+    reducers: {
+      setOrderDetailId: (state, action) => {
+        return { OrderDetailId: action.payload ,cartItems: state.cartItems };
+      },
+      setBookSlot: (state, action) => {
+        return { isDelivery: action.payload.isDelivery , date: action.payload.date, time: action.payload.time,cartItems: state.cartItems};
+      }
+    },
     extraReducers: {
         [getMyCart.fulfilled]: (state, action) => {
             state.cartItems = action.payload.cartItems;
+            state.sumAmount = action.payload.sumAmount;
         },
         [deleteFromCart.fulfilled]: (state, action) => {
             state.cartItems =  state.cartItems.filter(function(item) { 
@@ -131,11 +170,24 @@ import { v4 as uuidv4 } from 'uuid';
         },
         [deleteCart.fulfilled]: (state, action) => {
             state.cartItems = [];
+            state.sumAmount = 0;
             localStorage.removeItem("cart")
                   cart = null;
         },
+        [payForUser.fulfilled]: (state, action) => {
+          state.OrderDetailId= action.payload.data.data.orderId
+          state.cartItems = [];
+          state.sumAmount = 0;
+          localStorage.removeItem("cart")
+                cart = null;
+        },
+        [ReCreateOrder.fulfilled]: (state, action) => {
+          state.cartItems = action.payload.data.cartDto.carts[0].cartItems;
+            state.sumAmount = action.payload.data.cartDto.carts[0].sumAmount;
+        }
     }
   });
 
-  const { reducer } = basketslice;
-  export default reducer;
+  export const { setOrderDetailId, setBookSlot } = basketslice.actions
+  export default basketslice.reducer;
+

@@ -62,7 +62,7 @@ function ShowSignInOrSignOut() {
     <div className="h-100 d-inline-flex align-items-center" onClick={() => setopenMenu(!openMenu)}><div className="container p-0 f_Poppins align-self-center h-100 text-white" style={{ display: 'contents' }}><FontAwesomeIcon className="ms-1 me-2" style={{ marginRight: '5px' , color: '#FFEB3B' }} icon={ faUser }/>My Account<FontAwesomeIcon className="ms-2" style={{ color: '#FFEB3B' }} icon={ faAngleDown }/></div></div>
     { openMenu && (<div className="position-absolute top-100 p-2 px-4 cursorauto" style={{ zIndex: 1000000 , backgroundColor : '#00796B'}}>
       <nav>
-        <Link to="/Orders" className="text-decoration-none text-white" style={customStyles.loginMenuItem}><p className="text-nowrap cursorpointer" style={customStyles.loginMenuItem} onClick={() => setopenMenu(false)}>My orders</p></Link>
+        <Link to="MyOrders/Orders" className="text-decoration-none text-white" style={customStyles.loginMenuItem}><p className="text-nowrap cursorpointer" style={customStyles.loginMenuItem} onClick={() => setopenMenu(false)}>My orders</p></Link>
         {/* <Link className="text-decoration-none text-white" onClick={() => setopenMenu(false)}><p className="text-nowrap cursorpointer" style={{ fontSize: '0.95rem' }}>My settings</p></Link> */}
         {/* <Link className="text-decoration-none text-white" onClick={() => setopenMenu(false)}><p className="text-nowrap cursorpointer" style={{ fontSize: '0.95rem' }}>My favourites</p></Link> */}
         <p className="text-nowrap cursorpointer text-white" onClick={() => {setopenMenu(false);dispatch(logout())}} style={{ fontSize: '0.95rem' }} >LOGOUT</p>

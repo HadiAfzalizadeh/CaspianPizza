@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { getMyCart } from './Slices/basket.slice';
 import { useDispatch , useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -26,11 +27,12 @@ const App = () => {
 
   // // alert(cart.brawserId);
 
+  // console.log(uuidv4());
+
   const dispatch = useDispatch();
 
 useEffect(() => {
   dispatch(getMyCart());
-  document.title = 'Caspian Pizza';
 }, [dispatch]);
 
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHeader from '../Services/auth-header';
 
 const DeleteFromCart_URL = "https://api.caspianpizza.ir/api/Cart/DeleteFromCart";
 
@@ -8,6 +9,8 @@ const removeFromCart_URL = "https://api.caspianpizza.ir/api/Cart/RemoveFromCart"
 
 const CreateCart_URL = "https://api.caspianpizza.ir/api/Cart";
 
+const PayForUser_URL = "https://api.caspianpizza.ir/api/Payment/PayForUser";
+
 
 const getMyCart = (browserId) => {
     return axios
@@ -15,7 +18,7 @@ const getMyCart = (browserId) => {
       "https://api.caspianpizza.ir/api/Cart/GetMyCart/" + browserId
     )
     .then((response) => {
-      return response.data.data.cartItems;
+      return response.data.data;
     })
   };
 
@@ -76,13 +79,36 @@ const getMyCart = (browserId) => {
     .then((response) => {})
   };
 
+  const payForUser = (browserId) => {
+    return axios
+    .post(PayForUser_URL , {
+      browserId,
+      paymentType: 2,
+      amount: 0,
+      amountPaidWithCredit: 0,
+      address: "",
+      phone: ""
+    }, { headers: authHeader() })
+    .then((response) => {return response.data;})
+  };
+
+  const ReCreateOrder = (orderId,browserId) => {
+    return axios
+    .post("https://api.caspianpizza.ir/api/Order/ReCreateOrder/" + orderId  + "?BrowserId=" + browserId, null ,{ headers: authHeader()})
+    .then((response) => {return response.data.data;})
+  };
+
+
+  
   const BasketService = {
     getMyCart,
     deleteFromCart,
     addToCart,
     removeFromCart,
     createCart,
-    deleteCart
+    deleteCart,
+    payForUser,
+    ReCreateOrder
   };
   
   export default BasketService;

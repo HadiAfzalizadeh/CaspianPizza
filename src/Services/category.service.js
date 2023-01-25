@@ -10,8 +10,16 @@ const getAllProductCategories = () => {
     .catch(error => {});
 }
 
+const getProductByCategory = (page, PageSize, ProductCategoryId) => {
+    return axios.get(API_URL + "/Product/GetProductByCategory?Page=" + page + "&PageSize=" + PageSize + "&ProductCategoryId=" + ProductCategoryId)
+    .then((response) => {
+        return response.data 
+    });
+}
+
 const CategoryService = {
-    getAllProductCategories
+    getAllProductCategories,
+    getProductByCategory
   };
   
   export default CategoryService;
