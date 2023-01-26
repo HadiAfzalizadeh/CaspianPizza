@@ -5,7 +5,6 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import axios from "axios";
 import ItemCard from "./ItemCard";
-import { getProductByCategory } from "../../Slices/category.slice";
 
 
 
@@ -14,7 +13,6 @@ class CategoryPagination extends Component {
 
   
   state = {
-    currentCategotyId: -1,
     page: 3,
     hasMore: true,
     items: []
@@ -24,7 +22,7 @@ class CategoryPagination extends Component {
     axios
     .get(
       "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + 1 + "&PageSize=" + 8 + "&ProductCategoryId=" +
-      9
+      this.props.categoryId
     )
     .then((response) => {
       this.setState({
@@ -41,30 +39,29 @@ class CategoryPagination extends Component {
 
   
   componentDidUpdate(prevProps) {
-    if(prevProps.currentCategotyId !== this.props.currentCategotyId ) {
+    if(prevProps.categoryId !== this.props.categoryId){
       this.setState({
-        items: [],
+        page: 3,
         hasMore: true,
-        currentCategotyId: -1,
-         page: 3,
+        items: []
       });
       axios
-      .get(
-        "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + 1 + "&PageSize=" + 8 + "&ProductCategoryId=" +
-        9
-      )
-      .then((response) => {
-        this.setState({
-          items: response.data.data
-        });
-        if(response.data.meta.totalRows === this.state.items.length){
-            this.setState({
-              hasMore: false
-            });
-        }
-      })
-      .catch((error) => {});
-     }
+    .get(
+      "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + 1 + "&PageSize=" + 8 + "&ProductCategoryId=" +
+      this.props.categoryId
+    )
+    .then((response) => {
+      this.setState({
+        items: response.data.data
+      });
+      if(response.data.meta.totalRows === this.state.items.length){
+          this.setState({
+            hasMore: false
+          });
+      }
+    })
+    .catch((error) => {});
+    }
   }
 
   render() {
@@ -75,8 +72,8 @@ class CategoryPagination extends Component {
             dataLength={this.state.items.length}
             next={() => {
                 axios.get(
-                  "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + this.state.page + "&PageSize=" + 4 + "&ProductCategoryId=" +
-                  9).then((response) => {
+                  "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + this.state.page + "&PageSize=" + 4 + "&ProductCategoryId=" + this.props.categoryId)
+                  .then((response) => {
                   this.setState({
                     items: this.state.items.concat(response.data.data),
                     page: this.state.page + 1
@@ -123,11 +120,8 @@ class CategoryPagination extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getProductByCategory: (categoryId) => dispatch(getProductByCategory({ categoryId }))
-  }
-}
+const mapStateToProps = (state) => ({
+  categoryId: state.category.categoryId
+})
 
-
-export default connect(null,mapDispatchToProps)(CategoryPagination)
+export default connect(mapStateToProps,null)(CategoryPagination)

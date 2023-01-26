@@ -5,7 +5,7 @@ export class HomePage extends Component {
     render(){
         return(
             <>
-            <div className="container p-0">
+            <div className="container-lg-fluid py-lg-1 px-lg-5">
                 <Slider />
             </div>
             </>

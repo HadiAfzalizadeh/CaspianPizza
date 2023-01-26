@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom'
 import { useEffect , useRef , useState , useCallback  } from "react";
 import { useSelector , useDispatch } from "react-redux";
 import { logout } from "../../Slices/auth.slice";
+import React from "react";
 // import animate from 'css-animation';
 
 
@@ -99,7 +100,10 @@ export class Header extends Component {
     shouldOpenMenu: false
   };
 
-
+  constructor(props){
+    super(props);
+    this.browseRef = React.createRef();
+  }
 
   toggleMegaMenu = (state) => {
       this.setState({
@@ -107,11 +111,11 @@ export class Header extends Component {
       });
   };
 
-  showMegaMenu() {
+  showMegaMenu(browseRef) {
     return this.state.openMenu === true ? (
       <div className="position-relative">
       <MegaMenu
-        className = ""
+          browseRef = {browseRef}
           selectCategoryId={this.props.selectCategoryId}
           items={this.props.megaMenuItems}
           toggleMegaMenu = {this.toggleMegaMenu}
@@ -173,7 +177,7 @@ export class Header extends Component {
             <div className="row">
               <div className="col align-self-center d-none d-sm-block text-center">
               <div className="d-flex justify-content-center" style={{ color: '#303F9F' }}>
-                  <div className="f_Poppins " ref={this.browseRef} onClick={() => this.toggleMegaMenu(true)} style={{ color: '#00796B' , cursor: 'pointer' , marginRight: '1rem' , whiteSpace: 'nowrap'}}>Browse & Shop</div>
+                  <div className="f_Poppins " ref={this.browseRef} onClick={() => this.toggleMegaMenu(!this.state.openMenu)} style={{ color: '#00796B' , cursor: 'pointer' , marginRight: '1rem' , whiteSpace: 'nowrap'}}>Browse & Shop</div>
                   <Link className="f_Poppins" style={{ color: '#00796B' , marginRight: '1rem' ,textDecoration: 'none' , whiteSpace: 'nowrap'}}>Offers</Link>
                   <Link className="f_Poppins" style={{ color: '#00796B' , textDecoration: 'none' , whiteSpace: 'nowrap'}}>Book Slot</Link>
               </div>
@@ -195,13 +199,13 @@ export class Header extends Component {
         </div>
         <div className="row d-block d-sm-none" style={{ backgroundColor: '#FFC107' }}>
         <div className="d-flex mt-3 justify-content-center">
-                  <div className="f_Poppins " onClick={() => this.toggleMegaMenu(true)} style={{ color: '#00796B', cursor: 'pointer' , marginRight: '1rem'}}>Browse & Shop</div>
+                  <div className="f_Poppins " onClick={() => this.toggleMegaMenu(!this.state.openMenu)} style={{ color: '#00796B', cursor: 'pointer' , marginRight: '1rem'}}>Browse & Shop</div>
                   <Link className="f_Poppins" style={{ color: '#00796B' , marginRight: '1rem' ,textDecoration: 'none' }}>Offers</Link>
                   <Link className="f_Poppins" style={{ color: '#00796B' , textDecoration: 'none' }}>Book Slot</Link>
               </div>
         </div>
         <div className="row">
-          {this.showMegaMenu()}
+          {this.showMegaMenu(this.browseRef)}
         </div>
 
       </div>

@@ -1,7 +1,7 @@
 import React, { Component , useEffect} from "react";
 import { Link  } from 'react-router-dom'
 import { connect } from "react-redux";
-import { setCategoryId , getProductByCategory  } from "../../Slices/category.slice";
+import { setCategoryId } from "../../Slices/category.slice";
 
 class MegaMenu extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class MegaMenu extends Component {
    * Alert if clicked on outside of element
    */
   handleClickOutside(event) {
-    if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
+    if (this.wrapperRef && !this.wrapperRef.current.contains(event.target) && !this.props.browseRef.current.contains(event.target)) {
       this.props.toggleMegaMenu(false);
     }
   }
@@ -89,8 +89,7 @@ class MegaMenu extends Component {
         .length === 0
     ) {
       this.props.toggleMegaMenu(false);
-      // this.props.getProductByCategory(id)
-      // this.setCategoryId(id);
+      this.props.setCategoryId(id);
     }
   };
 
@@ -126,7 +125,7 @@ class MegaMenu extends Component {
                         onClick={() => this.itemClicked(item.id)}
                         className="linkButton item"
                       >
-                        <p className="parentItemText">{item.name}</p>
+                        <p className={this.state.items.filter((i) => i.parentProductCategoryId === item.id).length === 0 ? "childItemText" : "parentItemText"}>{item.name}</p>
                       </Link>
                     ))}
                 </nav>
@@ -197,10 +196,9 @@ class MegaMenu extends Component {
   }
 }
 
-
 const mapDispatchToProps = (dispatch) => {
   return {
-    getProductByCategory: (categoryId) => dispatch(getProductByCategory({ categoryId }))
+    setCategoryId: (categoryId) => dispatch(setCategoryId(categoryId))
   }
 }
 
