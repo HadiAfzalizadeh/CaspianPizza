@@ -74,8 +74,8 @@ function ItemCard(props){
 
     return(
       <>
-       <div className="noselect mb-2">
-      <div className="row text-center px-2 pt-3 mb-1">
+       <div className="noselect mb-1">
+      <div className="row text-center px-1 pt-2 mb-1">
       <div style={{ position: 'relative' }}>
         <div className='w-100'>
         <img className='w-100'
@@ -87,7 +87,7 @@ function ItemCard(props){
         </div>
         </div>
         <div className="row text-secondary">
-    <div><h4 className="cnterTextAlign text-nowrap" style={{ fontSize: '1rem' }}>{props.item.productCode}</h4></div>
+    <div><h4 className="cnterTextAlign text-nowrap mb-0" style={{ fontSize: '1rem' }}>{props.item.productCode}</h4></div>
       </div>
       </div>
         </>
@@ -103,7 +103,7 @@ function ItemCard(props){
     arrows
     autoPlaySpeed={3000}
     centerMode={false}
-    className="mt-1 text-center"
+    className="text-center"
     containerClass="container"
     dotListClass=""
     draggable
@@ -256,9 +256,6 @@ function ItemCard(props){
 
 function Order(props){
   
-  const navigate = useNavigate();
-  
-
   return(
     <div className='mt-3' style={{ border: '1px solid #00000033' }}>
       <div>
@@ -274,19 +271,24 @@ function Order(props){
 
 export class Orders extends Component {
 
+  state ={
+    selectedIndex: 0
+  }
+
     render(){
         return(
         <div className="container px-0">
-        
-
-        <Tabs className="noselect mt-2">
+        <Tabs 
+         selectedIndex={this.state.selectedIndex}
+         onSelect={(selectedIndex) => {console.log(selectedIndex);this.setState({ selectedIndex })}}
+        className="noselect mt-2">
         <div className="text-center ps-4 py-2 mb-0 align-items-center" style={{ backgroundColor: '#673AB7' }}>
             <h4 className="f_Poppins text-white mb-0">My Orders</h4>
         </div>
     <TabList>
-      <Tab style={{ backgroundColor: '#00b7eb', color: 'white' }}>In Process Orders</Tab>
-      <Tab style={{ backgroundColor: '#4CAF50' , color: 'white' }}>Delivered Orders</Tab>
-      <Tab style={{ backgroundColor: '#FF5722' , color: 'white' }}>Cancelled Orders</Tab>
+     <Tab style={this.state.selectedIndex === 0 ? { backgroundColor:  '#00b7eb', color: 'white' , border: 'none'} : { color: '#767790'}} ><span className='px-5 f_Poppins'>In Process</span></Tab>
+      <Tab style={this.state.selectedIndex === 1 ? { backgroundColor:  '#4CAF50', color: 'white' , border: 'none'} : {color: '#767790'}}><span className='px-5 f_Poppins'>Delivered</span></Tab>
+      <Tab style={this.state.selectedIndex === 2 ? { backgroundColor:  '#FF5722', color: 'white' , border: 'none'} : {color: '#767790'}}><span className='px-5 f_Poppins'>Cancelled</span></Tab>
     </TabList>
 
     <TabPanel>

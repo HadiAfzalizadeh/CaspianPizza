@@ -40,7 +40,7 @@ const BookSlot = () => {
 
     const [startDate, setStartDate] = useState(new Date());
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-            <input type="text" className="form-control f_Poppins" onClick={onClick} ref={ref} value={value} style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Temp"></input>
+            <input type="text" className="form-control f_OpenSans_Bold" onClick={onClick} ref={ref} value={value} style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Temp"></input>
     ));
 
     return(
@@ -93,33 +93,21 @@ Please arrive within your allocated time slot. If you arrive early, you may be a
                             <Select defaultValue={{ value: '1', label: '06:00 - 06:30' }} options={timeOptions} />
                             </div>
                         </div>
-                        {/* <div className="row mt-3">
+                        <div className="row mt-3">
                         <div className="col">
                             <p>YOUR INFO</p>
-                                <input type="text" className="form-control f_Poppins" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Delivery Phone Number (required)"></input>
-                                {values.bookSlotOptions === '1' && ( <> <input type="text" className="form-control f_Poppins mt-2" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Driver instructions (optional)"></input>
-                                <input type="text" className="form-control f_Poppins mt-2" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Your reference (optional)"></input></>)}
+                                <input type="text" className="form-control f_OpenSans_Regular" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Delivery Phone Number (required)"></input>
+                                {values.bookSlotOptions === '1' && ( <> <input type="text" className="form-control f_OpenSans_Regular mt-2" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Driver instructions (optional)"></input>
+                                <input type="text" className="form-control f_OpenSans_Regular mt-2" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Your reference (optional)"></input></>)}
+                                <textarea className="form-control mt-2 f_OpenSans_Regular" placeholder="Description" rows="4" ></textarea>
                             </div>
-                        </div> */}
+                        </div>
                     </div>
 
             </div>
-            <div className="text-center mt-5">
+            <div className="text-center mt-4">
             <Link to="/Checkout" className="p-2 f_OpenSans_Bold bg-transparent nonedecoration mybr-w rounded w-50 mx-1 px-5" style={{ border: '1px solid #00796B' , color: '#00796B' }} type="submit">RESERVE & CHECKOUT</Link>
             </div></>)}
-
-            {!values.bookSlotOptions && ( <div className="container text-center w-100 bg-white mt-2 p-3 pb-5"> 
-            <p>Are you booking a Delivery or Collection?</p>
-            <div class="form-check form-check-inline">
-                    <Field class="form-check-input" type="radio" name="bookSlotOptions" id="noSlotRadio1" value="1"></Field>
-                    <label class="form-check-label" for="noSlotRadio1">DELIVERY</label>
-                    </div>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="form-check form-check-inline">
-                    <Field class="form-check-input" type="radio" name="bookSlotOptions" id="noSlotRadio2" value="2"></Field>
-                    <label class="form-check-label" for="noSlotRadio2">COLLECTION</label>
-                    </div>
-            </div>)}
             </div>
         </Form>
        )}

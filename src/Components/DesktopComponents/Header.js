@@ -162,7 +162,7 @@ export class Header extends Component {
                 <p className="text-nowrap f_Poppins" style={{ color: '#00796B' }}>Welcome to Caspian Pizza online store</p>
                 </div>
                 <div className="row">
-                <div className="mx-auto d-flex align-items-center text-center" style={{width: '100%'}}>
+                <div className="mx-auto d-flex align-items-center text-center" >
                 <div className="input-group">
                       <input type="text" className="form-control f_Poppins" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Search"></input>
                       <div className="input-group-append">

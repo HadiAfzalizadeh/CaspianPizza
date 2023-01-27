@@ -1,4 +1,4 @@
-import React, { Component , useEffect} from "react";
+import React, { Component } from "react";
 import { Link  } from 'react-router-dom'
 import { connect } from "react-redux";
 import { setCategoryId } from "../../Slices/category.slice";
@@ -145,7 +145,7 @@ class MegaMenu extends Component {
                         onClick={() => this.itemClicked(item.id)}
                         className="linkButton item"
                       >
-                        <p className={this.state.items.filter((i) => i.parentProductCategoryId === item.id).length === 0 ? "childItemText" : "parentItemText"}></p>
+                        <p className={this.state.items.filter((i) => i.parentProductCategoryId === item.id).length === 0 ? "childItemText" : "parentItemText"}>{item.name}</p>
                       </Link>
                     ))}
                 </nav>

@@ -107,13 +107,14 @@ class ProductDetail extends Component {
           <div className="col-lg-4 col-sm-8 col-md-7 col-9 text-center">
           <img
               src={ this.state.selectedImageBody === null ? "/assets/images/catPicTemp.jpg" : "data:image/png;base64, " + this.state.selectedImageBody}
+              style={{ aspectRatio: '1/1'}}
               alt="alt product"
-              className="img-fluid mb-2"
+              className="img-fluid mb-2 w-100"
             ></img>
             <div className="row imagetiles">
               {this.state.item.productImages.map((item) => (
                 <div className="col-3 mb-2 align-self-center cursorpointer" key={item.id} 
-                onClick={() => {this.setState({selectedImageBody: item.imageBody , isVideo: false})}}>
+                onClick={() => {this.setState({selectedImageBody: item.imageBody})}}>
                 <img
                         src={"data:image/png;base64, " + item.imageBody}
                         alt="Temp"
