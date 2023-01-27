@@ -193,15 +193,6 @@ p {
   border-bottom-color: #3594cc;
 }
 
-.cylPcoSm {
-  z-index: 1000;
-}
-
-.cylPcoMd {
-  z-index: 1000;
-}
-
-
 .cylPcoXl::after {
   width: 0;
   height: 0;
@@ -210,6 +201,7 @@ p {
   top: -0.6rem;
   left: 40%;
   border-top-width: 0;
+  z-index: -1;
 }
 
 .cylPcoLg::after {
@@ -220,6 +212,7 @@ p {
   top: -0.5rem;
   left: 35%;
   border-top-width: 0;
+  z-index: -1;
 }
 
 .cylPcoMd::after {
@@ -230,7 +223,7 @@ p {
   top: -0.5rem;
   left: 33%;
   border-top-width: 0;
-  z-index: 500;
+  z-index: -1;
 }
 
 .cylPcoSm::after {
@@ -241,7 +234,7 @@ p {
   top: -0.5rem;
   left: 25%;
   border-top-width: 0;
-  z-index: 500;
+  z-index: -1;
 }
 
 /*-----------------------------------Sign In / Sign Up----------------------------------------*/

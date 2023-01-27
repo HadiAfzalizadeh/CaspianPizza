@@ -145,7 +145,7 @@ class MegaMenu extends Component {
                         onClick={() => this.itemClicked(item.id)}
                         className="linkButton item"
                       >
-                        <p className="parentItemText">{item.name}</p>
+                        <p className={this.state.items.filter((i) => i.parentProductCategoryId === item.id).length === 0 ? "childItemText" : "parentItemText"}></p>
                       </Link>
                     ))}
                 </nav>
@@ -165,7 +165,7 @@ class MegaMenu extends Component {
                         onClick={() => this.itemClicked(item.id)}
                         className="linkButton item"
                       >
-                        <p className="parentItemText">{item.name}</p>
+                        <p className={this.state.items.filter((i) => i.parentProductCategoryId === item.id).length === 0 ? "childItemText" : "parentItemText"}>{item.name}</p>
                       </Link>
                     ))}
                 </nav>
@@ -185,7 +185,7 @@ class MegaMenu extends Component {
                         onClick={() => this.itemClicked(item.id)}
                         className="linkButton item"
                       >
-                        <p className="parentItemText">{item.name}</p>
+                        <p className={this.state.items.filter((i) => i.parentProductCategoryId === item.id).length === 0 ? "childItemText" : "parentItemText"}>{item.name}</p>
                       </Link>
                     ))}
                 </nav>

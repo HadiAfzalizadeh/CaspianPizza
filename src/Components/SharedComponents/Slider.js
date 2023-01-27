@@ -56,17 +56,17 @@ export class Slider extends Component {
         <div class="w-100 d-flex justify-content-around position-absolute bottom-0 start-0" style={{ marginBottom: '2px'}}>
         {this.state.items.filter((item) => item.imageBody !== "").map((item, index) => 
           <>
-          <div className="text-break text-justify text-white text-center cursorpointer py-3 w-100 d-none d-xl-block mt-0 position-relative" style={{marginLeft: '1px' , marginRight: '1px', fontSize: '1rem', backgroundColor: index === this.state.currentSlide ? '#3594cc' : '#26ae5d'}} onClick={() => this.clickSlide(index)} >
-          <div style={{ textTransform: 'uppercase' }} className={index === this.state.currentSlide ? "ddtaBV cylPcoXl f_OpenSans_Bold" : "f_OpenSans_Bold"}>{item.link}</div>
+          <div className="cursorpointer py-3 w-100 d-none d-xl-block mt-0 position-relative" style={{marginLeft: '1px' , marginRight: '1px', fontSize: '1rem', backgroundColor: index === this.state.currentSlide ? '#3594cc' : '#26ae5d'}} onClick={() => this.clickSlide(index)} >
+          <div style={{ textTransform: 'uppercase' }} className={index === this.state.currentSlide ? "ddtaBV cylPcoXl d-flex h-100 align-items-center text-center" : "h-100 d-flex align-items-center text-center"}><span className="text-break text-justify text-white f_OpenSans_Bold w-100">{item.link}</span></div>
         </div>
-        <div className="text-break text-justify text-white f_Poppins text-center cursorpointer py-1 w-100 d-none d-lg-block d-xl-none position-relative" style={{marginLeft: '1px' , marginRight: '1px', fontSize: '1rem', backgroundColor: index === this.state.currentSlide ? '#3594cc' : '#26ae5d'}} onClick={() => this.clickSlide(index)} >
-        <div style={{ textTransform: 'uppercase' }} className={index === this.state.currentSlide ? "ddtaBV cylPcoLg f_OpenSans_Bold" : "f_OpenSans_Bold"}>{item.link}</div>
+        <div className="cursorpointer py-1 w-100 d-none d-lg-block d-xl-none position-relative" style={{marginLeft: '1px' , marginRight: '1px', fontSize: '1rem', backgroundColor: index === this.state.currentSlide ? '#3594cc' : '#26ae5d'}} onClick={() => this.clickSlide(index)} >
+        <div style={{ textTransform: 'uppercase' }} className={index === this.state.currentSlide ? "ddtaBV cylPcoLg d-flex h-100 align-items-center text-center" : "h-100 d-flex align-items-center text-center"}><span className="text-break text-justify text-white f_OpenSans_Bold w-100">{item.link}</span></div>
         </div>
-        <div className="text-break text-justify text-white f_Poppins text-center cursorpointer w-100 d-none d-md-block d-lg-none position-relative" style={{ marginLeft: '1px' , marginRight: '1px' , fontSize: '0.95rem', backgroundColor: index === this.state.currentSlide ? '#3594cc' : '#26ae5d'}} onClick={() => this.clickSlide(index)} >
-        <div style={{ textTransform: 'uppercase' }} className={index === this.state.currentSlide ? "ddtaBV cylPcoMd f_OpenSans_Bold" : "f_OpenSans_Bold"}>{item.link}</div>
+        <div className="cursorpointer w-100 d-none d-md-block d-lg-none position-relative" style={{ marginLeft: '1px' , marginRight: '1px' , fontSize: '0.95rem', backgroundColor: index === this.state.currentSlide ? '#3594cc' : '#26ae5d'}} onClick={() => this.clickSlide(index)} >
+        <div style={{ textTransform: 'uppercase' }} className={index === this.state.currentSlide ? "ddtaBV cylPcoMd h-100 d-flex align-items-center text-center" : "h-100 d-flex align-items-center text-center"}><span className="text-break text-justify text-white f_OpenSans_Bold w-100">{item.link}</span></div>
         </div>
-        <div className="text-break text-justify text-white f_Poppins text-center cursorpointer w-100 d-block d-md-none position-relative" style={{ marginLeft: '1px' , marginRight: '1px' , fontSize: '0.8rem', backgroundColor: index === this.state.currentSlide ? '#3594cc' : '#26ae5d'}} onClick={() => this.clickSlide(index)} >
-        <div style={{ textTransform: 'uppercase' }} className={index === this.state.currentSlide ? "ddtaBV cylPcoSm f_OpenSans_Bold" : "f_OpenSans_Bold"}>{item.link}</div>
+        <div className="cursorpointer w-100 d-block d-md-none position-relative" style={{ marginLeft: '1px' , marginRight: '1px' , fontSize: '0.8rem', backgroundColor: index === this.state.currentSlide ? '#3594cc' : '#26ae5d'}} onClick={() => this.clickSlide(index)} >
+        <div style={{ textTransform: 'uppercase' }} className={index === this.state.currentSlide ? "ddtaBV cylPcoSm h-100 d-flex align-items-center text-center" : "h-100 d-flex align-items-center text-center"}><span className="text-break text-justify text-white f_OpenSans_Bold w-100">{item.link}</span></div>
         </div>
         </>
         )}
