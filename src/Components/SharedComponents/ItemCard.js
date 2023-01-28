@@ -17,7 +17,7 @@ function ItemCard(props){
       <>
        <div className="noselect cursorpointer" style={{  textDecoration: 'none'  }} onClick={event => {
         if(!quantityRef.current.contains(event.target)){
-          dispatch(setProductDetailId(props.item.id));
+          dispatch(setProductDetailId(props.itemId));
           navigate("/ProductDetail")
         }
         
@@ -38,17 +38,16 @@ function ItemCard(props){
       {props.item.description}
     </div>
       <div className="row w-100 text-center m-0 my-1">
-      <p className='f_Poppins mb-0'>£{props.item.salesPrice}</p>
+      <div className='f_Poppins text-nowrap'>{ props.Order && (<span className='f_Poppins'>Current Price: </span>)}£{props.item.salesPrice}</div>
       </div>
+      { props.Order && (
+        <>
+        <div className='text-nowrap'>Order Price: {props.Order.price}</div>
+        <div className='text-nowrap'>Count: {props.Order.count}</div>
+        </>)}
       <div ref={quantityRef}  className="row p-3 pt-0 m-0 cursorpointer">
-        <BasketQuantity productId={props.item.id}/>
+        <BasketQuantity productId={props.itemId}/>
       </div>
-      {/* <div className="row p-3 pt-0 m-0">
-      <Link to="/ProductDetail" className="p-2 mybr-w text-nowrap me-3 w-100 text-center text-decoration-none cursorpointer" style={{ border: '1px solid #FFC107' , color: '#0288D1' }} 
-      onClick={() => {
-        dispatch(setProductDetailId(props.item.id));
-      }}><span>View Details</span></Link>
-      </div> */}
       </div>
       </div>
         </>

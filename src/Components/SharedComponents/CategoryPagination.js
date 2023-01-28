@@ -98,16 +98,16 @@ class CategoryPagination extends Component {
               {this.state.items.map((item) => (
                 <>
                 <div className="col-3 hoverableCard d-none d-xl-block" key={item.id + "col3"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'}}>
-                  <ItemCard item={item}/>
+                  <ItemCard item={item} itemId ={item.id}/>
                 </div>
                 <div className="col-4 hoverableCard d-none d-lg-block d-xl-none" key={item.id + "col4"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'  }}>
-                  <ItemCard item={item}/>
+                  <ItemCard item={item} itemId ={item.id}/>
                 </div>
                 <div className="col-6 hoverableCard d-none d-md-block d-lg-none" key={item.id + "col6"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'  }}>
-                  <ItemCard item={item}/>
+                  <ItemCard item={item} itemId ={item.id}/>
                 </div>
                 <div className="col-12 hoverableCard d-block d-md-none" key={item.id + "col12"} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'  }}>
-                  <ItemCard item={item}/>
+                  <ItemCard item={item} itemId ={item.id}/>
                 </div>
                 </>
                 ))}
