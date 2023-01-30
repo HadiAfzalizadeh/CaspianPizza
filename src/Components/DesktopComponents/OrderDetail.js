@@ -42,8 +42,7 @@ render() {
             <h4 className="f_Poppins mb-3 mt-3 ms-3" style={{ color: '#23254e' }}>My Orders</h4>
         </div>
         <div className="d-flex justify-content-between p-3" style={{ color: '#23254e' }}><Link to="../Orders"><FontAwesomeIcon icon={faArrowLeft} className="p-0"  size="xl" style={{ color: '#23254e' }} /></Link><h4 className="f_Poppins mb-0">Order { this.state.item.orderId } Detail</h4><FontAwesomeIcon icon={faArrowRight} className="p-0 invisible"  size="xl"/></div>
-        <hr className='my-0'/>
-           <OrderGeneralDetail item={this.state.item} itemId={this.state.item.orderId} showArrow={false}/>
+           <OrderGeneralDetail item={this.state.item} itemId={this.state.item.orderId} isDetail={true}/>
            <hr className='my-0 '/>
            <div className="p-3">
            <span>Order Recipient </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>{this.state.item.fullName}</span>

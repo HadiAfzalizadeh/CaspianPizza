@@ -5,6 +5,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import axios from "axios";
 import ItemCard from "./ItemCard";
+import { setCountProducts } from "../../Slices/category.slice";
 
 
 
@@ -19,6 +20,7 @@ class CategoryPagination extends Component {
   };
 
   componentDidMount(){
+    this.props.setCountProducts(0);
     axios
     .get(
       "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" + 1 + "&PageSize=" + 8 + "&ProductCategoryId=" +
@@ -28,6 +30,7 @@ class CategoryPagination extends Component {
       this.setState({
         items: response.data.data
       });
+      this.props.setCountProducts(response.data.meta.totalRows);
       if(response.data.meta.totalRows === this.state.items.length){
           this.setState({
             hasMore: false
@@ -35,11 +38,14 @@ class CategoryPagination extends Component {
       }
     })
     .catch((error) => {});
+    console.log('mount' + this.props.categoryId);
   }
 
   
   componentDidUpdate(prevProps) {
+    console.log('update' + this.props.categoryId);
     if(prevProps.categoryId !== this.props.categoryId){
+      this.props.setCountProducts(0);
       this.setState({
         page: 3,
         hasMore: true,
@@ -54,6 +60,7 @@ class CategoryPagination extends Component {
       this.setState({
         items: response.data.data
       });
+      this.props.setCountProducts(response.data.meta.totalRows);
       if(response.data.meta.totalRows === this.state.items.length){
           this.setState({
             hasMore: false
@@ -124,4 +131,10 @@ const mapStateToProps = (state) => ({
   categoryId: state.category.categoryId
 })
 
-export default connect(mapStateToProps,null)(CategoryPagination)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCountProducts: (countProducts) => dispatch(setCountProducts(countProducts))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(CategoryPagination)

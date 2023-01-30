@@ -259,7 +259,7 @@ function Order(props){
   return(
     <div className='mt-3 mx-2' style={{ border: '1.5px solid #00000033' }}>
       <div>
-      <OrderGeneralDetail item={props.item} itemId={props.item.id} selectable={true} showArrow={true}/>
+      <OrderGeneralDetail item={props.item} itemId={props.item.id}/>
       </div>
       <hr className='mb-0 mx-5'/>
       <div className='row'>
@@ -286,7 +286,7 @@ export class Orders extends Component {
         <div className="ps-4 py-2 mb-0 align-items-center">
             <h4 className="f_Poppins mb-3 mt-3 ms-3" style={{ color: '#23254e' }}>My Orders</h4>
         </div>
-    <TabList className="px-3" style={{ borderBottom: '1.5px solid #00000033' }}>
+    <TabList className="px-3 text-center" style={{ borderBottom: '1.5px solid #00000033' }}>
      <Tab style={this.state.selectedIndex === 0 ? { backgroundColor:  '#00b7eb', color: 'white' , border: 'none'} : { color: '#767790'}} ><span className='px-5 f_Poppins'>In Process</span></Tab>
       <Tab style={this.state.selectedIndex === 1 ? { backgroundColor:  '#4CAF50', color: 'white' , border: 'none'} : {color: '#767790'}}><span className='px-5 f_Poppins'>Delivered</span></Tab>
       <Tab style={this.state.selectedIndex === 2 ? { backgroundColor:  '#FF5722', color: 'white' , border: 'none'} : {color: '#767790'}}><span className='px-5 f_Poppins'>Cancelled</span></Tab>
