@@ -1,4 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import CategoryService from "../Services/category.service";
+
+  
+export const getProductByCategoryForUser = createAsyncThunk(
+  "basket/getMyCart",
+  async (thunkAPI) => {
+    try {
+      const data = await CategoryService.getProductByCategoryForUser({})
+      return { cartItems: data.cartItems, sumAmount: data.sumAmount }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
 
   const categorySlice = createSlice({
     name: "category",

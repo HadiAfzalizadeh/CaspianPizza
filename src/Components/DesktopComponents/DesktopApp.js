@@ -15,6 +15,8 @@ import { Orders } from "./Orders";
 import  OrderDetail from "./OrderDetail";
 import Checkout from "./Checkout";
 import { Footer } from "./Footer";
+import CategoryService from "../../Services/category.service";
+
 
 
 
@@ -28,7 +30,7 @@ class DesktopApp extends Component {
     categotyItems: []
   };
 
-  componentDidMount(){
+  async componentDidMount(){
     axios.get("https://api.caspianpizza.ir/api/ProductCategory/GetAllProductCategories")
     .then(response => {
       this.setState({
@@ -38,53 +40,6 @@ class DesktopApp extends Component {
     .catch(error => {});
   }
 
-  selectCategoryId = (categotyId) => {
-    this.setState({
-        currentCategotyId: categotyId
-    });
-    axios
-    .get(
-      "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=1&PageSize=8&ProductCategoryId=" +
-      categotyId
-    )
-    .then((response) => {
-      this.setState({
-        categotyItems: response.data.data,
-        currentCategotyPage: 3,
-        categotyHasMore: true
-      });
-      if(response.data.meta.totalRows === this.state.categotyItems.length){
-          this.setState({
-            categotyHasMore: false
-          });
-      }
-    })
-    .catch((error) => {});
-  }
-
-  fetchMoreCategoryData = () => {
-    this.setState({
-      currentCategotyPage: this.state.currentCategotyPage + 1,
-    });
-    axios
-      .get(
-        "https://api.caspianpizza.ir/api/Product/GetProductByCategory?Page=" +
-        this.state.currentCategotyPage +
-          "&PageSize=4&ProductCategoryId=" +
-          this.state.currentCategotyId
-      )
-      .then((response) => {
-        this.setState({
-          categotyItems: this.state.categotyItems.concat(response.data.data),
-        });
-        if(response.data.meta.totalRows === this.state.categotyItems.length){
-            this.setState({
-              categotyHasMore: false
-            });
-        }
-      })
-      .catch((error) => {});
-  };
 
   render() {
     return (

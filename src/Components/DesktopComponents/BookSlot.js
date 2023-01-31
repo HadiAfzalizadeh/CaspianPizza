@@ -36,6 +36,24 @@ const timeOptions = [
     { value: '24', label: '17:30 - 18:00' }
   ]
 
+  const deliveryTimeOptions = [
+    { value: '1', label: '07:00 - 11:00' },
+    { value: '2', label: '07:30 - 11:30' },
+    { value: '3', label: '08:00 - 12:00' },
+    { value: '4', label: '08:30 - 12:30' },
+    { value: '5', label: '09:00 - 13:00' },
+    { value: '6', label: '09:30 - 13:30' },
+    { value: '7', label: '10:00 - 14:00' },
+    { value: '8', label: '10:30 - 14:30' },
+    { value: '9', label: '11:00 - 15:00' },
+    { value: '10', label: '11:30 - 15:30' },
+    { value: '11', label: '12:00 - 16:00' },
+    { value: '12', label: '12:30 - 16:30' },
+    { value: '13', label: '13:00 - 17:00' },
+    { value: '14', label: '13:30 - 17:30' },
+    { value: '15', label: '14:00 - 18:00' }
+  ]
+
 const BookSlot = () => {
 
     const [startDate, setStartDate] = useState(new Date());
