@@ -1,9 +1,6 @@
-echo "Bulding app..."
-
+echo "===================================================== Building app ======================================================"
 npm run build
+echo "=============================================== Deploying files to server ==============================================="
+scp -r build/* caspian@172.105.110.38:/home/caspian/caspian-user
+echo "================================================== Deployment complete =================================================="
 
-echo "Deploying file to server..."
-
-scp -r build/* caspian@172.105.110.38:/home/caspian/shop-user
-
-echo "Done!"

@@ -10,6 +10,7 @@ import {
   AccordionItemPanel,
 } from 'react-accessible-accordion';
 import Select from 'react-select';
+import { useSelector } from "react-redux";
 
 const sortOptions = [
   { value: '0', label: 'Relevance' },
@@ -62,6 +63,9 @@ const customStyles = {
 };
 
 function CategoryHeader() {
+
+  const { countProducts , categoryTitle } = useSelector((state) => state.category);
+
   return(           
      <div className="headersbgimage">
   <div className="headersbgcolor">
@@ -72,7 +76,7 @@ function CategoryHeader() {
                 Home / Food 
             </div>
             <div className="d-flex align-items-center">
-                <div className="me-5" style={{ whiteSpace: 'nowrap' }}><FontAwesomeIcon icon={faMagnifyingGlass} size="xl"/><sapm className="f_OpenSans_Bold"> 4 Products Found</sapm></div>
+                { 1 !== 0 && (<div className="me-5" style={{ whiteSpace: 'nowrap' }}><FontAwesomeIcon icon={faMagnifyingGlass} size="xl"/><sapm className="f_OpenSans_Bold"> {countProducts} Products Found</sapm></div>)}
                 <div className="d-flex align-items-center"><p className="mb-0 me-3 f_OpenSans_Bold">Sort :</p><Select options={sortOptions} 
                 defaultValue={sortOptions[0]}
                 styles={customStyles}
@@ -89,7 +93,7 @@ function CategoryHeader() {
       </div>
       <div className="row">
       <div className="d-flex align-items-center justify-content-center">
-                <div className="me-5" style={{ whiteSpace: 'nowrap' }}><FontAwesomeIcon icon={faMagnifyingGlass} size="xl"/><sapm className="f_OpenSans_Bold"> 4 Products Found</sapm></div>
+                <div className="me-5" style={{ whiteSpace: 'nowrap' }}><FontAwesomeIcon icon={faMagnifyingGlass} size="xl"/><sapm className="f_OpenSans_Bold"> {countProducts} Products Found</sapm></div>
                 <div className="d-flex align-items-center"><p className="mb-0 me-3 f_OpenSans_Bold d-none d-sm-block">Sort :</p><Select options={sortOptions} 
                 defaultValue={sortOptions[0]}
                 styles={customStyles}
@@ -98,7 +102,7 @@ function CategoryHeader() {
       </div>
         </div>
       </div>
-        <h1 className="text-center f_OpenSans_Bold">Burger</h1>
+        <h1 className="text-center f_OpenSans_Bold">{categoryTitle}</h1>
     </div>
   </div>
     
@@ -199,23 +203,13 @@ export class CategoryPage extends Component {
                 </div>
             </div>
             <div className="container-fluid d-none d-md-block d-lg-none">
-            <CategoryHeader />
+            <CategoryHeader count/>
                 <div className="row">
                   <div className="col-4 mt-1">
                   <CategoryFilter />
-
-
-
                   </div>
-                  <div className="col-8">
-                      <CategoryPagination  
-                      currentCategotyId={this.props.currentCategotyId }
-                      currentCategotyPage = {this.props.currentCategotyPage }
-                      hasMore = {this.props.categotyHasMore } 
-                      items = { this.props.categotyItems }
-                      fetchMoreCategoryData = {this.props.fetchMoreCategoryData}
-                      isPortrate = {this.state.isPortrate}/>   
-                      {/* <CategoryPagination  />    */}
+                  <div className="col-8"> 
+                      <CategoryPagination  /> 
                   </div>
                 </div>
             </div>
@@ -224,19 +218,9 @@ export class CategoryPage extends Component {
                 <div className="row">
                   <div className="col-6 mt-1">
                   <CategoryFilter />
-
-
-
                   </div>
                   <div className="col-6">
-                      <CategoryPagination  
-                      currentCategotyId={this.props.currentCategotyId }
-                      currentCategotyPage = {this.props.currentCategotyPage }
-                      hasMore = {this.props.categotyHasMore } 
-                      items = { this.props.categotyItems }
-                      fetchMoreCategoryData = {this.props.fetchMoreCategoryData}
-                      isPortrate = {this.state.isPortrate}/>   
-                      {/* <CategoryPagination  />    */}
+                      <CategoryPagination  /> 
                   </div>
                 </div>
             </div>

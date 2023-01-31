@@ -36,7 +36,7 @@ function ReOrderButton(props){
         .catch(()=>{setloading(false);})
         }
        }}>
-         {!loading && (<span className="f_OpenSans_Bold">Re Order Now</span>)}
+         {!loading && (<span className="f_OpenSans_Bold">Reorder Now</span>)}
        {loading && (<FontAwesomeIcon style={{ color: '#303F9F' }} icon={faCircleNotch} className="spinner p-0"  size="xl"/>)}
          </div>
     )
@@ -50,9 +50,9 @@ export const OrderGeneralDetail = (props) => {
   const dispatch = useDispatch();
 
     return(
-        <div className='row p-3 cursorpointer' onClick={(event) => {
+        <div className='row p-3' style={!props.isDetail ? {  cursor: 'pointer'} : {}} onClick={(event) => {
           if(!quantityRef.current.contains(event.target)){
-            dispatch(setOrderDetailId(props.item.id));
+            dispatch(setOrderDetailId(props.itemId));
           navigate("../OrderDetail");
           }
         }}>
@@ -65,11 +65,11 @@ export const OrderGeneralDetail = (props) => {
             {props.item.orderState === 1 && (<><FontAwesomeIcon style={{ backgroundColor: '#FF5722 ' , borderRadius: '50%' , aspectRatio: '1/1'}} icon={faXmark} className='p-1 text-white'/>
             <h6 className='f_Poppins ms-2 mb-0' style={{ color: '#23254e' }}>Cancelled</h6></>)}
             </div>
-            { props.showArrow && (<FontAwesomeIcon icon={faAngleRight} style={{ color: '#23254e' }} className="me-3" size="sm"/>)}
+            { !props.isDetail && (<FontAwesomeIcon icon={faAngleRight} style={{ color: '#23254e' }} className="me-3" size="sm"/>)}
             </div>
-            <p className='mb-0 mt-3 f_OpenSans_Regular text-secondary mb-3'><span className='p-2' style={{ color: '#23254e' }}>{props.item.insertTime.substring(0,props.item.insertTime.indexOf( "T" ))} {props.item.insertTime.substring(props.item.insertTime.indexOf( "T" )+1,props.item.insertTime.indexOf( "." ))}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Order ID </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>{props.item.id}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Payment ID </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>{props.item.paymentId}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Total Price </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>£{props.item.totalPice}</span>{props.item.totalPice !== props.item.totalPiceWithoutDiscount && (<><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Your Profit </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>£{props.item.totalPice - props.item.totalPiceWithoutDiscount}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Price Without Discount </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>£{props.item.totalPiceWithoutDiscount}</span></>)}</p>
+            <p className='mb-2 mt-3 f_OpenSans_Regular text-secondary'><span className='p-2 f_Poppins' style={{ color: '#23254e' }}>{props.item.insertTime.substring(0,props.item.insertTime.indexOf( "T" ))} {props.item.insertTime.substring(props.item.insertTime.indexOf( "T" )+1,props.item.insertTime.indexOf( "." ))}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Order ID </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>{props.item.id !== undefined ? props.item.id : props.item.orderId}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Payment ID </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>{props.item.paymentId}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Total Price </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>£{props.item.totalPrice}</span>{props.item.totalPrice !== props.item.totalPriceWithoutDiscount && (<><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Your Profit </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>£{props.item.totalPrice - props.item.totalPriceWithoutDiscount}</span><FontAwesomeIcon className='me-2' style={{ color: '#9e9fb1', fontSize: '0.5rem' }} icon={faCircle}/><span>Price Without Discount </span><span className='me-2 f_OpenSans_Bold' style={{ color: '#23254e' }}>£{props.item.totalPriceWithoutDiscount}</span></>)}</p>
             <div ref={quantityRef} className='text-end w-100'>
-            <ReOrderButton itemId={props.item.id}/>
+            <ReOrderButton itemId={props.itemId}/>
               </div>
           </div>
     )
