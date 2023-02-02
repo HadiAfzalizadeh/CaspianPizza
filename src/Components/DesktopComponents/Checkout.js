@@ -1,5 +1,5 @@
 import { Component , useEffect , useState} from "react"
-import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import { faBullseye, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from 'react-router-dom'
 import BasketQuantity from "../SharedComponents/BasketQuantity";
@@ -11,6 +11,54 @@ import { deleteCart , getMyCart , payForUser } from "../../Slices/basket.slice";
 import { PaymentMultiStep } from "../SharedComponents/PaymentMultiStep";
 import { useNavigate } from "react-router-dom";
 import { setOrderDetailId } from "../../Slices/category.slice";
+import axios from "axios";
+import authHeader from '../../Services/auth-header';
+
+
+const collectionTimeOptions = [
+    { value: '1', label: '06:00 - 06:30' },
+    { value: '2', label: '06:30 - 07:00' },
+    { value: '3', label: '07:00 - 07:30' },
+    { value: '4', label: '07:30 - 08:00' },
+    { value: '5', label: '08:00 - 08:30' },
+    { value: '6', label: '08:30 - 09:00' },
+    { value: '7', label: '09:00 - 09:30' },
+    { value: '8', label: '09:30 - 10:00' },
+    { value: '9', label: '10:00 - 10:30' },
+    { value: '10', label: '10:30 - 11:00' },
+    { value: '11', label: '11:00 - 11:30' },
+    { value: '12', label: '11:30 - 12:00' },
+    { value: '13', label: '12:00 - 12:30' },
+    { value: '14', label: '12:30 - 13:00' },
+    { value: '15', label: '13:00 - 13:30' },
+    { value: '16', label: '13:30 - 14:00' },
+    { value: '17', label: '14:00 - 14:30' },
+    { value: '18', label: '14:30 - 15:00' },
+    { value: '19', label: '15:00 - 15:30' },
+    { value: '20', label: '15:30 - 16:00' },
+    { value: '21', label: '16:00 - 16:30' },
+    { value: '22', label: '16:30 - 17:00' },
+    { value: '23', label: '17:00 - 17:30' },
+    { value: '24', label: '17:30 - 18:00' }
+  ]
+
+  const deliveryTimeOptions = [
+    { value: '1', label: '07:00 - 11:00' },
+    { value: '2', label: '07:30 - 11:30' },
+    { value: '3', label: '08:00 - 12:00' },
+    { value: '4', label: '08:30 - 12:30' },
+    { value: '5', label: '09:00 - 13:00' },
+    { value: '6', label: '09:30 - 13:30' },
+    { value: '7', label: '10:00 - 14:00' },
+    { value: '8', label: '10:30 - 14:30' },
+    { value: '9', label: '11:00 - 15:00' },
+    { value: '10', label: '11:30 - 15:30' },
+    { value: '11', label: '12:00 - 16:00' },
+    { value: '12', label: '12:30 - 16:30' },
+    { value: '13', label: '13:00 - 17:00' },
+    { value: '14', label: '13:30 - 17:30' },
+    { value: '15', label: '14:00 - 18:00' }
+  ]
 
 function PayButton(){
     const navigate = useNavigate();
@@ -43,7 +91,29 @@ function PayButton(){
 
 class Checkout extends Component {
 
+    state = {
+        bookslot: null
+    }
+
+    componentDidMount(){
+        const cart = JSON.parse(localStorage.getItem("cart"));
+        axios.get("https://api.caspianpizza.ir/api/BookSlot/FindBookSlotByCartId?CartId=" + cart.cartId, { headers: authHeader() })
+        .then(response => {
+            this.setState({
+                bookslot: {
+                    isDelivery: response.data.bookSlots[response.data.bookSlots.length - 1].isDelivery,
+                    bookDate: response.data.bookSlots[response.data.bookSlots.length - 1].bookDate.substring(0,response.data.bookSlots[response.data.bookSlots.length - 1].bookDate.indexOf( "T" )),
+                    bookTime: response.data.bookSlots[response.data.bookSlots.length - 1].bookTime
+                }
+            });
+        })
+        .catch(error => {});
+    }
+
     render(){
+        if(this.state.bookslot === null){
+            return null;
+        }
         return(
             <>
 
@@ -55,7 +125,10 @@ class Checkout extends Component {
             <div className="container pt-1 pb-1" style={{ backgroundColor: '#F5F5F5' }}>
                 <div className="d-flex justify-content-between align-items-center p-3 bg-white mt-2">
                     <div className="d-flex">
-                    <p className="pb-0 text-nowrap">You have booked a <span className="f_OpenSans_Bold">DELIVERY</span> slot:</p><div className="ms-5"><p className="f_OpenSans_Bold mb-0">Wednesday 4th January</p><p className="f_OpenSans_Bold  mb-0">07:00 - 11:00</p></div>
+                    <p className="pb-0 text-nowrap">You have booked a <span className="f_OpenSans_Bold">{this.state.bookslot.isDelivery === true ? "DELIVERY" : "COLLECTION"}</span> slot:</p><div className="ms-5"><p className="f_OpenSans_Bold mb-0">{this.state.bookslot.bookDate}</p><p className="f_OpenSans_Bold  mb-0">
+                    {console.log(deliveryTimeOptions.find(p => p.value === this.state.bookslot.bookTime + "").label)}
+                    {this.state.bookslot.isDelivery === false ? collectionTimeOptions.find(p => p.value === this.state.bookslot.bookTime + "").label : deliveryTimeOptions.find(p => p.value === this.state.bookslot.bookTime + "").label}
+                    </p></div>
                     </div>
                     <Link to="/BookSlot" variant="text" className="f_Poppins" style={{ display: 'block' , textDecoration: 'underline' , color: '#2196F3'}}>CHANGE SLOT</Link>
                 </div>

@@ -88,7 +88,7 @@ class Slider extends Component {
             <img
             className="w-100  cursorpointer"
                 style={{  aspectRatio: '1/1'}}
-                src="/assets/images/catPicTemp.jpg"
+                src="/assets/images/k21mjejgf3e8unerg2ym.jpg"
                 alt=""
                 ></img> 
             </div>
@@ -97,13 +97,13 @@ class Slider extends Component {
               <img
                 className="w-100 mb-3 cursorpointer"
                 style={{ aspectRatio: '1/1'}}
-                src="/assets/images/xwepypexozmnrryam6kh.jpg"
+                src="/assets/images/gprdiyfw6soge8py9ahb.jpg"
                 alt=""
                 ></img> 
                 <img
                   className="w-100 cursorpointer"
                 style={{ aspectRatio: '1/1'}}
-                src="/assets/images/catPicTemp.jpg"
+                src="/assets/images/e0csazmhssvehxkdufyt.jpg"
                 alt=""
                 ></img> 
               </div>
@@ -111,13 +111,13 @@ class Slider extends Component {
               <img
               className="w-100 mb-3 cursorpointer"
                 style={{ aspectRatio: '1/1'}}
-                src="/assets/images/catPicTemp.jpg"
+                src="/assets/images/wlcwpmvwwbsvgjlv3kke.jpg"
                 alt=""
                 ></img> 
                    <img
                    className="w-100 cursorpointer"
                 style={{  aspectRatio: '1/1'}}
-                src="/assets/images/catPicTemp.jpg"
+                src="/assets/images/xwepypexozmnrryam6kh.jpg"
                 alt=""
                 ></img> 
               </div>
@@ -153,7 +153,7 @@ const Offers = () => {
       </div>
     </div>
     <div className="container pt-3" style={{ backgroundColor: '#f3f3f3' }}>
-      <div className="row justify-content-center px-lg-5">
+      <div className="row justify-content-center">
       {items.map((item) => (
  <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 hoverableCard" key={item.id} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'}}>
  <ItemCard item={item} itemId ={item.id} />
