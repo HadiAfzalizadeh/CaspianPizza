@@ -152,7 +152,7 @@ const Offers = () => {
       <h1 className="text-center text-white f_OpenSans_Bold f_Poppins py-5 mb-0">Special Offers</h1>
       </div>
     </div>
-    <div className="container pt-3" style={{ backgroundColor: '#f3f3f3' }}>
+    <div className="container pt-3">
       <div className="row justify-content-center">
       {items.map((item) => (
  <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 hoverableCard" key={item.id} style={{ background: '#fff' , border: '0.5px solid #e0e0e0'}}>

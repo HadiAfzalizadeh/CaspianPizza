@@ -100,14 +100,14 @@ const BookSlot = () => {
         <>
         <div className="container align-items-center p-3 pt-4" style={{ width: '100%'  , background: '#00BCD4' }}>
             <Formik
-                initialValues={{ bookSlotOptions: bookslot.isDelivery === true ? '1' : '2', description: bookslot.description }}
+                initialValues={{ bookSlotOptions: bookslot.isDelivery === true ? '1' : '2', description: bookslot.description, bookTime: bookslot.isDelivery === false  ? collectionTimeOptions.find(p => p.value === bookslot.bookTime + "") : deliveryTimeOptions.find(p => p.value === bookslot.bookTime + "") }}
                 onSubmit={(values, { setSubmitting }) => {
                     if(!loading){
                         setLoading(true);
                         const user = JSON.parse(localStorage.getItem("user"));
                     let cart = JSON.parse(localStorage.getItem("cart"));
                         axios
-                        .post("https://api.caspianpizza.ir/api/BookSlot" , {
+                        .patch("https://api.caspianpizza.ir/api/BookSlot" , {
                             bookTime: 3,
                             bookDate: bookslot.bookDate.getFullYear() + "-"+ parseInt(bookslot.bookDate.getMonth()+1) +"-"+ bookslot.bookDate.getDate() + "T17:06:49.998Z",
                             isDelivery: values.bookSlotOptions === '1' ? true : false,
@@ -162,7 +162,20 @@ const BookSlot = () => {
                             </div>
                             <div className="w-50">
                             <p>Time</p>
-                            <Select defaultValue={values.bookSlotOptions === '2'  ? collectionTimeOptions.find(p => p.value === bookslot.bookTime + "") : deliveryTimeOptions.find(p => p.value === bookslot.bookTime + "")} options={values.bookSlotOptions === '1'  ? deliveryTimeOptions : collectionTimeOptions} />
+
+                            <Field
+                            name="bsTime"
+                            value={values.bookTime}
+                            >
+                            {({field, form, meta}) => {
+                                    return (
+                                        <Select 
+                                        value={form.values.bookTime}
+                                        onChange={(option) => {console.log(form.values.bookTime);form.setFieldValue(field.name,bookslot.isDelivery === false  ? collectionTimeOptions.find(p => p.value === option.value + "") : deliveryTimeOptions.find(p => p.value === option.value  + ""))}}
+                                        options={values.bookSlotOptions === '1'  ? deliveryTimeOptions : collectionTimeOptions} />
+                                    );
+                                }}
+                                </Field>
                             </div>
                         </div>
                         <div className="row mt-3">
