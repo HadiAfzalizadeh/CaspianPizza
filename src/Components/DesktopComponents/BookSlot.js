@@ -13,6 +13,7 @@ import { Button } from 'bootstrap';
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {  faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import { useField } from "formik";
 
 const collectionTimeOptions = [
     { value: '0', label: '06:00 - 06:30' },
@@ -58,6 +59,17 @@ const collectionTimeOptions = [
     { value: '37', label: '13:30 - 17:30' },
     { value: '38', label: '14:00 - 18:00' }
   ]
+
+  const MyTextArea = ({...props}) => {
+    // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
+    // which we can spread on <input> and alse replace ErrorMessage entirely.
+    const [field] = useField(props);
+    return (
+        <>
+            <textarea className="text-area" {...field} {...props} />
+        </>
+    );
+  };
 
 const BookSlot = () => {
 
@@ -194,13 +206,19 @@ const BookSlot = () => {
                                 <input type="text" className="form-control f_OpenSans_Regular" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Delivery Phone Number (required)"></input>
                                 {values.bookSlotOptions === '1' && ( <> <input type="text" className="form-control f_OpenSans_Regular mt-2" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Driver instructions (optional)"></input>
                                 <input type="text" className="form-control f_OpenSans_Regular mt-2" style={{ borderRadius: 0 , backgroundColor: 'white' }} placeholder="Your reference (optional)"></input></>)} */}
-                                <Field>
+                                <MyTextArea
+                                    name="description"
+                                    rows="4"
+                                    placeholder="Description"
+                                    className="form-control mt-2 f_OpenSans_Regular"
+                                    />
+                                {/* <Field>
                                 {({field, form, meta}) => {
                                     return (
-                                        <textarea value={values.description} className="form-control mt-2 f_OpenSans_Regular" placeholder="Description" rows="4" ></textarea>
+                                        <textarea name="description" value={field.value} onChange={field.onChange} className="form-control mt-2 f_OpenSans_Regular" placeholder="Description" rows="4" ></textarea>
                                     );
                                 }}
-                                </Field>
+                                </Field> */}
                             </div>
                         </div>
                     </div>
