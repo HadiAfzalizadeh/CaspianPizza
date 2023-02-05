@@ -16,48 +16,48 @@ import authHeader from '../../Services/auth-header';
 
 
 const collectionTimeOptions = [
-    { value: '1', label: '06:00 - 06:30' },
-    { value: '2', label: '06:30 - 07:00' },
-    { value: '3', label: '07:00 - 07:30' },
-    { value: '4', label: '07:30 - 08:00' },
-    { value: '5', label: '08:00 - 08:30' },
-    { value: '6', label: '08:30 - 09:00' },
-    { value: '7', label: '09:00 - 09:30' },
-    { value: '8', label: '09:30 - 10:00' },
-    { value: '9', label: '10:00 - 10:30' },
-    { value: '10', label: '10:30 - 11:00' },
-    { value: '11', label: '11:00 - 11:30' },
-    { value: '12', label: '11:30 - 12:00' },
-    { value: '13', label: '12:00 - 12:30' },
-    { value: '14', label: '12:30 - 13:00' },
-    { value: '15', label: '13:00 - 13:30' },
-    { value: '16', label: '13:30 - 14:00' },
-    { value: '17', label: '14:00 - 14:30' },
-    { value: '18', label: '14:30 - 15:00' },
-    { value: '19', label: '15:00 - 15:30' },
-    { value: '20', label: '15:30 - 16:00' },
-    { value: '21', label: '16:00 - 16:30' },
-    { value: '22', label: '16:30 - 17:00' },
-    { value: '23', label: '17:00 - 17:30' },
-    { value: '24', label: '17:30 - 18:00' }
+    { value: '0', label: '06:00 - 06:30' },
+    { value: '1', label: '06:30 - 07:00' },
+    { value: '2', label: '07:00 - 07:30' },
+    { value: '3', label: '07:30 - 08:00' },
+    { value: '4', label: '08:00 - 08:30' },
+    { value: '5', label: '08:30 - 09:00' },
+    { value: '6', label: '09:00 - 09:30' },
+    { value: '7', label: '09:30 - 10:00' },
+    { value: '8', label: '10:00 - 10:30' },
+    { value: '9', label: '10:30 - 11:00' },
+    { value: '10', label: '11:00 - 11:30' },
+    { value: '11', label: '11:30 - 12:00' },
+    { value: '12', label: '12:00 - 12:30' },
+    { value: '13', label: '12:30 - 13:00' },
+    { value: '14', label: '13:00 - 13:30' },
+    { value: '15', label: '13:30 - 14:00' },
+    { value: '16', label: '14:00 - 14:30' },
+    { value: '17', label: '14:30 - 15:00' },
+    { value: '18', label: '15:00 - 15:30' },
+    { value: '19', label: '15:30 - 16:00' },
+    { value: '20', label: '16:00 - 16:30' },
+    { value: '21', label: '16:30 - 17:00' },
+    { value: '22', label: '17:00 - 17:30' },
+    { value: '23', label: '17:30 - 18:00' }
   ]
 
   const deliveryTimeOptions = [
-    { value: '1', label: '07:00 - 11:00' },
-    { value: '2', label: '07:30 - 11:30' },
-    { value: '3', label: '08:00 - 12:00' },
-    { value: '4', label: '08:30 - 12:30' },
-    { value: '5', label: '09:00 - 13:00' },
-    { value: '6', label: '09:30 - 13:30' },
-    { value: '7', label: '10:00 - 14:00' },
-    { value: '8', label: '10:30 - 14:30' },
-    { value: '9', label: '11:00 - 15:00' },
-    { value: '10', label: '11:30 - 15:30' },
-    { value: '11', label: '12:00 - 16:00' },
-    { value: '12', label: '12:30 - 16:30' },
-    { value: '13', label: '13:00 - 17:00' },
-    { value: '14', label: '13:30 - 17:30' },
-    { value: '15', label: '14:00 - 18:00' }
+    { value: '24', label: '07:00 - 11:00' },
+    { value: '25', label: '07:30 - 11:30' },
+    { value: '26', label: '08:00 - 12:00' },
+    { value: '27', label: '08:30 - 12:30' },
+    { value: '28', label: '09:00 - 13:00' },
+    { value: '29', label: '09:30 - 13:30' },
+    { value: '30', label: '10:00 - 14:00' },
+    { value: '31', label: '10:30 - 14:30' },
+    { value: '32', label: '11:00 - 15:00' },
+    { value: '33', label: '11:30 - 15:30' },
+    { value: '34', label: '12:00 - 16:00' },
+    { value: '35', label: '12:30 - 16:30' },
+    { value: '36', label: '13:00 - 17:00' },
+    { value: '37', label: '13:30 - 17:30' },
+    { value: '38', label: '14:00 - 18:00' }
   ]
 
 function PayButton(){
@@ -126,7 +126,6 @@ class Checkout extends Component {
                 <div className="d-flex justify-content-between align-items-center p-3 bg-white mt-2">
                     <div className="d-flex">
                     <p className="pb-0 text-nowrap">You have booked a <span className="f_OpenSans_Bold">{this.state.bookslot.isDelivery === true ? "DELIVERY" : "COLLECTION"}</span> slot:</p><div className="ms-5"><p className="f_OpenSans_Bold mb-0">{this.state.bookslot.bookDate}</p><p className="f_OpenSans_Bold  mb-0">
-                    {console.log(deliveryTimeOptions.find(p => p.value === this.state.bookslot.bookTime + "").label)}
                     {this.state.bookslot.isDelivery === false ? collectionTimeOptions.find(p => p.value === this.state.bookslot.bookTime + "").label : deliveryTimeOptions.find(p => p.value === this.state.bookslot.bookTime + "").label}
                     </p></div>
                     </div>
