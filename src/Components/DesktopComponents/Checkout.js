@@ -111,9 +111,7 @@ class Checkout extends Component {
     }
 
     render(){
-        if(this.state.bookslot === null){
-            return null;
-        }
+        
         return(
             <>
 
@@ -123,13 +121,15 @@ class Checkout extends Component {
                     </div>
                  </div>
             <div className="container pt-1 pb-1" style={{ backgroundColor: '#F5F5F5' }}>
+           
                 <div className="d-flex justify-content-between align-items-center p-3 bg-white mt-2">
-                    <div className="d-flex">
+                {this.state.bookslot === null && (<div className="w-100 text-center"><FontAwesomeIcon style={{ color: '#303F9F' }} icon={faCircleNotch} className="spinner p-0"  size="xl"/></div>)}
+                {this.state.bookslot !== null && (<> <div className="d-flex">
                     <p className="pb-0 text-nowrap">You have booked a <span className="f_OpenSans_Bold">{this.state.bookslot.isDelivery === true ? "DELIVERY" : "COLLECTION"}</span> slot:</p><div className="ms-5"><p className="f_OpenSans_Bold mb-0">{this.state.bookslot.bookDate}</p><p className="f_OpenSans_Bold  mb-0">
                     {this.state.bookslot.isDelivery === false ? collectionTimeOptions.find(p => p.value === this.state.bookslot.bookTime + "").label : deliveryTimeOptions.find(p => p.value === this.state.bookslot.bookTime + "").label}
                     </p></div>
                     </div>
-                    <Link to="/BookSlot" variant="text" className="f_Poppins" style={{ display: 'block' , textDecoration: 'underline' , color: '#2196F3'}}>CHANGE SLOT</Link>
+                    <Link to="/BookSlot" variant="text" className="f_Poppins" style={{ display: 'block' , textDecoration: 'underline' , color: '#2196F3'}}>CHANGE SLOT</Link></>)}
                 </div>
                 <div className="d-flex justify-content-between align-items-center p-3 bg-white mt-2">
                 <div>

@@ -163,6 +163,7 @@ const BookSlot = () => {
                             <div className="w-50 me-1">
                             <p>Day</p>
                             <DatePicker
+                            dateFormat="yyyy-MM-dd"
                                 selected={bookslot.bookDate}
                                 onChange={(date) => setbookslot(
                                     {
@@ -212,13 +213,6 @@ const BookSlot = () => {
                                     placeholder="Description"
                                     className="form-control mt-2 f_OpenSans_Regular"
                                     />
-                                {/* <Field>
-                                {({field, form, meta}) => {
-                                    return (
-                                        <textarea name="description" value={field.value} onChange={field.onChange} className="form-control mt-2 f_OpenSans_Regular" placeholder="Description" rows="4" ></textarea>
-                                    );
-                                }}
-                                </Field> */}
                             </div>
                         </div>
                     </div>
