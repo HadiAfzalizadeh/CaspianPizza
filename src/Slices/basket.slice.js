@@ -21,9 +21,8 @@ import { v4 as uuidv4 } from 'uuid';
     "basket/deleteFromCart",
     async ({productId}, thunkAPI) => {
       try {
-        console.log(productId);
-        await BasketService.deleteFromCart(cart.cartId, productId)
-        return { productId: productId }
+        const data = await BasketService.deleteFromCart(cart.cartId, productId)
+        return { productId: productId, sumAmount: data.totalPrice }
       } catch (error) {
         return thunkAPI.rejectWithValue();
       }
@@ -34,8 +33,8 @@ import { v4 as uuidv4 } from 'uuid';
     "basket/addToCart",
     async ({productId}, thunkAPI) => {
       try {
-        await BasketService.addToCart(cart.cartId, productId)
-        return { productId: productId }
+        const data = await BasketService.addToCart(cart.cartId, productId)
+        return { productId: productId, sumAmount: data.totalPrice}
       } catch (error) {
         return thunkAPI.rejectWithValue();
       }
@@ -46,8 +45,8 @@ import { v4 as uuidv4 } from 'uuid';
     "basket/removeFromCart",
     async ({productId}, thunkAPI) => {
       try {
-        await BasketService.removeFromCart(cart.cartId, productId)
-        return { productId: productId }
+        const data = await BasketService.removeFromCart(cart.cartId, productId)
+        return { productId: productId, sumAmount: data.totalPrice }
       } catch (error) {
         return thunkAPI.rejectWithValue();
       }
@@ -64,7 +63,7 @@ import { v4 as uuidv4 } from 'uuid';
             localStorage.setItem("cart", JSON.stringify({browserId: data.brawserId, cartId: data.cartId }));
             cart = JSON.parse(localStorage.getItem("cart"));
         }
-        return { cartItems: data.cartItems }
+        return { cartItems: data.cartItems, sumAmount: data.totalPrice }
       } catch (error) {
         return thunkAPI.rejectWithValue();
       }
@@ -140,12 +139,17 @@ import { v4 as uuidv4 } from 'uuid';
             if(state.cartItems.length === 0){
               localStorage.removeItem("cart")
               cart = null;
+              state.sumAmount = 0;
+            }
+            else{
+              state.sumAmount = action.payload.sumAmount;
             }
         },
         [addToCart.fulfilled]: (state, action) => {
             state.cartItems[state.cartItems.indexOf(
                 state.cartItems.filter((item) => item.productId === action.payload.productId)[0]
             )].count++;
+            state.sumAmount = action.payload.sumAmount;
         },
         [removeFromCart.fulfilled]: (state, action) => {
             if(state.cartItems[state.cartItems.indexOf(
@@ -158,15 +162,21 @@ import { v4 as uuidv4 } from 'uuid';
                 if(state.cartItems.length === 0){
                   localStorage.removeItem("cart")
                   cart = null;
+                  state.sumAmount = 0;
+                }
+                else{
+                  state.sumAmount = action.payload.sumAmount;
                 }
             }
             else{state.cartItems[state.cartItems.indexOf(
                 state.cartItems.filter((item) => item.productId === action.payload.productId)[0]
             )].count--;
+            state.sumAmount = action.payload.sumAmount;
             }    
         },
         [createCart.fulfilled]: (state, action) => {
             state.cartItems = action.payload.cartItems;
+            state.sumAmount = action.payload.sumAmount;
         },
         [deleteCart.fulfilled]: (state, action) => {
             state.cartItems = [];

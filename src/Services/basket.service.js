@@ -29,7 +29,7 @@ const getMyCart = (browserId) => {
       productId,
       priceType: 1
     })
-    .then((response) => {})
+    .then((response) => {return response.data.data;})
   };
 
   const addToCart = (cartId,productId) => {
@@ -39,7 +39,7 @@ const getMyCart = (browserId) => {
       productId,
       priceType: 1
     })
-    .then((response) => {})
+    .then((response) => {return response.data.data;})
   };
 
   const removeFromCart = (cartId,productId) => {
@@ -49,7 +49,7 @@ const getMyCart = (browserId) => {
       productId,
       priceType: 1
     })
-    .then((response) => {})
+    .then((response) => {return response.data.data;})
   };
 
   const createCart = (cartId,productId,browserId) => {
